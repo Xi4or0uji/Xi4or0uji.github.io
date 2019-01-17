@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="php_tricks,">
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="这里给个pwnhub的简化版的题123456789101112&amp;lt;?phpfunction is_valid($title, $data)&amp;#123;    $data = $title . $data;    return preg_match(&apos;|\A[ _a-zA-Z0-9]+\z|is&apos;, $data);&amp;#125;$title = $_GET[&apos;title&apos;];$data = $_G">
+<meta name="keywords" content="php_tricks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/16/hello-world/index.html">
+<meta property="og:title" content="一个php的小trick：file_put_contents">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2018-10-23-一个php的小trick：file_put_contents/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="这里给个pwnhub的简化版的题123456789101112&amp;lt;?phpfunction is_valid($title, $data)&amp;#123;    $data = $title . $data;    return preg_match(&apos;|\A[ _a-zA-Z0-9]+\z|is&apos;, $data);&amp;#125;$title = $_GET[&apos;title&apos;];$data = $_G">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-16T11:55:50.154Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/fileputcontents/1.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/fileputcontents/2.png">
+<meta property="og:updated_time" content="2019-01-17T08:25:39.826Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="一个php的小trick：file_put_contents">
+<meta name="twitter:description" content="这里给个pwnhub的简化版的题123456789101112&amp;lt;?phpfunction is_valid($title, $data)&amp;#123;    $data = $title . $data;    return preg_match(&apos;|\A[ _a-zA-Z0-9]+\z|is&apos;, $data);&amp;#125;$title = $_GET[&apos;title&apos;];$data = $_G">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/fileputcontents/1.png">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/16/hello-world/">
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/17/2018-10-23-一个php的小trick：file_put_contents/">
 
 
 
 
 
-  <title>Hello World | 蒟蒻的ctf博客</title>
+  <title>一个php的小trick：file_put_contents | 蒟蒻的ctf博客</title>
   
 
 
@@ -262,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/16/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/17/2018-10-23-一个php的小trick：file_put_contents/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xi4or0uji">
@@ -279,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">一个php的小trick：file_put_contents</h1>
         
 
         <div class="post-meta">
@@ -291,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T19:55:50+08:00">
-                2019-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T16:24:52+08:00">
+                2019-01-17
               </time>
             
 
@@ -301,6 +305,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -329,15 +355,13 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>这里给个pwnhub的简化版的题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_valid</span><span class="params">($title, $data)</span></span>&#123;</span><br><span class="line">    $data = $title . $data;</span><br><span class="line">    <span class="keyword">return</span> preg_match(<span class="string">'|\A[ _a-zA-Z0-9]+\z|is'</span>, $data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$title = $_GET[<span class="string">'title'</span>];</span><br><span class="line">$data = $_GET[<span class="string">'data'</span>];</span><br><span class="line"><span class="keyword">if</span> (!is_valid($title,$data))&#123;</span><br><span class="line">    <span class="keyword">exit</span>(<span class="string">"no!no!no!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">file_put_contents(<span class="string">'a.php'</span>,$data);</span><br></pre></td></tr></table></figure></p>
+<p>先解释一下代码，传过来的title和data两个值拼接在一起，然后去匹配正则表达式，只能有字母、数字、空格和下划线，如果匹配成功，就使用file_put_contents将data的内容写进去a.php文件<br>可是我们想写一个马进去，至少也是要有?这些字符的，这里就利用到php的一个trick了  </p>
+<p>先来个官网介绍<br><img src="/images/fileputcontents/1.png" alt=""><br>可以看见，filename是要被写入数据的文件名；data是写入的数据，类型可以是string，array；data可以是数组，但是不能是多维数组，相当于file_put_contents（$filename,join(‘’,$array)），如果第二个参数传入的是数组，则它们会以字符串的形式拼接起来</p>
+<p>这里有个可以利用的地方就是，我们第二个参数可以传入一个数组，这样在进行正则拼接的时候，数组会强制转化成字符串，也就是会变成$title.Array，这样当然是可以符合规则的，所以就可以绕过正则的限制了，而且很秀的是，刚刚好file_put_contents是可以执行数组的<br>最后的payload：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?title=s&amp;<span class="class"><span class="keyword">data</span>[]=&lt;?php%0a&amp;<span class="keyword">data</span>[]=phpinfo();</span></span><br></pre></td></tr></table></figure>
+<p>最后我们可以看见，a.php确实写进了phpinfo()，至此，我们就可以利用这个漏洞写个马了<br><img src="/images/fileputcontents/2.png" alt=""></p>
+<p>最后补一句，其实这个漏洞在fopen(),fwrite(), fclose()也是存在的</p>
 
       
     </div>
@@ -353,6 +377,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/php-tricks/" rel="tag"># php_tricks</a>
+          
+        </div>
+      
 
       
       
@@ -362,15 +392,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/01/17/2018-10-19-没有字母数字获得webshell/" rel="next" title="没有字母数字获得webshell">
+                <i class="fa fa-chevron-left"></i> 没有字母数字获得webshell
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/17/2018-10-19-没有字母数字获得webshell/" rel="prev" title="没有字母数字获得webshell">
-                没有字母数字获得webshell <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,17 +452,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -494,22 +515,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
