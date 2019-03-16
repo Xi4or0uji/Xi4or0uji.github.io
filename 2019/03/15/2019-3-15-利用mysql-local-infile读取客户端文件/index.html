@@ -89,7 +89,15 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/1.png">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/2.png">
-<meta property="og:updated_time" content="2019-03-15T13:40:16.639Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/3.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/4.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/5.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/6.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/7.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/8.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/9.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/load_data_infile/10.png">
+<meta property="og:updated_time" content="2019-03-16T05:35:38.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用mysql local infile读取客户端文件">
 <meta name="twitter:description" content="这个利用点是之前补hgame的题看到的一个考点，记录一下   MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手阶段中会：1234客户端和用户端交换各自功能根据需要创建SSL通道接收客户端的回应验证客户端身份进行通信 我们在linux里面tcpdump一下抓取数据包tcpdump -i lo -w mysql.pcap port 3306，然后连接mysql看下数据">
@@ -370,8 +378,10 @@
       
         <p>这个利用点是之前补hgame的题看到的一个考点，记录一下  </p>
 <h4 id="MySQL-LOAD-DATA-INFILE简介"><a href="#MySQL-LOAD-DATA-INFILE简介" class="headerlink" title="MySQL LOAD DATA INFILE简介"></a>MySQL LOAD DATA INFILE简介</h4><p>先看一张官方文档的图<br><img src="/images/load_data_infile/1.png" alt=""><br>可以看到，握手阶段中会：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">客户端和用户端交换各自功能</span><br><span class="line">根据需要创建SSL通道</span><br><span class="line">接收客户端的回应</span><br><span class="line">验证客户端身份进行通信</span><br></pre></td></tr></table></figure></p>
-<p>我们在linux里面tcpdump一下抓取数据包<code>tcpdump -i lo -w mysql.pcap port 3306</code>，然后连接mysql看下数据包<br><img src="/images/load_data_infile/2.png" alt=""><br>可以看到登录的数据包里面有个<code>Can Use LOAD DATA LOCAL</code>开启了，只要开启了这个，就可以将运行mysql客户端的主机的文件传输到远程服务器中  </p>
-
+<p>我们在linux里面tcpdump一下抓取数据包<code>tcpdump -i lo -w mysql.pcap port 3306</code>，然后连接mysql看下数据包<br><img src="/images/load_data_infile/2.png" alt=""><br>可以看到登录的数据包里面有个<code>Can Use LOAD DATA LOCAL</code>开启了，只要开启了这个，就可以将运行mysql客户端的主机的文件传输到远程服务器中<br>而<code>load data infile</code>这个命令里主要是将读到的文件的内容放进表中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">load data infile &apos;/etc/passwd&apos; into table test;</span><br><span class="line">load data local infile &apos;/etc/passwd&apos; into table test;</span><br></pre></td></tr></table></figure></p>
+<p>两个语句的差别就是第二个读取的是客户端的文件并放入表中，那么问题来了，如果我们可以弄个恶意的mysql服务器，那么是不是就可以将连接到这个服务器的客户端的敏感文件都读出来<br>想要伪造mysql服务端，首先我们先要了解他们之间的通信是怎样的  </p>
+<h4 id="mysql通信步骤"><a href="#mysql通信步骤" class="headerlink" title="mysql通信步骤"></a>mysql通信步骤</h4><p>继续是在linux里面抓包，把流量包拿下来分析<br>可以看到，首先是greeting包，这是第一个步骤<br><img src="/images/load_data_infile/3.png" alt=""><br>接下来是login包<br><img src="/images/load_data_infile/4.png" alt=""><br>然后就是一些初始化查询<br><img src="/images/load_data_infile/5.png" alt=""><br>接下来就是用户的查询，这里我查询的是<code>load data local infile</code>这个语句，请求访问客户端的<code>/etc/passwd</code>文件<br><img src="/images/load_data_infile/6.png" alt=""><br>然后服务端又返回了一个<code>/etc/passwd</code>的流量包<br><img src="/images/load_data_infile/7.png" alt=""><br>这个时候客户端发回来的就是<code>/etc/passwd</code>文件的内容了<br><img src="/images/load_data_infile/8.png" alt=""><br>好了，到了这里我们大概有点思路了，如果我们改了服务端返回的数据包，要求请求其他文件，客户端是不是会继续发过来呢，幸运的是，确实是这样的<br><img src="/images/load_data_infile/9.png" alt=""><br>客户端并没有记住自己上次请求的文件究竟是什么，他只是根据服务端要求传输文件，简单来说就是<br><img src="/images/load_data_infile/10.png" alt=""><br>可以看到，无论服务端说什么，客户端都是会执行的，好的，现在还有一个问题，就是我不一定每次都能等到客户端向我发出文件请求，看回上面的安全文档，可以看到后面还有一句，就是服务端可以在任何语句后面回复一句文件传输要求，同时我们还记得，在mysql连接的时候，客户端是会先来一句初始化的查询去探测指纹信息的，因此，我们可以直接利用了  </p>
+<h4 id="恶意mysql服务端伪造"><a href="#恶意mysql服务端伪造" class="headerlink" title="恶意mysql服务端伪造"></a>恶意mysql服务端伪造</h4>
       
     </div>
     
@@ -543,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-LOAD-DATA-INFILE简介"><span class="nav-number">1.</span> <span class="nav-text">MySQL LOAD DATA INFILE简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-LOAD-DATA-INFILE简介"><span class="nav-number">1.</span> <span class="nav-text">MySQL LOAD DATA INFILE简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql通信步骤"><span class="nav-number">2.</span> <span class="nav-text">mysql通信步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恶意mysql服务端伪造"><span class="nav-number">3.</span> <span class="nav-text">恶意mysql服务端伪造</span></a></li></ol></div>
             
 
           </div>
