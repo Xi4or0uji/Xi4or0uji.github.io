@@ -98,7 +98,10 @@
 <meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/9.png">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/10.png">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/11.png">
-<meta property="og:updated_time" content="2019-03-17T13:34:47.192Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/12.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/13.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/2019gwht/14.png">
+<meta property="og:updated_time" content="2019-03-18T01:38:56.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019GWHT考核题wp">
 <meta name="twitter:description" content="本来想着招新完讲完题就不用题解了，但是看见有些小朋友还是很懵逼，补上一篇   WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的是对http头的各种操作还有抓包，首先进去题目看到一堆骚话，完了以后就是问do you know GWHT browser?，很明显是要我们改访问的浏览器，接着是only accept www.gwht.com to vi">
@@ -380,6 +383,7 @@
         <p>本来想着招新完讲完题就不用题解了，但是看见有些小朋友还是很懵逼，补上一篇  </p>
 <h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="web签到题"><a href="#web签到题" class="headerlink" title="web签到题"></a>web签到题</h4><p>网址：<a href="http://xiaorouji.cn:2334/web1/" target="_blank" rel="noopener">http://xiaorouji.cn:2334/web1/</a><br>这道题其实考察的是对http头的各种操作还有抓包，首先进去题目看到一堆骚话，完了以后就是问<code>do you know GWHT browser?</code>，很明显是要我们改访问的浏览器，接着是<code>only accept www.gwht.com to visit this website</code>，修改访问网站，然后<code>you are not the localhost, prprprpr</code>，要求本地访问，然后就是<code>i only know Spanish......</code>，明显是要改<code>accept-language</code>，出题人背锅了，这里当初谷歌的时候是<code>es-es</code>，结果没想到百度居然不是这个，导致一堆不匹配，坑死一堆小朋友……….最后是<code>You have not logged in yet</code>，改cookie就行，所以最终改出来的包是<br><img src="/images/2019gwht/1.png" alt=""><br>接着通过抓包可以看到它会先跳去<code>flag2333.php</code>然后立刻转去<code>noflag.php</code><br><img src="/images/2019gwht/2.png" alt=""><br>所以最后我们看<code>flag2333.php</code>的包就能看到flag了<br><img src="/images/2019gwht/3.png" alt=""></p>
 <h4 id="do-u-know-菜刀？"><a href="#do-u-know-菜刀？" class="headerlink" title="do u know 菜刀？"></a>do u know 菜刀？</h4><p>网址：<a href="http://xiaorouji.cn:2333/web2/" target="_blank" rel="noopener">http://xiaorouji.cn:2333/web2/</a><br>这道题进去首先看到一个假flag，但是同时还提示有个shell在这个网站里面<br><img src="/images/2019gwht/4.png" alt=""><br>扫一下后台看见有个shell.php<br><img src="/images/2019gwht/5.png" alt=""><br>访问一下试下<br><img src="/images/2019gwht/6.png" alt=""><br>看到有个小马，接着就是菜刀连过去了<br><img src="/images/2019gwht/7.png" alt=""><br>连过去以后可以看到一个flag.js<br><img src="/images/2019gwht/8.png" alt=""><br>将它下下来打开看看，明显是aaencode加密<br><img src="/images/2019gwht/9.png" alt=""><br>拿去网站解密出来是这段<br><img src="/images/2019gwht/10.png" alt=""><br>明显是一张图片的base64编码，将它转图片<br><img src="/images/2019gwht/11.png" alt=""><br>是个二维码，扫一下就出flag了  </p>
+<h4 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h4><p>先网页进去源码可以看到注入语句<br><img src="/images/2019gwht/12.png" alt=""><br>可以看到它是在数据库选出一个密码然后和传过来md5加密的<code>passwd</code>对比，如果相等就登录成功，payload如下<br><img src="/images/2019gwht/13.png" alt=""><br>登录成功以后就到了第二关了，还是一个sql注入的地方，要去找no和name，fuzz一下看一下过滤了什么<br><img src="/images/2019gwht/14.png" alt=""><br>可以看到第一个参数过滤了<code>\</code> # =<code>，第二个参数过滤了</code>‘`，所以我们可以利用单引号逃逸完成注入  </p>
 
       
     </div>
@@ -552,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WEB"><span class="nav-number">1.</span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#web签到题"><span class="nav-number">1.1.</span> <span class="nav-text">web签到题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#do-u-know-菜刀？"><span class="nav-number">1.2.</span> <span class="nav-text">do u know 菜刀？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WEB"><span class="nav-number">1.</span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#web签到题"><span class="nav-number">1.1.</span> <span class="nav-text">web签到题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#do-u-know-菜刀？"><span class="nav-number">1.2.</span> <span class="nav-text">do u know 菜刀？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql注入"><span class="nav-number">1.3.</span> <span class="nav-text">sql注入</span></a></li></ol></li></ol></div>
             
 
           </div>
