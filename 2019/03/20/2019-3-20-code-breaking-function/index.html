@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="docker,">
+  <meta name="keywords" content="Code Breaking,">
 
 
 
@@ -79,23 +79,21 @@
 
 
 
-<meta name="description" content="最近实验室招新，搭题用到docker，记一下免得以后忘了顺便解释一波，其实docker可以理解成跑在服务器上面的虚拟机，里面有一个个容器，每个容器之间互不干扰，这样子就能很好的让我们部署题目了下面直接上过程找lamp环境1docker search lamp 这里我们用tutum的lamp，然后就拉他的镜像1docker pull tutum/lamp 拉完以后可以检查一下本地的镜像，发现确实有t">
-<meta name="keywords" content="docker">
+<meta name="description" content="前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下   题目function这题是一个php代码审计题，题目很短123456789&amp;lt;?php$action = $_GET[&apos;action&apos;] ?? &apos;&apos;;$arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $actio">
+<meta name="keywords" content="Code Breaking">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用docker搭个ctf题目">
-<meta property="og:url" content="https://xi4or0uji.github.io/2019/02/19/2019-2-19-用docker搭个ctf题目/index.html">
+<meta property="og:title" content="code breaking function">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/03/20/2019-3-20-code-breaking-function/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="最近实验室招新，搭题用到docker，记一下免得以后忘了顺便解释一波，其实docker可以理解成跑在服务器上面的虚拟机，里面有一个个容器，每个容器之间互不干扰，这样子就能很好的让我们部署题目了下面直接上过程找lamp环境1docker search lamp 这里我们用tutum的lamp，然后就拉他的镜像1docker pull tutum/lamp 拉完以后可以检查一下本地的镜像，发现确实有t">
+<meta property="og:description" content="前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下   题目function这题是一个php代码审计题，题目很短123456789&amp;lt;?php$action = $_GET[&apos;action&apos;] ?? &apos;&apos;;$arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $actio">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/docker/1.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/docker/2.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/docker/3.png">
-<meta property="og:image" content="https://xi4or0uji.github.io/images/docker/4.png">
-<meta property="og:updated_time" content="2019-02-19T08:18:09.489Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/1.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/2.png">
+<meta property="og:updated_time" content="2019-03-20T15:25:38.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用docker搭个ctf题目">
-<meta name="twitter:description" content="最近实验室招新，搭题用到docker，记一下免得以后忘了顺便解释一波，其实docker可以理解成跑在服务器上面的虚拟机，里面有一个个容器，每个容器之间互不干扰，这样子就能很好的让我们部署题目了下面直接上过程找lamp环境1docker search lamp 这里我们用tutum的lamp，然后就拉他的镜像1docker pull tutum/lamp 拉完以后可以检查一下本地的镜像，发现确实有t">
-<meta name="twitter:image" content="https://xi4or0uji.github.io/images/docker/1.png">
+<meta name="twitter:title" content="code breaking function">
+<meta name="twitter:description" content="前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下   题目function这题是一个php代码审计题，题目很短123456789&amp;lt;?php$action = $_GET[&apos;action&apos;] ?? &apos;&apos;;$arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $actio">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/codebreaking/1.png">
 
 
 
@@ -125,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://xi4or0uji.github.io/2019/02/19/2019-2-19-用docker搭个ctf题目/">
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/03/20/2019-3-20-code-breaking-function/">
 
 
 
 
 
-  <title>用docker搭个ctf题目 | 蒟蒻的ctf博客</title>
+  <title>code breaking function | 蒟蒻的ctf博客</title>
   
 
 
@@ -268,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/02/19/2019-2-19-用docker搭个ctf题目/">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/03/20/2019-3-20-code-breaking-function/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xi4or0uji">
@@ -285,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用docker搭个ctf题目</h1>
+          <h1 class="post-title" itemprop="name headline">code breaking function</h1>
         
 
         <div class="post-meta">
@@ -297,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T16:07:00+08:00">
-                2019-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T21:33:27+08:00">
+                2019-03-20
               </time>
             
 
@@ -322,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
                   </a>
                 </span>
 
@@ -339,7 +337,7 @@
 
           
           
-             <span id="/2019/02/19/2019-2-19-用docker搭个ctf题目/" class="leancloud_visitors" data-flag-title="用docker搭个ctf题目">
+             <span id="/2019/03/20/2019-3-20-code-breaking-function/" class="leancloud_visitors" data-flag-title="code breaking function">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,13 +368,16 @@
       
 
       
-        <p>最近实验室招新，搭题用到docker，记一下免得以后忘了<br>顺便解释一波，其实docker可以理解成跑在服务器上面的虚拟机，里面有一个个容器，每个容器之间互不干扰，这样子就能很好的让我们部署题目了<br>下面直接上过程<br>找lamp环境<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search lamp</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/docker/1.png" alt=""><br>这里我们用tutum的lamp，然后就拉他的镜像<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tutum/lamp</span><br></pre></td></tr></table></figure></p>
-<p>拉完以后可以检查一下本地的镜像，发现确实有tutum/lamp了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/docker/2.png" alt=""><br>然后就是建一个docker容器了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 2333:80 -p 3308:3306 tutum/lamp</span><br></pre></td></tr></table></figure></p>
-<p>这个时候可以看下系统里面的容器<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/docker/3.png" alt=""><br>这个时候可以再去访问一下看下有没有映射成功<br><img src="/images/docker/4.png" alt=""><br>有了这个页面就行了，剩下的就是部署题目了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /var/www/html/filename container_id:/var/www/html</span><br></pre></td></tr></table></figure></p>
-<p>这样就能搭好了<br>顺便来一波常用命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">拉镜像</span></span><br><span class="line">docker pull [image]</span><br><span class="line"><span class="meta">#</span><span class="bash">查看当前镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta">#</span><span class="bash">新建容器</span></span><br><span class="line">docker run -d -p [host port]:[docker port] [image]</span><br><span class="line"><span class="meta">#</span><span class="bash">查看容器</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="meta">#</span><span class="bash">拷贝文件</span></span><br><span class="line">docker cp [outfile] [container id]:[infile]</span><br><span class="line"><span class="meta">#</span><span class="bash">进去容器</span></span><br><span class="line">docker exec -it [container id] bash</span><br><span class="line"><span class="meta">#</span><span class="bash">启动容器</span></span><br><span class="line">docker start [container id]</span><br><span class="line"><span class="meta">#</span><span class="bash">停止容器</span></span><br><span class="line">docker stop [container id]</span><br><span class="line"><span class="meta">#</span><span class="bash">删除容器(注意要关了容器才能删)</span></span><br><span class="line">docker rm [container id]</span><br></pre></td></tr></table></figure></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下  </p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>function这题是一个php代码审计题，题目很短<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$action = $_GET[<span class="string">'action'</span>] ?? <span class="string">''</span>;</span><br><span class="line">$arg = $_GET[<span class="string">'arg'</span>] ?? <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(preg_match(<span class="string">'/^[a-z0-9_]*$/isD'</span>, $action)) &#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $action(<span class="string">''</span>, $arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，题目想要我们输入两个参数绕过正则，然后就可以执行任意命令了  </p>
+<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><h4 id="寻找可利用字符"><a href="#寻找可利用字符" class="headerlink" title="寻找可利用字符"></a>寻找可利用字符</h4><p>我们先审计源码，可以看到如果传过来<code>action</code>和<code>arg</code>那就分别赋值，然后对<code>action</code>进行正则表达式过滤<br>先看正则表达式<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/^[a-z0<span class="number">-9</span>_]*$/isD</span><br><span class="line">/i 忽略大小写</span><br><span class="line">/s 匹配任何不可见字符</span><br><span class="line">/D 如果正则表达式用$限制结尾字符，则不允许结尾有换行</span><br></pre></td></tr></table></figure></p>
+<p>所以我们现在就要找一个开头不是字母数字和下划线的值，同时还要可以正常地执行函数<br>因此我们先fuzz一下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">	s= hex(i)[<span class="number">2</span>:]</span><br><span class="line">	<span class="keyword">if</span> len(s)&lt;<span class="number">2</span>:</span><br><span class="line">		s = <span class="string">'%0'</span>+s</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		s = <span class="string">'%'</span>+s</span><br><span class="line">	url = <span class="string">'http://xiaorouji.cn:8087/?action='</span>+s+<span class="string">'var_dump&amp;arg=find'</span></span><br><span class="line">	r = requests.get(url=url).content</span><br><span class="line">	<span class="keyword">if</span> <span class="string">'find'</span> <span class="keyword">in</span> r:</span><br><span class="line">		<span class="keyword">print</span> s</span><br></pre></td></tr></table></figure></p>
+<p>跑出来<code>%5c</code>可以成功绕过，原因p神在小密圈说了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php里默认命名空间是\，所有原生函数和类都在这个命名空间中。普通调用一个函数，如果直接写函数名function_name()调用，调用的时候其实相当于写了一个相对路径；而如果写\function_name() 这样调用函数，则其实是写了一个绝对路径。</span><br><span class="line">如果你在其他namespace里调用系统类，就必须写绝对路径这种写法。</span><br></pre></td></tr></table></figure></p>
+<h4 id="寻找getshell函数"><a href="#寻找getshell函数" class="headerlink" title="寻找getshell函数"></a>寻找getshell函数</h4><p>接下来的利用我们就要用到<code>create_function</code>函数了<br>在官方手册中它是这样的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create_function ( string $args , string $code ) : string</span><br></pre></td></tr></table></figure></p>
+<p>这个函数由两个参数组成，第一个是函数名，第二个是函数内的代码。官方例子如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$newfunc = create_function(<span class="string">'$a,$b'</span>, <span class="string">'return "ln($a) + ln($b) = " . log($a * $b);'</span>);</span><br><span class="line">实际上也就是  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">($a,$b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ln($a) + ln($b) = "</span>.log($a*$b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>顺便看一下<code>create_function</code>的源码也可以看到第一个参数是用<code>(</code>闭合的，第二个是用<code>{</code>闭合的<br><img src="/images/codebreaking/1.png" alt=""></p>
+<h4 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h4><p>剩下的就是闭合以及利用了,尝试一下能不能得到<code>phpinfo</code><br><img src="/images/codebreaking/2.png" alt=""></p>
 
       
     </div>
@@ -394,7 +395,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"># docker</a>
+            <a href="/tags/Code-Breaking/" rel="tag"># Code Breaking</a>
           
         </div>
       
@@ -407,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/2019-2-12-RSA初探/" rel="next" title="RSA初探">
-                <i class="fa fa-chevron-left"></i> RSA初探
+              <a href="/2019/03/17/2019-3-17-2019GWHT考核题wp/" rel="next" title="2019GWHT考核题wp">
+                <i class="fa fa-chevron-left"></i> 2019GWHT考核题wp
               </a>
             
           </div>
@@ -416,10 +417,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/21/2019-2-21-python格式化字符串/" rel="prev" title="python格式化字符串">
-                python格式化字符串 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -471,8 +468,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -534,6 +540,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题过程"><span class="nav-number">3.</span> <span class="nav-text">解题过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找可利用字符"><span class="nav-number">3.1.</span> <span class="nav-text">寻找可利用字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找getshell函数"><span class="nav-number">3.2.</span> <span class="nav-text">寻找getshell函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getflag"><span class="nav-number">3.3.</span> <span class="nav-text">getflag</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
