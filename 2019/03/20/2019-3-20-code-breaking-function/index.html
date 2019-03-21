@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Code Breaking,">
+  <meta name="keywords" content="php_tricks,Code Breaking,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下   题目function这题是一个php代码审计题，题目很短123456789&amp;lt;?php$action = $_GET[&apos;action&apos;] ?? &apos;&apos;;$arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $actio">
-<meta name="keywords" content="Code Breaking">
+<meta name="keywords" content="php_tricks,Code Breaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="code breaking function">
 <meta property="og:url" content="https://xi4or0uji.github.io/2019/03/20/2019-3-20-code-breaking-function/index.html">
@@ -91,7 +91,8 @@
 <meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/2.png">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/3.png">
 <meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/4.png">
-<meta property="og:updated_time" content="2019-03-20T15:34:59.246Z">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/codebreaking/5.png">
+<meta property="og:updated_time" content="2019-03-21T12:16:43.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="code breaking function">
 <meta name="twitter:description" content="前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷p神的文章看到这个比赛，找来复现一下   题目function这题是一个php代码审计题，题目很短123456789&amp;lt;?php$action = $_GET[&apos;action&apos;] ?? &apos;&apos;;$arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $actio">
@@ -379,7 +380,7 @@
 <h4 id="寻找getshell函数"><a href="#寻找getshell函数" class="headerlink" title="寻找getshell函数"></a>寻找getshell函数</h4><p>接下来的利用我们就要用到<code>create_function</code>函数了<br>在官方手册中它是这样的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create_function ( string $args , string $code ) : string</span><br></pre></td></tr></table></figure></p>
 <p>这个函数由两个参数组成，第一个是函数名，第二个是函数内的代码。官方例子如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$newfunc = create_function(<span class="string">'$a,$b'</span>, <span class="string">'return "ln($a) + ln($b) = " . log($a * $b);'</span>);</span><br><span class="line">实际上也就是  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">($a,$b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ln($a) + ln($b) = "</span>.log($a*$b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>顺便看一下<code>create_function</code>的源码也可以看到第一个参数是用<code>(</code>闭合的，第二个是用<code>{</code>闭合的<br><img src="/images/codebreaking/1.png" alt=""></p>
-<h4 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h4><p>剩下的就是闭合以及利用了,尝试一下能不能得到<code>phpinfo</code><br><img src="/images/codebreaking/2.png" alt=""><br>接下来就是getshell了，尝试下利用system函数<br><img src="/images/codebreaking/3.png" alt=""><br>发现被禁了，那就试下scandir函数<br><img src="/images/codebreaking/4.png" alt=""><br>成功getflag（这个flag是在上一层的目录上  </p>
+<h4 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h4><p>剩下的就是闭合以及利用了,尝试一下能不能得到<code>phpinfo</code><br><img src="/images/codebreaking/2.png" alt=""><br>接下来就是getshell了，尝试下利用system函数<br><img src="/images/codebreaking/3.png" alt=""><br>发现被禁了，那就试下scandir函数<br><img src="/images/codebreaking/4.png" alt=""><br>成功getflag（这个flag是在上一层的目录上<br><img src="/images/codebreaking/5.png" alt=""></p>
 
       
     </div>
@@ -396,6 +397,8 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/php-tricks/" rel="tag"># php_tricks</a>
           
             <a href="/tags/Code-Breaking/" rel="tag"># Code Breaking</a>
           
@@ -419,6 +422,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/21/2019-3-21code-breaking-pcrewaf/" rel="prev" title="code breaking pcrewaf">
+                code breaking pcrewaf <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -497,7 +504,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
