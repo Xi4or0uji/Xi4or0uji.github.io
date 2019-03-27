@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言这个题目让人感觉略为懵逼，但是找到源码就比较好了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5($_">
+<meta name="description" content="前言这个题目让人感觉略为懵逼，但是找到源码就做起来舒服点了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5">
 <meta name="keywords" content="php_tricks,Code Breaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="code breaking phpmagic">
 <meta property="og:url" content="https://xi4or0uji.github.io/2019/03/22/2019-3-22-code-breaking-phpmagic/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="前言这个题目让人感觉略为懵逼，但是找到源码就比较好了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5($_">
+<meta property="og:description" content="前言这个题目让人感觉略为懵逼，但是找到源码就做起来舒服点了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-22T11:59:32.239Z">
+<meta property="og:updated_time" content="2019-03-23T05:56:42.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="code breaking phpmagic">
-<meta name="twitter:description" content="前言这个题目让人感觉略为懵逼，但是找到源码就比较好了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5($_">
+<meta name="twitter:description" content="前言这个题目让人感觉略为懵逼，但是找到源码就做起来舒服点了   题目源码如下123456789101112131415161718192021if(isset($_GET[&apos;read-source&apos;])) &amp;#123;    exit(show_source(__FILE__));&amp;#125;define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5">
 
 
 
@@ -365,7 +365,7 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这个题目让人感觉略为懵逼，但是找到源码就比较好了  </p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这个题目让人感觉略为懵逼，但是找到源码就做起来舒服点了  </p>
 <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>源码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'read-source'</span>])) &#123;</span><br><span class="line">    <span class="keyword">exit</span>(show_source(<span class="keyword">__FILE__</span>));</span><br><span class="line">&#125;</span><br><span class="line">define(<span class="string">'DATA_DIR'</span>, dirname(<span class="keyword">__FILE__</span>) . <span class="string">'/data/'</span> . md5($_SERVER[<span class="string">'REMOTE_ADDR'</span>]));</span><br><span class="line"><span class="keyword">if</span>(!is_dir(DATA_DIR)) &#123;</span><br><span class="line">    mkdir(DATA_DIR, <span class="number">0755</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line">chdir(DATA_DIR);</span><br><span class="line">$domain = <span class="keyword">isset</span>($_POST[<span class="string">'domain'</span>]) ? $_POST[<span class="string">'domain'</span>] : <span class="string">''</span>;</span><br><span class="line">$log_name = <span class="keyword">isset</span>($_POST[<span class="string">'log'</span>]) ? $_POST[<span class="string">'log'</span>] : date(<span class="string">'-Y-m-d'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST) &amp;&amp; $domain):</span><br><span class="line">    $command = sprintf(<span class="string">"dig -t A -q %s"</span>, escapeshellarg($domain));</span><br><span class="line">    $output = shell_exec($command);</span><br><span class="line">    $output = htmlspecialchars($output, ENT_HTML401 | ENT_QUOTES);</span><br><span class="line">    $log_name = $_SERVER[<span class="string">'SERVER_NAME'</span>] . $log_name;</span><br><span class="line">    <span class="keyword">if</span>(!in_array(pathinfo($log_name, PATHINFO_EXTENSION), [<span class="string">'php'</span>, <span class="string">'php3'</span>, <span class="string">'php4'</span>, <span class="string">'php5'</span>, <span class="string">'phtml'</span>, <span class="string">'pht'</span>], <span class="keyword">true</span>)) &#123;</span><br><span class="line">        file_put_contents($log_name, $output);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">echo</span> $output;</span><br><span class="line"><span class="keyword">endif</span>;</span><br></pre></td></tr></table></figure></p>
 
       
@@ -408,6 +408,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/25/2019-3-25-code-breaking-phplimit/" rel="prev" title="code breaking phplimit">
+                code breaking phplimit <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -486,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
