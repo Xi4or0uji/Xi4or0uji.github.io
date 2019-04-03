@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="还在路上">
+<meta name="description" content="小菜鸡太菜了，只能复现   题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&amp;#123;        $maxSize = $this-&amp;gt;config[&apos;catcherMaxSize&apos;];        $limitExtension = array_ma">
 <meta name="keywords" content="Code Breaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="code breaking lumenserial">
 <meta property="og:url" content="https://xi4or0uji.github.io/2019/03/25/2019-3-25-code-breaking-lumenserial/index.html">
 <meta property="og:site_name" content="蒟蒻的ctf博客">
-<meta property="og:description" content="还在路上">
+<meta property="og:description" content="小菜鸡太菜了，只能复现   题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&amp;#123;        $maxSize = $this-&amp;gt;config[&apos;catcherMaxSize&apos;];        $limitExtension = array_ma">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-25T12:51:34.160Z">
+<meta property="og:updated_time" content="2019-04-03T14:54:15.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="code breaking lumenserial">
-<meta name="twitter:description" content="还在路上">
+<meta name="twitter:description" content="小菜鸡太菜了，只能复现   题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&amp;#123;        $maxSize = $this-&amp;gt;config[&apos;catcherMaxSize&apos;];        $limitExtension = array_ma">
 
 
 
@@ -365,7 +365,12 @@
       
 
       
-        
+        <p>小菜鸡太菜了，只能复现  </p>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>先审计源码，可以看到<code>EditorController.php</code>有个<code>download</code>函数<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">download</span><span class="params">($url)</span></span>&#123;</span><br><span class="line">        $maxSize = <span class="keyword">$this</span>-&gt;config[<span class="string">'catcherMaxSize'</span>];</span><br><span class="line">        $limitExtension = array_map(<span class="function"><span class="keyword">function</span> <span class="params">($ext)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ltrim($ext, <span class="string">'.'</span>);</span><br><span class="line">        &#125;, <span class="keyword">$this</span>-&gt;config[<span class="string">'catcherAllowFiles'</span>]);</span><br><span class="line">        $allowTypes = array_map(<span class="function"><span class="keyword">function</span> <span class="params">($ext)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"image/&#123;$ext&#125;"</span>;</span><br><span class="line">        &#125;, $limitExtension);</span><br><span class="line"></span><br><span class="line">        $content = file_get_contents($url);</span><br><span class="line">        $img = getimagesizefromstring($content);</span><br><span class="line">        ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到这个函数里面有个<code>file_get_contents</code>函数，通过get方法传进去一个<code>url</code>，而且这个参数完全可控，因此我们可以利用它进行phar反序列化操作，而且文件上传的点还很容易找到，能直接上传图片。<br>但是有个注意的是，php的版本是7.2，8能动态调用<code>assert</code>函数，还禁用了很多系统函数<code>system,shell_exec,passthru,exec,popen,proc_open,pcntl_exec,mail,apache_setenv,mb_send_mail,dl,set_time_limit,ignore_user_abort,symlink,link,error_log</code>，因此反序列化难度+++   </p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><h5 id="找pop链"><a href="#找pop链" class="headerlink" title="找pop链"></a>找pop链</h5><p>先看<code>illuminate/boradcasting/PendingBroadcast.php</code>这个文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;events-&gt;dispatch(<span class="keyword">$this</span>-&gt;event);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以通过这个方法将一些类的<code>__call</code>方法调用出来  </p>
+
       
     </div>
     
@@ -459,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -522,6 +536,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#找pop链"><span class="nav-number">2.1.</span> <span class="nav-text">找pop链</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
