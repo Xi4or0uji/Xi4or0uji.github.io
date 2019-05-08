@@ -346,18 +346,18 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/10/27/hacklu-2018-Baby-PHP/">
+        <a class="abstract-title" href="/2018/10/25/hitcon-2018-One-Line-PHP-Challenge/">
             
-                <span>hacklu 2018 Baby PHP</span>
+                <span>hitcon 2018 One Line PHP Challenge</span>
         </a>
         <div class="abstract-content">
-            这个比赛只有两道web题，一题代码审计，另一题神仙题？？贼少人做……….这篇博客先只讲一题，另一题用另一篇博客讲   
-题目1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556 &lt;?phprequire_once('flag.php');error_reporting(0);if(!isset($_GET['msg']))&#123;    highlight_file(__FILE__);    die();&#125;@$ms...
+            前段时间打了个神仙比赛，全程挂机，tqltql这里记录一下复现好吧题目很简单，就一行这题看过去没有什么头绪，后来看到wp才知道原来是考session的漏洞。  
+session的问题php检查session是否要处理是通过session.auto_start或者session_start()，但是默认情况下session.auto_start的Off的，而代码如果没有session_start()也是没有开启session的，但是如果用PHP_SESSION_UPLOAD_PROGRESS在多部分POST数据里就可以开启session了这里我建了个php文件去测试，我在html文件夹下放...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/27</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/25</span>
             </div>
             <!-- tags  -->
             
@@ -376,18 +376,17 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/10/25/hitcon-2018-One-Line-PHP-Challenge/">
+        <a class="abstract-title" href="/2018/10/23/一个php的小trick：file_put_contents/">
             
-                <span>hitcon 2018 One Line PHP Challenge</span>
+                <span>一个php的小trick：file_put_contents</span>
         </a>
         <div class="abstract-content">
-            前段时间打了个神仙比赛，全程挂机，tqltql这里记录一下复现好吧题目很简单，就一行这题看过去没有什么头绪，后来看到wp才知道原来是考session的漏洞。  
-session的问题php检查session是否要处理是通过session.auto_start或者session_start()，但是默认情况下session.auto_start的Off的，而代码如果没有session_start()也是没有开启session的，但是如果用PHP_SESSION_UPLOAD_PROGRESS在多部分POST数据里就可以开启session了这里我建了个php文件去测试，我在html文件夹下放...
+            这里给个pwnhub的简化版的题123456789101112&lt;?phpfunction is_valid($title, $data)&#123;    $data = $title . $data;    return preg_match('|\A[ _a-zA-Z0-9]+\z|is', $data);&#125;$title = $_GET['title'];$data = $_GET['data'];if (!is_valid($title,$data))&#123;    exit("no!no!no!");&#125;file_put_contents('a.php...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/25</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/23</span>
             </div>
             <!-- tags  -->
             
@@ -1175,22 +1174,6 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 46
@@ -1234,45 +1217,22 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/01/17/一个php的小trick：file_put_contents/">一个php的小trick：file_put_contents</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2019 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1327,12 +1287,12 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1457,6 +1417,11 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/25</span><a class="archive-post-title" href="/2018/10/25/hitcon-2018-One-Line-PHP-Challenge/">hitcon 2018 One Line PHP Challenge</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href="/2018/10/23/一个php的小trick：file_put_contents/">一个php的小trick：file_put_contents</a>
         </li>
     
     
