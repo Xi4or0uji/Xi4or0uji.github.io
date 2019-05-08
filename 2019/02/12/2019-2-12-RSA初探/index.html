@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RSA,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波   简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &amp;lt; e &amp;lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元">
+<meta name="keywords" content="RSA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSA初探">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/02/12/2019-2-12-RSA初探/index.html">
+<meta property="og:site_name" content="蒟蒻的ctf博客">
+<meta property="og:description" content="最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波   简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &amp;lt; e &amp;lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/1.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/3.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/4.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/5.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/2.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/7.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/rsa/6.png">
+<meta property="og:updated_time" content="2019-03-14T05:43:23.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RSA初探">
+<meta name="twitter:description" content="最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波   简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &amp;lt; e &amp;lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/rsa/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/02/12/2019-2-12-RSA初探/">
+
+
+
+
+
+  <title>RSA初探 | 蒟蒻的ctf博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蒟蒻的ctf博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/02/12/2019-2-12-RSA初探/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xi4or0uji">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒟蒻的ctf博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RSA初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-12T16:31:05+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+		  
+
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto/" itemprop="url" rel="index">
+                    <span itemprop="name">crypto</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/12/2019-2-12-RSA初探/" class="leancloud_visitors" data-flag-title="RSA初探">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波  </p>
+<h3 id="简单概要"><a href="#简单概要" class="headerlink" title="简单概要"></a>简单概要</h3><p>rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程<br>1、选择两个较大的互不相等的质数p和q，计算 n = p * q<br>2、计算 φ = (p-1) * (q-1)<br>3、选取任意e，使得1 &lt; e &lt; φ，而且 gcd ( e , φ ) = 1<br>4、计算e关于φ的模逆元d，即 ( e * d ) % φ = 1<br>5、加解密：c = ( m ^ e ) % n，m = ( c ^ d ) % n，c为密文，m为明文，(n,e)为公钥对，(n,d)为私钥对  </p>
+<h4 id="模逆运算"><a href="#模逆运算" class="headerlink" title="模逆运算"></a>模逆运算</h4><p>如果( a * b ) % c = 1，那么a和b互为对方模c的模逆元或叫数论倒数，也写成<br><img src="/images/rsa/1.png" alt=""><br>假设a和b两个数互为质数，即gcd ( a , b ) = 1时，有 ax + by = 1，所以 ( a * x ) % b = 1，x就是a对b的模逆元，因此，a对b存在模逆元x的充要条件是 gcd ( a , b ) = 1，对于每一组ab，存在一组满足条件的x，在求逆元的时候取最小正整数解 x mod n<br>简单证明<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">证：给予两个整数a、b，必然存在整数x、y使得ax+by=gcd(a,b)</span><br><span class="line">两边除gcd(a,b)，右边成了1，左边a和b除了gcd(a,b)以后，新的a和b就互质</span><br><span class="line">即证明ax+by=1 gcd(a,b)=1有整数解</span><br><span class="line">想要证明ax+by=1 ab互质有整数解，那就是证明(a%b)*x1+b*y1=1有解</span><br><span class="line">又辗转相除法可知，gcd(a,b)=gcd(b,a%b)，即ab互质则b和a%b也会互质</span><br><span class="line">让a=b,b=a%b，可得b*x1+(a%b)*y1=1</span><br><span class="line">继续a=a%b,b=((a%b)%b)，可得(a%b)*x2+((a%b)%b)*y2=1</span><br><span class="line">...</span><br><span class="line">最后得到a=1,b=0，即1*xn+0*yn=1，显然成立，证毕</span><br></pre></td></tr></table></figure></p>
+<p>求逆元方法<br>欧几里得算法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">egcd</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> b==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>,<span class="number">0</span>,a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x,y,q = egcd(b,a%b) <span class="comment">#gcd(a,b) = gcd(b,a%b)</span></span><br><span class="line">        x,y = y,(x-(a//b)*y)</span><br><span class="line">        <span class="keyword">return</span> x,y,q</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mod_inv</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> egcd(a,b)[<span class="number">0</span>]%b <span class="comment">#求a模b得逆元</span></span><br></pre></td></tr></table></figure></p>
+<p>gmpy2库<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">print</span> gmpy2.invert(<span class="number">47</span>,<span class="number">30</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h3><p>就是辗转相除法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a <span class="keyword">if</span> <span class="keyword">not</span> b <span class="keyword">else</span> gcd(b,a%b)</span><br></pre></td></tr></table></figure></p>
+<h3 id="扩展欧几里得算法"><a href="#扩展欧几里得算法" class="headerlink" title="扩展欧几里得算法"></a>扩展欧几里得算法</h3><p>就是上面求逆元的那个迭代<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">egcd</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>,<span class="number">0</span>,a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x1,y1,q = egcd(b,a%b)</span><br><span class="line">        x,y = y1,(x1-(a//b)*y1)</span><br><span class="line">        <span class="keyword">return</span> x,y,q</span><br></pre></td></tr></table></figure></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="概念题"><a href="#概念题" class="headerlink" title="概念题"></a>概念题</h4><h5 id="jarvisoj-veryeasyRSA"><a href="#jarvisoj-veryeasyRSA" class="headerlink" title="jarvisoj veryeasyRSA"></a>jarvisoj veryeasyRSA</h5><p>题目给了pqe三个值，要求算d<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = 3487583947589437589237958723892346254777 </span><br><span class="line">q = 8767867843568934765983476584376578389</span><br><span class="line">e = 65537</span><br></pre></td></tr></table></figure></p>
+<p>当然可以手工算，也可以直接扔去rsatool去算<br><img src="/images/rsa/3.png" alt=""></p>
+<h5 id="jarvisoj-Easy-RSA"><a href="#jarvisoj-Easy-RSA" class="headerlink" title="jarvisoj Easy RSA"></a>jarvisoj Easy RSA</h5><p>这题比起原来的题稍微难一点点，给了n，e和密文，要求算明文<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">已知一段RSA加密的信息为：0xdc2eeeb2782c且已知加密所用的公钥：</span><br><span class="line">(N=322831561921859 e = 23)</span><br></pre></td></tr></table></figure></p>
+<p>先去factordb.com分解一下n，算出p和q<br><img src="/images/rsa/4.png" alt=""><br>算出p=13574881，q=23781539，然后rsatool算d，最后直接大数运算乘出来<br>m = ( c ^ d ) % n<br><img src="/images/rsa/5.png" alt=""><br>最后将它转成字符串就行  </p>
+<h4 id="模数相关攻击"><a href="#模数相关攻击" class="headerlink" title="模数相关攻击"></a>模数相关攻击</h4><h5 id="直接分解n"><a href="#直接分解n" class="headerlink" title="直接分解n"></a>直接分解n</h5><h6 id="攻击条件"><a href="#攻击条件" class="headerlink" title="攻击条件"></a>攻击条件</h6><p>当n小于512位时，可以直接大数分解得到p和q</p>
+<h6 id="jarvisoj-medium-rsa"><a href="#jarvisoj-medium-rsa" class="headerlink" title="jarvisoj medium rsa"></a>jarvisoj medium rsa</h6><p>题目给了flag.enc和pubkey.pem文件，先用openssl命令提取信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubin -in pubkey.pem -text -modulus</span><br></pre></td></tr></table></figure></p>
+<p>得到<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Public-Key: (256 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:c2:63:6a:e5:c3:d8:e4:3f:fb:97:ab:09:02:8f:</span><br><span class="line">    1a:ac:6c:0b:f6:cd:3d:70:eb:ca:28:1b:ff:e9:7f:</span><br><span class="line">    be:30:dd</span><br><span class="line">Exponent: 65537 (0x10001)</span><br><span class="line">Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMJjauXD2OQ/+5erCQKPGqxsC/bNPXDr</span><br><span class="line">yigb/+l/vjDdAgMBAAE=</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure></p>
+<p>可以知道n是0xC2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD<br>数字不大，直接放去factordb.com分解一下得到<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p=275127860351348928173285174381581152299</span><br><span class="line">q=319576316814478949870590164193048041239</span><br></pre></td></tr></table></figure></p>
+<p>然后解密<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line">p=<span class="number">275127860351348928173285174381581152299</span></span><br><span class="line">q=<span class="number">319576316814478949870590164193048041239</span></span><br><span class="line">n = <span class="number">87924348264132406875276140514499937145050893665602592992418171647042491658461</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">d = libnum.invmod(e,(p<span class="number">-1</span>)*(q<span class="number">-1</span>))</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'flag.enc'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read().encode(<span class="string">'hex'</span>)</span><br><span class="line">    c = int(c,<span class="number">16</span>)</span><br><span class="line">m = pow(c,d,n)</span><br><span class="line"><span class="keyword">print</span> long_to_bytes(m)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/rsa/2.png" alt=""></p>
+<h5 id="p和q选取不当使n可分解"><a href="#p和q选取不当使n可分解" class="headerlink" title="p和q选取不当使n可分解"></a>p和q选取不当使n可分解</h5><h6 id="攻击条件-1"><a href="#攻击条件-1" class="headerlink" title="攻击条件"></a>攻击条件</h6><p>如果p和q选择不当，使得n可以快速分解<br><strong>|p-q|较大</strong><br>如果p-q很大，那么会有一个数很小，因此可以直接穷举法求出p和q，但是这只是理想<br><strong>|p-q|较小</strong><br>先看一条等式<br><img src="/images/rsa/7.png" alt=""><br>因为|p-q|较小，所以(p-q)²/4也会比较小，因此(p+q)²/4和n相差不大，所以(p+q)/2与√n相近，因此可以这样分解：<br>遍历从1开始一直到√n的整数，直到找到一个整数x满足x² - n是平方数，记做y²，就有x² - n = y²，然后就能根据平方差公式分解出n<br><strong>p-1光滑</strong><br>当p是n的因数，而且p-1是光滑的，可以使用Pollard’s p-1算法分解n<br><strong>p+1光滑</strong><br>当p时n的因数，而且p+1是光滑的，可以使用William’s p+1算法分解n  </p>
+<h6 id="SECCON2017-very-smooth"><a href="#SECCON2017-very-smooth" class="headerlink" title="SECCON2017 very smooth"></a>SECCON2017 very smooth</h6><p>拿到一个pcap文件，分离一下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binwalk -e s.pcap</span><br></pre></td></tr></table></figure></p>
+<p>然后就会有三个证书文件，15A5.crt  8F4.crt  FC6.crt<br>提一下信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -inform der -in FC6.crt -pubkey -text -modulus -noout</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVRqqCXPYd6Xdl9GT7/kiJrYvy</span><br><span class="line">8lohddAsi28qwMXCe2cDWuwZKzdB3R9NEnUxsHqwEuuGJBwJwIFJnmnvWurHjcYj</span><br><span class="line">DUddp+4X8C9jtvCaLTgd+baSjo2eB0f+uiSL/9/4nN+vR3FliRm2mByeFCjppTQl</span><br><span class="line">yioxCqbXYIMxGO4NcQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 1 (0x0)</span><br><span class="line">        Serial Number:</span><br><span class="line">            a1:8b:63:0c:7b:30:99:df</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Oct  8 02:47:17 2017 GMT</span><br><span class="line">            Not After : Oct  8 02:47:17 2018 GMT</span><br><span class="line">        Subject: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (1024 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:d5:46:aa:82:5c:f6:1d:e9:77:65:f4:64:fb:fe:</span><br><span class="line">                    48:89:ad:8b:f2:f2:5a:21:75:d0:2c:8b:6f:2a:c0:</span><br><span class="line">                    c5:c2:7b:67:03:5a:ec:19:2b:37:41:dd:1f:4d:12:</span><br><span class="line">                    75:31:b0:7a:b0:12:eb:86:24:1c:09:c0:81:49:9e:</span><br><span class="line">                    69:ef:5a:ea:c7:8d:c6:23:0d:47:5d:a7:ee:17:f0:</span><br><span class="line">                    2f:63:b6:f0:9a:2d:38:1d:f9:b6:92:8e:8d:9e:07:</span><br><span class="line">                    47:fe:ba:24:8b:ff:df:f8:9c:df:af:47:71:65:89:</span><br><span class="line">                    19:b6:98:1c:9e:14:28:e9:a5:34:25:ca:2a:31:0a:</span><br><span class="line">                    a6:d7:60:83:31:18:ee:0d:71</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         78:92:11:fb:6c:e1:7a:f7:2a:33:b8:8b:08:a7:f7:5b:de:cf:</span><br><span class="line">         62:0b:a0:ed:be:d0:69:88:38:93:94:9d:05:41:73:bd:7e:b3:</span><br><span class="line">         32:ec:8e:10:bc:3a:62:b0:56:c7:c1:3f:60:66:a7:be:b9:46:</span><br><span class="line">         f7:46:22:6a:f3:5a:25:d5:66:94:57:0e:fc:b5:16:33:05:1c:</span><br><span class="line">         6f:f5:85:74:57:a4:a0:c6:ce:4f:fd:64:53:94:a9:83:b8:96:</span><br><span class="line">         bf:5b:a7:ee:8b:1e:48:a7:d2:43:06:0e:4f:5a:86:62:69:05:</span><br><span class="line">         e2:c0:bd:4e:89:c9:af:04:4a:77:a2:34:86:6a:b8:d2:3b:32:</span><br><span class="line">         b7:39</span><br><span class="line">Modulus=D546AA825CF61DE97765F464FBFE4889AD8BF2F25A2175D02C8B6F2AC0C5C27B67035AEC192B3741DD1F4D127531B07AB012EB86241C09C081499E69EF5AEAC78DC6230D475DA7EE17F02F63B6F09A2D381DF9B6928E8D9E0747FEBA248BFFDFF89CDFAF4771658919B6981C9E1428E9A53425CA2A310AA6D760833118EE0D71</span><br><span class="line"></span><br><span class="line">openssl x509 -inform der -in 15A5.crt -pubkey -text -modulus -noout</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVRqqCXPYd6Xdl9GT7/kiJrYvy</span><br><span class="line">8lohddAsi28qwMXCe2cDWuwZKzdB3R9NEnUxsHqwEuuGJBwJwIFJnmnvWurHjcYj</span><br><span class="line">DUddp+4X8C9jtvCaLTgd+baSjo2eB0f+uiSL/9/4nN+vR3FliRm2mByeFCjppTQl</span><br><span class="line">yioxCqbXYIMxGO4NcQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 1 (0x0)</span><br><span class="line">        Serial Number:</span><br><span class="line">            a1:8b:63:0c:7b:30:99:df</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Oct  8 02:47:17 2017 GMT</span><br><span class="line">            Not After : Oct  8 02:47:17 2018 GMT</span><br><span class="line">        Subject: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (1024 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:d5:46:aa:82:5c:f6:1d:e9:77:65:f4:64:fb:fe:</span><br><span class="line">                    48:89:ad:8b:f2:f2:5a:21:75:d0:2c:8b:6f:2a:c0:</span><br><span class="line">                    c5:c2:7b:67:03:5a:ec:19:2b:37:41:dd:1f:4d:12:</span><br><span class="line">                    75:31:b0:7a:b0:12:eb:86:24:1c:09:c0:81:49:9e:</span><br><span class="line">                    69:ef:5a:ea:c7:8d:c6:23:0d:47:5d:a7:ee:17:f0:</span><br><span class="line">                    2f:63:b6:f0:9a:2d:38:1d:f9:b6:92:8e:8d:9e:07:</span><br><span class="line">                    47:fe:ba:24:8b:ff:df:f8:9c:df:af:47:71:65:89:</span><br><span class="line">                    19:b6:98:1c:9e:14:28:e9:a5:34:25:ca:2a:31:0a:</span><br><span class="line">                    a6:d7:60:83:31:18:ee:0d:71</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         78:92:11:fb:6c:e1:7a:f7:2a:33:b8:8b:08:a7:f7:5b:de:cf:</span><br><span class="line">         62:0b:a0:ed:be:d0:69:88:38:93:94:9d:05:41:73:bd:7e:b3:</span><br><span class="line">         32:ec:8e:10:bc:3a:62:b0:56:c7:c1:3f:60:66:a7:be:b9:46:</span><br><span class="line">         f7:46:22:6a:f3:5a:25:d5:66:94:57:0e:fc:b5:16:33:05:1c:</span><br><span class="line">         6f:f5:85:74:57:a4:a0:c6:ce:4f:fd:64:53:94:a9:83:b8:96:</span><br><span class="line">         bf:5b:a7:ee:8b:1e:48:a7:d2:43:06:0e:4f:5a:86:62:69:05:</span><br><span class="line">         e2:c0:bd:4e:89:c9:af:04:4a:77:a2:34:86:6a:b8:d2:3b:32:</span><br><span class="line">         b7:39</span><br><span class="line">Modulus=D546AA825CF61DE97765F464FBFE4889AD8BF2F25A2175D02C8B6F2AC0C5C27B67035AEC192B3741DD1F4D127531B07AB012EB86241C09C081499E69EF5AEAC78DC6230D475DA7EE17F02F63B6F09A2D381DF9B6928E8D9E0747FEBA248BFFDFF89CDFAF4771658919B6981C9E1428E9A53425CA2A310AA6D760833118EE0D71</span><br><span class="line"></span><br><span class="line">openssl x509 -inform der -in 8F4.crt -pubkey -text -modulus -noout</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVRqqCXPYd6Xdl9GT7/kiJrYvy</span><br><span class="line">8lohddAsi28qwMXCe2cDWuwZKzdB3R9NEnUxsHqwEuuGJBwJwIFJnmnvWurHjcYj</span><br><span class="line">DUddp+4X8C9jtvCaLTgd+baSjo2eB0f+uiSL/9/4nN+vR3FliRm2mByeFCjppTQl</span><br><span class="line">yioxCqbXYIMxGO4NcQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 1 (0x0)</span><br><span class="line">        Serial Number:</span><br><span class="line">            a1:8b:63:0c:7b:30:99:df</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Oct  8 02:47:17 2017 GMT</span><br><span class="line">            Not After : Oct  8 02:47:17 2018 GMT</span><br><span class="line">        Subject: C = JP, ST = Kawasaki, O = SRL</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (1024 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:d5:46:aa:82:5c:f6:1d:e9:77:65:f4:64:fb:fe:</span><br><span class="line">                    48:89:ad:8b:f2:f2:5a:21:75:d0:2c:8b:6f:2a:c0:</span><br><span class="line">                    c5:c2:7b:67:03:5a:ec:19:2b:37:41:dd:1f:4d:12:</span><br><span class="line">                    75:31:b0:7a:b0:12:eb:86:24:1c:09:c0:81:49:9e:</span><br><span class="line">                    69:ef:5a:ea:c7:8d:c6:23:0d:47:5d:a7:ee:17:f0:</span><br><span class="line">                    2f:63:b6:f0:9a:2d:38:1d:f9:b6:92:8e:8d:9e:07:</span><br><span class="line">                    47:fe:ba:24:8b:ff:df:f8:9c:df:af:47:71:65:89:</span><br><span class="line">                    19:b6:98:1c:9e:14:28:e9:a5:34:25:ca:2a:31:0a:</span><br><span class="line">                    a6:d7:60:83:31:18:ee:0d:71</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         78:92:11:fb:6c:e1:7a:f7:2a:33:b8:8b:08:a7:f7:5b:de:cf:</span><br><span class="line">         62:0b:a0:ed:be:d0:69:88:38:93:94:9d:05:41:73:bd:7e:b3:</span><br><span class="line">         32:ec:8e:10:bc:3a:62:b0:56:c7:c1:3f:60:66:a7:be:b9:46:</span><br><span class="line">         f7:46:22:6a:f3:5a:25:d5:66:94:57:0e:fc:b5:16:33:05:1c:</span><br><span class="line">         6f:f5:85:74:57:a4:a0:c6:ce:4f:fd:64:53:94:a9:83:b8:96:</span><br><span class="line">         bf:5b:a7:ee:8b:1e:48:a7:d2:43:06:0e:4f:5a:86:62:69:05:</span><br><span class="line">         e2:c0:bd:4e:89:c9:af:04:4a:77:a2:34:86:6a:b8:d2:3b:32:</span><br><span class="line">         b7:39</span><br><span class="line">Modulus=D546AA825CF61DE97765F464FBFE4889AD8BF2F25A2175D02C8B6F2AC0C5C27B67035AEC192B3741DD1F4D127531B07AB012EB86241C09C081499E69EF5AEAC78DC6230D475DA7EE17F02F63B6F09A2D381DF9B6928E8D9E0747FEBA248BFFDFF89CDFAF4771658919B6981C9E1428E9A53425CA2A310AA6D760833118EE0D71</span><br></pre></td></tr></table></figure></p>
+<p>待续……</p>
+<h5 id="模不互素"><a href="#模不互素" class="headerlink" title="模不互素"></a>模不互素</h5><h6 id="攻击条件-2"><a href="#攻击条件-2" class="headerlink" title="攻击条件"></a>攻击条件</h6><p>存在两个或以上模数，且gcd(n1,n2)!=1  </p>
+<h6 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h6><p>如果两个n不互素的话，可以直接对这两个数求最大公因数，然后获得p和q，进而求得私钥  </p>
+<p>###### </p>
+<h4 id="公钥指数相关攻击"><a href="#公钥指数相关攻击" class="headerlink" title="公钥指数相关攻击"></a>公钥指数相关攻击</h4><h5 id="小公钥指数攻击"><a href="#小公钥指数攻击" class="headerlink" title="小公钥指数攻击"></a>小公钥指数攻击</h5><h6 id="攻击条件-3"><a href="#攻击条件-3" class="headerlink" title="攻击条件"></a>攻击条件</h6><p>e十分小</p>
+<h6 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h6><p>假设用户使用的密钥为3，加密过程是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c ≡ m³ mod n</span><br></pre></td></tr></table></figure></p>
+<p>那么就有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m³ = c + k*n</span><br><span class="line">m = ³√¯(c+k*n)¯</span><br></pre></td></tr></table></figure></p>
+<p>大黑阔可以从小到大枚举k，直到开出整数  </p>
+<h6 id="jarvisoj-Extremely-hard-RSA"><a href="#jarvisoj-Extremely-hard-RSA" class="headerlink" title="jarvisoj Extremely hard RSA"></a>jarvisoj Extremely hard RSA</h6><p>题目给了pubkey.pem和flag.enc，然后openssl读下pubkey信息有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">Public-Key: (4096 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:b0:be:e5:e3:e9:e5:a7:e8:d0:0b:49:33:55:c6:</span><br><span class="line">    18:fc:8c:7d:7d:03:b8:2e:40:99:51:c1:82:f3:98:</span><br><span class="line">    de:e3:10:45:80:e7:ba:70:d3:83:ae:53:11:47:56:</span><br><span class="line">    56:e8:a9:64:d3:80:cb:15:7f:48:c9:51:ad:fa:65:</span><br><span class="line">    db:0b:12:2c:a4:0e:42:fa:70:91:89:b7:19:a4:f0:</span><br><span class="line">    d7:46:e2:f6:06:9b:af:11:ce:bd:65:0f:14:b9:3c:</span><br><span class="line">    97:73:52:fd:13:b1:ee:a6:d6:e1:da:77:55:02:ab:</span><br><span class="line">    ff:89:d3:a8:b3:61:5f:d0:db:49:b8:8a:97:6b:c2:</span><br><span class="line">    05:68:48:92:84:e1:81:f6:f1:1e:27:08:91:c8:ef:</span><br><span class="line">    80:01:7b:ad:23:8e:36:30:39:a4:58:47:0f:17:49:</span><br><span class="line">    10:1b:c2:99:49:d3:a4:f4:03:8d:46:39:38:85:15:</span><br><span class="line">    79:c7:52:5a:69:98:4f:15:b5:66:7f:34:20:9b:70:</span><br><span class="line">    eb:26:11:36:94:7f:a1:23:e5:49:df:ff:00:60:18:</span><br><span class="line">    83:af:d9:36:fe:41:1e:00:6e:4e:93:d1:a0:0b:0f:</span><br><span class="line">    ea:54:1b:bf:c8:c5:18:6c:b6:22:05:03:a9:4b:24:</span><br><span class="line">    13:11:0d:64:0c:77:ea:54:ba:32:20:fc:8f:4c:c6:</span><br><span class="line">    ce:77:15:1e:29:b3:e0:65:78:c4:78:bd:1b:eb:e0:</span><br><span class="line">    45:89:ef:9a:19:7f:6f:80:6d:b8:b3:ec:d8:26:ca:</span><br><span class="line">    d2:4f:53:24:cc:de:c6:e8:fe:ad:2c:21:50:06:86:</span><br><span class="line">    02:c8:dc:dc:59:40:2c:ca:c9:42:4b:79:00:48:cc:</span><br><span class="line">    dd:93:27:06:80:95:ef:a0:10:b7:f1:96:c7:4b:a8:</span><br><span class="line">    c3:7b:12:8f:9e:14:11:75:16:33:f7:8b:7b:9e:56:</span><br><span class="line">    f7:1f:77:a1:b4:da:ad:3f:c5:4b:5e:7e:f9:35:d9:</span><br><span class="line">    a7:2f:b1:76:75:97:65:52:2b:4b:bc:02:e3:14:d5:</span><br><span class="line">    c0:6b:64:d5:05:4b:7b:09:6c:60:12:36:e6:cc:f4:</span><br><span class="line">    5b:5e:61:1c:80:5d:33:5d:ba:b0:c3:5d:22:6c:c2:</span><br><span class="line">    08:d8:ce:47:36:ba:39:a0:35:44:26:fa:e0:06:c7:</span><br><span class="line">    fe:52:d5:26:7d:cf:b9:c3:88:4f:51:fd:df:df:4a:</span><br><span class="line">    97:94:bc:fe:0e:15:57:11:37:49:e6:c8:ef:42:1d:</span><br><span class="line">    ba:26:3a:ff:68:73:9c:e0:0e:d8:0f:d0:02:2e:f9:</span><br><span class="line">    2d:34:88:f7:6d:eb:62:bd:ef:7b:ea:60:26:f2:2a:</span><br><span class="line">    1d:25:aa:2a:92:d1:24:41:4a:80:21:fe:0c:17:4b:</span><br><span class="line">    98:03:e6:bb:5f:ad:75:e1:86:a9:46:a1:72:80:77:</span><br><span class="line">    0f:12:43:f4:38:74:46:cc:ce:b2:22:2a:96:5c:c3:</span><br><span class="line">    0b:39:29</span><br><span class="line">Exponent: 3 (0x3)</span><br><span class="line">Modulus=B0BEE5E3E9E5A7E8D00B493355C618FC8C7D7D03B82E409951C182F398DEE3104580E7BA70D383AE5311475656E8A964D380CB157F48C951ADFA65DB0B122CA40E42FA709189B719A4F0D746E2F6069BAF11CEBD650F14B93C977352FD13B1EEA6D6E1DA775502ABFF89D3A8B3615FD0DB49B88A976BC20568489284E181F6F11E270891C8EF80017BAD238E363039A458470F1749101BC29949D3A4F4038D463938851579C7525A69984F15B5667F34209B70EB261136947FA123E549DFFF00601883AFD936FE411E006E4E93D1A00B0FEA541BBFC8C5186CB6220503A94B2413110D640C77EA54BA3220FC8F4CC6CE77151E29B3E06578C478BD1BEBE04589EF9A197F6F806DB8B3ECD826CAD24F5324CCDEC6E8FEAD2C2150068602C8DCDC59402CCAC9424B790048CCDD9327068095EFA010B7F196C74BA8C37B128F9E1411751633F78B7B9E56F71F77A1B4DAAD3FC54B5E7EF935D9A72FB176759765522B4BBC02E314D5C06B64D5054B7B096C601236E6CCF45B5E611C805D335DBAB0C35D226CC208D8CE4736BA39A0354426FAE006C7FE52D5267DCFB9C3884F51FDDFDF4A9794BCFE0E1557113749E6C8EF421DBA263AFF68739CE00ED80FD0022EF92D3488F76DEB62BDEF7BEA6026F22A1D25AA2A92D124414A8021FE0C174B9803E6BB5FAD75E186A946A17280770F1243F4387446CCCEB2222A965CC30B3929</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAgEAsL7l4+nlp+jQC0kzVcYY</span><br><span class="line">/Ix9fQO4LkCZUcGC85je4xBFgOe6cNODrlMRR1ZW6Klk04DLFX9IyVGt+mXbCxIs</span><br><span class="line">pA5C+nCRibcZpPDXRuL2BpuvEc69ZQ8UuTyXc1L9E7Huptbh2ndVAqv/idOos2Ff</span><br><span class="line">0NtJuIqXa8IFaEiShOGB9vEeJwiRyO+AAXutI442MDmkWEcPF0kQG8KZSdOk9AON</span><br><span class="line">Rjk4hRV5x1JaaZhPFbVmfzQgm3DrJhE2lH+hI+VJ3/8AYBiDr9k2/kEeAG5Ok9Gg</span><br><span class="line">Cw/qVBu/yMUYbLYiBQOpSyQTEQ1kDHfqVLoyIPyPTMbOdxUeKbPgZXjEeL0b6+BF</span><br><span class="line">ie+aGX9vgG24s+zYJsrST1MkzN7G6P6tLCFQBoYCyNzcWUAsyslCS3kASMzdkycG</span><br><span class="line">gJXvoBC38ZbHS6jDexKPnhQRdRYz94t7nlb3H3ehtNqtP8VLXn75NdmnL7F2dZdl</span><br><span class="line">UitLvALjFNXAa2TVBUt7CWxgEjbmzPRbXmEcgF0zXbqww10ibMII2M5HNro5oDVE</span><br><span class="line">JvrgBsf+UtUmfc+5w4hPUf3f30qXlLz+DhVXETdJ5sjvQh26Jjr/aHOc4A7YD9AC</span><br><span class="line">LvktNIj3betive976mAm8iodJaoqktEkQUqAIf4MF0uYA+a7X6114YapRqFygHcP</span><br><span class="line">EkP0OHRGzM6yIiqWXMMLOSkCAQM=</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure></p>
+<p>e很小，所以我们可以直接进行指数攻击<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2,libnum</span><br><span class="line">n=<span class="number">0xB0BEE5E3E9E5A7E8D00B493355C618FC8C7D7D03B82E409951C182F398DEE3104580E7BA70D383AE5311475656E8A964D380CB157F48C951ADFA65DB0B122CA40E42FA709189B719A4F0D746E2F6069BAF11CEBD650F14B93C977352FD13B1EEA6D6E1DA775502ABFF89D3A8B3615FD0DB49B88A976BC20568489284E181F6F11E270891C8EF80017BAD238E363039A458470F1749101BC29949D3A4F4038D463938851579C7525A69984F15B5667F34209B70EB261136947FA123E549DFFF00601883AFD936FE411E006E4E93D1A00B0FEA541BBFC8C5186CB6220503A94B2413110D640C77EA54BA3220FC8F4CC6CE77151E29B3E06578C478BD1BEBE04589EF9A197F6F806DB8B3ECD826CAD24F5324CCDEC6E8FEAD2C2150068602C8DCDC59402CCAC9424B790048CCDD9327068095EFA010B7F196C74BA8C37B128F9E1411751633F78B7B9E56F71F77A1B4DAAD3FC54B5E7EF935D9A72FB176759765522B4BBC02E314D5C06B64D5054B7B096C601236E6CCF45B5E611C805D335DBAB0C35D226CC208D8CE4736BA39A0354426FAE006C7FE52D5267DCFB9C3884F51FDDFDF4A9794BCFE0E1557113749E6C8EF421DBA263AFF68739CE00ED80FD0022EF92D3488F76DEB62BDEF7BEA6026F22A1D25AA2A92D124414A8021FE0C174B9803E6BB5FAD75E186A946A17280770F1243F4387446CCCEB2222A965CC30B3929</span></span><br><span class="line">e=<span class="number">3</span></span><br><span class="line">res=<span class="number">0</span></span><br><span class="line">c=int(open(<span class="string">'flag.enc'</span>,<span class="string">'rb'</span>).read().encode(<span class="string">'hex'</span>),<span class="number">16</span>)</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">118700000</span>, <span class="number">118750000</span>):</span><br><span class="line">    a, b = gmpy2.iroot(c+n*k,e)</span><br><span class="line">    <span class="keyword">if</span> b==<span class="number">1</span>:</span><br><span class="line">        res=a</span><br><span class="line">        <span class="keyword">print</span> k</span><br><span class="line">        <span class="keyword">print</span> res</span><br><span class="line">        <span class="keyword">print</span> libnum.n2s(res)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
+<p>他的k是118719488，减小范围，跑的快一点，最后拿到flag<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Didn't you know RSA padding is really important? Now you see a non-padding message is so dangerous. And you should notice this in future.Fl4g: PCTF&#123;Sm4ll_3xpon3nt_i5_W3ak&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="rabin算法"><a href="#rabin算法" class="headerlink" title="rabin算法"></a>rabin算法</h5><h6 id="攻击条件-4"><a href="#攻击条件-4" class="headerlink" title="攻击条件"></a>攻击条件</h6><p>e = 2</p>
+<h6 id="攻击原理-1"><a href="#攻击原理-1" class="headerlink" title="攻击原理"></a>攻击原理</h6><p>密文<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c = m² mod n</span><br></pre></td></tr></table></figure></p>
+<p>解密过程<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">算mp和mq</span><br><span class="line">mp = √c mod p</span><br><span class="line">mq = √c mod q</span><br><span class="line">由扩展欧几里得算出</span><br><span class="line">yp*p + yq*q = 1</span><br><span class="line">得到四个明文</span><br><span class="line">a = (yp*p*mq + yq*q*mp) mod n</span><br><span class="line">b = n - a</span><br><span class="line">c = (yp*p*mq - yq*q*mp) mod n</span><br><span class="line">d = n - c</span><br></pre></td></tr></table></figure></p>
+<p>如果 p ≡ q ≡ 3 (mod 4)，那么<br><img src="/images/rsa/6.png" alt=""></p>
+<h6 id="jarvisoj-hardRSA"><a href="#jarvisoj-hardRSA" class="headerlink" title="jarvisoj hardRSA"></a>jarvisoj hardRSA</h6><p>openssl提信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Public-Key: (256 bit)</span><br><span class="line">Modulus:</span><br><span class="line">    00:c2:63:6a:e5:c3:d8:e4:3f:fb:97:ab:09:02:8f:</span><br><span class="line">    1a:ac:6c:0b:f6:cd:3d:70:eb:ca:28:1b:ff:e9:7f:</span><br><span class="line">    be:30:dd</span><br><span class="line">Exponent: 2 (0x2)</span><br><span class="line">Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD</span><br><span class="line">writing RSA key</span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MDowDQYJKoZIhvcNAQEBBQADKQAwJgIhAMJjauXD2OQ/+5erCQKPGqxsC/bNPXDr</span><br><span class="line">yigb/+l/vjDdAgEC</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure></p>
+<p>分解n得到<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = 275127860351348928173285174381581152299</span><br><span class="line">q = 319576316814478949870590164193048041239</span><br></pre></td></tr></table></figure></p>
+<p>利用rabin算法去写脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'pubkey.pem'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    key = RSA.importKey(f)</span><br><span class="line">    n = key.n</span><br><span class="line">    e = key.e</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'flag.enc'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read().encode(<span class="string">'hex'</span>)</span><br><span class="line">    c = string.atoi(c,base=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"start"</span></span><br><span class="line">p = <span class="number">275127860351348928173285174381581152299</span></span><br><span class="line">q = <span class="number">319576316814478949870590164193048041239</span></span><br><span class="line"><span class="comment">#计算yp和yq</span></span><br><span class="line">inv_p = gmpy2.invert(p,q)</span><br><span class="line">inv_q = gmpy2.invert(q,p)</span><br><span class="line"><span class="comment">#计算mp和mq</span></span><br><span class="line">mp = pow(c,(p+<span class="number">1</span>)/<span class="number">4</span>,p)</span><br><span class="line">mq = pow(c,(q+<span class="number">1</span>)/<span class="number">4</span>,q)</span><br><span class="line"><span class="comment">#算a b c d</span></span><br><span class="line">a = (inv_p * p * mq + inv_q * q * mp) % n</span><br><span class="line">b = n - int(n)</span><br><span class="line">c = (inv_p * p * mq - inv_q * q * mp) % n</span><br><span class="line">d = n - int(c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (a,b,c,d):</span><br><span class="line">    s = <span class="string">'%x'</span> % i</span><br><span class="line">    <span class="keyword">if</span> len(s) % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">        s = <span class="string">'0'</span>+s</span><br><span class="line">    <span class="keyword">print</span> s.decode(<span class="string">'hex'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>最后拿到flag：PCTF{sp3ci4l_rsa}</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RSA/" rel="tag"># RSA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/11/2019-2-11-2018安恒杯十一月赛/" rel="next" title="2018安恒杯十一月赛">
+                <i class="fa fa-chevron-left"></i> 2018安恒杯十一月赛
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/19/2019-2-19-用docker搭个ctf题目/" rel="prev" title="用docker搭个ctf题目">
+                用docker搭个ctf题目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xi4or0uji">
+            
+              <p class="site-author-name" itemprop="name">Xi4or0uji</p>
+              <p class="site-description motion-element" itemprop="description">还在路上</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单概要"><span class="nav-number">1.</span> <span class="nav-text">简单概要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模逆运算"><span class="nav-number">1.1.</span> <span class="nav-text">模逆运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#欧几里得算法"><span class="nav-number">2.</span> <span class="nav-text">欧几里得算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展欧几里得算法"><span class="nav-number">3.</span> <span class="nav-text">扩展欧几里得算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">4.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念题"><span class="nav-number">4.1.</span> <span class="nav-text">概念题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#jarvisoj-veryeasyRSA"><span class="nav-number">4.1.1.</span> <span class="nav-text">jarvisoj veryeasyRSA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jarvisoj-Easy-RSA"><span class="nav-number">4.1.2.</span> <span class="nav-text">jarvisoj Easy RSA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模数相关攻击"><span class="nav-number">4.2.</span> <span class="nav-text">模数相关攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接分解n"><span class="nav-number">4.2.1.</span> <span class="nav-text">直接分解n</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击条件"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">攻击条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#jarvisoj-medium-rsa"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">jarvisoj medium rsa</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#p和q选取不当使n可分解"><span class="nav-number">4.2.2.</span> <span class="nav-text">p和q选取不当使n可分解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击条件-1"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">攻击条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SECCON2017-very-smooth"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">SECCON2017 very smooth</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模不互素"><span class="nav-number">4.2.3.</span> <span class="nav-text">模不互素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击条件-2"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">攻击条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击原理"><span class="nav-number">4.2.3.2.</span> <span class="nav-text">攻击原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥指数相关攻击"><span class="nav-number">4.3.</span> <span class="nav-text">公钥指数相关攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小公钥指数攻击"><span class="nav-number">4.3.1.</span> <span class="nav-text">小公钥指数攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击条件-3"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">攻击条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#例子"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#jarvisoj-Extremely-hard-RSA"><span class="nav-number">4.3.1.3.</span> <span class="nav-text">jarvisoj Extremely hard RSA</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rabin算法"><span class="nav-number">4.3.2.</span> <span class="nav-text">rabin算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击条件-4"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">攻击条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#攻击原理-1"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">攻击原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#jarvisoj-hardRSA"><span class="nav-number">4.3.2.3.</span> <span class="nav-text">jarvisoj hardRSA</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xi4or0uji</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kjsqHE2szT8D8zBgcoS3IuDJ-gzGzoHsz", "W2CzS27kkRW94qWAYaaWlnX7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

