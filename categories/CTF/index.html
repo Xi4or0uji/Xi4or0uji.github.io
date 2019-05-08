@@ -346,298 +346,24 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/17/2019-3-17-2019GWHT考核题wp/">
+        <a class="abstract-title" href="/2019/05/08/sixstarCTF-web-学习/">
             
-                <span>2019GWHT考核题wp</span>
+                <span>sixstarCTF web 学习</span>
         </a>
         <div class="abstract-content">
-            本来想着招新完讲完题就不用题解了，但是看见有些小朋友还是很懵逼，补上一篇  
-WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的是对http头的各种操作还有抓包，首先进去题目看到一堆骚话，完了以后就是问do you know GWHT browser?，很明显是要我们改访问的浏览器，接着是only accept www.gwht.com to visit this website，修改访问网站，然后you are not the localhost, prprprpr，要求本地访问，然后就是i only know Spanish........
+            先开个坑，慢慢补
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/17</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/08</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/15/2019-3-15-利用mysql-local-infile读取客户端文件/">
-            
-                <span>利用mysql local infile读取客户端文件</span>
-        </a>
-        <div class="abstract-content">
-            这个利用点是之前补hgame的题看到的一个考点，记录一下  
-MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手阶段中会：1234客户端和用户端交换各自功能根据需要创建SSL通道接收客户端的回应验证客户端身份进行通信
-我们在linux里面tcpdump一下抓取数据包tcpdump -i lo -w mysql.pcap port 3306，然后连接mysql看下数据包可以看到登录的数据包里面有个Can Use LOAD DATA LOCAL开启了，只要开启了这个，就可以将运行mysql客户端的主机的文件传输到远程服务器中而load data infile这...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/11/2019-3-11-2019-hgame-week4/">
-            
-                <span>2019 hgame week4</span>
-        </a>
-        <div class="abstract-content">
-            happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__globals__['current_app'].config
-然后得到回显1&lt;Config &#123;'ENV': 'production', 'DEBUG': False, 'TES...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/06/2019-3-6-2019-hgame-week3/">
-            
-                <span>2019 hgame week3</span>
-        </a>
-        <div class="abstract-content">
-            神奇的md5扫到泄露拿到swp文件，恢复12345678910111213141516171819202122&lt;?phpsession_start();error_reporting(0);    if (@$_POST['username'] and @$_POST['password'] and @$_POST['code'])    &#123;        $username = (string)$_POST['username'];        $password = (string)$_POST['password'];        $code     = (st...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/2019-3-1-2019安恒杯二月赛/">
-            
-                <span>2019安恒杯二月赛</span>
-        </a>
-        <div class="abstract-content">
-            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
-所以可以猜测是将图片命名...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/27/2019-2-27-MongoDB注入/">
-            
-                <span>MongoDB注入</span>
-        </a>
-        <div class="abstract-content">
-            之前做比赛题经常会遇到mongodb注入，每次都一知半解一脸懵逼，总结一下  
-MongoDB概括记下增删改查（php5）  
-直接调用类方法1234567$mongodb = new mongoclient();  //建立连接$db = $mongodb-&gt;myinfo;  //选择数据库$coll = $db-&gt;test;  //选择集合$coll-&gt;save();  //增$coll-&gt;find();  //查$coll-&gt;remove();  //减$coll-&gt;update();  //改
-execute方法1234567$monggdb ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MongoDB">MongoDB</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/26/2019-2-26-2018-Tokyo-Westerns-CTF/">
-            
-                <span>2018 Tokyo Westerns CTF</span>
-        </a>
-        <div class="abstract-content">
-            WEBSimple Auth首先可以拿到源码1234567891011121314151617181920212223242526272829303132 &lt;?phprequire_once 'flag.php';if (!empty($_SERVER['QUERY_STRING'])) &#123;    $query = $_SERVER['QUERY_STRING'];    $res = parse_str($query);    if (!empty($res['action']))&#123;        $action = $res['action'];    &#...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019-2-24-2019tamuctf/">
-            
-                <span>2019tamuctf</span>
-        </a>
-        <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019-2-24-2018百越杯wp/">
-            
-                <span>2018百越杯wp</span>
-        </a>
-        <div class="abstract-content">
-            WEBwarmup源码1234567891011121314151617 &lt;?php require_once('flag.php'); error_reporting(0); if(!isset($_GET['u']))&#123;     highlight_file(__FILE__);     die(); &#125;else&#123;     $i=$_GET['i'];     $u=$_GET['u'];     if($_GET['u']!="Hello World")&#123;         die('die...');     &#125;     as...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/21/2019-2-21-python格式化字符串/">
-            
-                <span>python格式化字符串</span>
-        </a>
-        <div class="abstract-content">
-            简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制  
-python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print 'My name is %s' %nameMy name is Xi4or0uji
-使用标准库中的模板字符串12345from string import Templatename = 'Xi4or0uji's = Template('My name is $name')print s.substitute(name=name)My name is Xi4or0uji
-利用format格式化字符串直接格式化字符串12print...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
     
 </div>
             
@@ -645,10 +371,6 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/web/page/3/">3</a><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><a class="extend next" rel="next" href="/categories/web/page/3/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
