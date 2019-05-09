@@ -187,7 +187,7 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="icon" href="/assets/cat.jpg">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
     <link rel="preload" href="/scripts/main.js" as="script">
@@ -351,7 +351,8 @@
                 <span>sixstarCTF web 学习</span>
         </a>
         <div class="abstract-content">
-            先开个坑，慢慢补
+            前段时间忙着国赛出题，没认真打这场比赛，补坑辣   
+mywebsql这道题目考了mywebsql的一个cve还有信号处理？？坑点啊首先我们可以先弱口令admin/admin登录进去，然后就是谷歌做题了2333https://nvd.nist.gov/vuln/detail/CVE-2019-7731  
 
         </div>
         <div class="abstract-post-meta">
@@ -503,6 +504,37 @@ webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+            
+                <span>2019西湖论剑web writeup</span>
+        </a>
+        <div class="abstract-content">
+            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
+猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
+访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/04/11/rips-2017/">
             
                 <span>rips 2017</span>
@@ -533,19 +565,17 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+        <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
             
-                <span>2019西湖论剑web writeup</span>
+                <span>2019 0ctf wp</span>
         </a>
         <div class="abstract-content">
-            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
-猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
-访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+            babyrsa首先pubkey.py可以看到n的值1234from sage.all import GF, PolynomialRingP=PolynomialRing(GF(2),'x')e = 31337n = P('x^2048 + x^2046 + x^2043 + x^2040 + x^2036 + x^2035 + x^2034 + x^2033 + x^2031 + x^2029 + x^2025 + x^2024 + x^2022 + x^2019 + x^2018 + x^2017 + x^2012 + x^2007 + x^2006 + x^2004 + x^2000...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
             </div>
             <!-- tags  -->
             
@@ -582,35 +612,6 @@ wish list
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
-            
-                <span>2019 0ctf wp</span>
-        </a>
-        <div class="abstract-content">
-            babyrsa首先pubkey.py可以看到n的值1234from sage.all import GF, PolynomialRingP=PolynomialRing(GF(2),'x')e = 31337n = P('x^2048 + x^2046 + x^2043 + x^2040 + x^2036 + x^2035 + x^2034 + x^2033 + x^2031 + x^2029 + x^2025 + x^2024 + x^2022 + x^2019 + x^2018 + x^2017 + x^2012 + x^2007 + x^2006 + x^2004 + x^2000...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
             
@@ -1388,6 +1389,66 @@ wish list
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 46
@@ -1441,12 +1502,12 @@ wish list
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1481,12 +1542,12 @@ wish list
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1501,12 +1562,12 @@ wish list
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1652,17 +1713,15 @@ wish list
     
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
-    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1670,11 +1729,13 @@ wish list
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
