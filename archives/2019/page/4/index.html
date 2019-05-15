@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/01/20/n1ctf-writeup/">
+            
+                <span>n1ctf writeup</span>
+        </a>
+        <div class="abstract-content">
+            之前在学其他知识点的时候看到了这个比赛，顺便学一哈  
+77777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25)
+这时分数变成了123，如果我们匹配一个错的字符分数会不变，因此就是like盲注，脚本如下12345678910111213141516171819202122232425import reque...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/01/18/javascript原型链污染/">
             
                 <span>javascript原型链污染</span>
@@ -1164,42 +1195,9 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 46
+        Total : 47
         </div>
         <!-- search  -->
         
@@ -1255,12 +1253,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1310,12 +1308,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1404,12 +1402,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
@@ -1452,6 +1450,20 @@
             <span class="archive-post-date">10/19</span><a class="archive-post-title" href="/2018/10/19/没有字母数字获得webshell/">没有字母数字获得webshell</a>
         </li>
     
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/15/open_basedir-bypass/">open_basedir bypass</a>
+        </li>
+    
     </ul></div>
   </div>
         <div class="sidebar-panel-tags">
@@ -1467,11 +1479,11 @@
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1481,9 +1493,9 @@
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
