@@ -408,7 +408,8 @@ height:50vh;
 <p>stego看一下有个字母表？<br><img src="/assets/2019def/5.png" alt=""><br>接着<code>identify -verbose redacted-puzzle.gif</code>查看一下图片签名，可以看到black被定义了三次？？<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Colors: 1</span><br><span class="line">Histogram:</span><br><span class="line">  352240: (  0,  0,  0,255) #000000FF black</span><br><span class="line">Colormap entries: 4</span><br><span class="line">Colormap:</span><br><span class="line">       0: (  0,  0,  0,255) #000000FF black</span><br><span class="line">       1: (  0,  0,  0,255) #000000FF black</span><br><span class="line">       2: (  0,  0,  0,255) #000000FF black</span><br><span class="line">       3: (255,255,255,  0) #FFFFFF00 srgba(255,255,255,0)</span><br></pre></td></tr></table></figure></p>
 <p>因此即使底色为黑色，图片依旧能存储，所以其实图片的存储并不是真正的一整张图片的存储的，我们尝试一下修改一下每帧的调色板并且将它们保存成png图片<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!conding: utf-8</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># 修改底色，保存图片</span></span><br><span class="line">imageObject = Image.open(<span class="string">"./redacted-puzzle.gif"</span>)</span><br><span class="line"><span class="keyword">for</span> frame <span class="keyword">in</span> range(<span class="number">0</span>,imageObject.n_frames):</span><br><span class="line">    imageObject.seek(frame)</span><br><span class="line">    imageObject.putpalette([<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">    rgb_im = imageObject.convert(<span class="string">'RGB'</span>)</span><br><span class="line">    rgb_im.save(<span class="string">"./tmp/output-%02u.png"</span> % frame)</span><br></pre></td></tr></table></figure></p>
 <p><img src="/assets/2019def/6.png" alt=""><br>接下来就是脑洞了，拿到了上面的图片，都是一堆多边形，但是如果我们将它们全部拼在一起可以拿到一个八边形，让我们假设成二进制，就可以拿到一堆二进制，先看第一张图片<br><img src="/assets/2019def/7.png" alt=""><br>所以这个图片的二进制数就是<code>10001100</code><br>我们将这些数字都列出来，联系字母表是32位，我们推测试base32变种<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解密</span></span><br><span class="line">flag_alphabet = <span class="string">"+-=ABCDEFGHIJKLMNOPQRSTUVWXYZ_&#123;&#125;"</span></span><br><span class="line">flag_bits=[</span><br><span class="line">    <span class="string">"10001100"</span>,</span><br><span class="line">    <span class="string">"01100011"</span>,</span><br><span class="line">    <span class="string">"11100100"</span>,</span><br><span class="line">    <span class="string">"01000110"</span>,</span><br><span class="line">    <span class="string">"10000101"</span>,</span><br><span class="line">    <span class="string">"00111101"</span>,</span><br><span class="line">    <span class="string">"01000010"</span>,</span><br><span class="line">    <span class="string">"10011000"</span>,</span><br><span class="line">    <span class="string">"11100000"</span>,</span><br><span class="line">    <span class="string">"11110100"</span>,</span><br><span class="line">    <span class="string">"10000000"</span>,</span><br><span class="line">    <span class="string">"00101101"</span>,</span><br><span class="line">    <span class="string">"01110010"</span>,</span><br><span class="line">    <span class="string">"00011100"</span>,</span><br><span class="line">    <span class="string">"00001000"</span>,</span><br><span class="line">    <span class="string">"10100101"</span>,</span><br><span class="line">    <span class="string">"11010111"</span>,</span><br><span class="line">    <span class="string">"01101110"</span>,</span><br><span class="line">    <span class="string">"10100110"</span>,</span><br><span class="line">    <span class="string">"10010001"</span>,</span><br><span class="line">    <span class="string">"10111100"</span>,</span><br><span class="line">    <span class="string">"10000100"</span>,</span><br><span class="line">    <span class="string">"10000001"</span>,</span><br><span class="line">    <span class="string">"10111001"</span>,</span><br><span class="line">    <span class="string">"11010100"</span>,</span><br><span class="line">    <span class="string">"00111011"</span>,</span><br><span class="line">    <span class="string">"11001110"</span>,</span><br><span class="line">    <span class="string">"11110010"</span>,</span><br><span class="line">    <span class="string">"00011110"</span>,</span><br><span class="line">    <span class="string">"10011101"</span>,</span><br><span class="line">    <span class="string">"11001001"</span>,</span><br><span class="line">    <span class="string">"11000111"</span>,</span><br><span class="line">    <span class="string">"01100101"</span>,</span><br><span class="line">    <span class="string">"00011110"</span>,</span><br><span class="line">    <span class="string">"10011111"</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># base32解密</span></span><br><span class="line">flag_bits = <span class="string">""</span>.join(flag_bits)</span><br><span class="line">result = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(flag_bits),<span class="number">5</span>):</span><br><span class="line">    index = flag_bits[i:i+<span class="number">5</span>]</span><br><span class="line">    index = int(index,<span class="number">2</span>)</span><br><span class="line">    result += flag_alphabet[index]</span><br><span class="line"></span><br><span class="line">print(<span class="string">"result: "</span>, result)</span><br></pre></td></tr></table></figure></p>
-<p>所以最后解出来是<br><img src="/assets/2019def/9.png" alt=""></p>
+<p>所以最后解出来是<br><img src="/assets/2019def/8.png" alt=""></p>
+<h4 id="nodb"><a href="#nodb" class="headerlink" title="nodb"></a>nodb</h4><p>源码有个这个东西<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validateForm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  str = <span class="built_in">document</span>.forms[<span class="string">"myForm"</span>][<span class="string">"password"</span>].value </span><br><span class="line">  ptr = allocate(intArrayFromString(str), <span class="string">'i8'</span>, ALLOC_NORMAL);</span><br><span class="line">  ret = UTF8ToString(_authenticate(ptr));</span><br><span class="line">  <span class="built_in">console</span>.log(ret);</span><br><span class="line">  <span class="keyword">if</span> (ret == <span class="string">"success"</span>) <span class="built_in">document</span>.getElementsByClassName(<span class="string">"text"</span>)[<span class="number">0</span>].innerText = <span class="string">"SUCCESS"</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -534,7 +535,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#cant-even-unplug-it"><span class="toc-number">1.</span> <span class="toc-text">cant_even_unplug_it</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redacted-puzzle"><span class="toc-number">2.</span> <span class="toc-text">redacted-puzzle</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#cant-even-unplug-it"><span class="toc-number">1.</span> <span class="toc-text">cant_even_unplug_it</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redacted-puzzle"><span class="toc-number">2.</span> <span class="toc-text">redacted-puzzle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nodb"><span class="toc-number">3.</span> <span class="toc-text">nodb</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -547,6 +548,10 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
@@ -1254,17 +1259,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
@@ -1275,6 +1275,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1304,12 +1309,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
@@ -1324,12 +1329,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1475,17 +1480,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     

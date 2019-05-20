@@ -357,13 +357,12 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
             
-                <span>code breaking lumenserial</span>
+                <span>code breaking thejs</span>
         </a>
         <div class="abstract-content">
-            小菜鸡太菜了，只能复现  
-题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -387,12 +386,13 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
             
-                <span>2019 0ctf wp</span>
+                <span>code breaking lumenserial</span>
         </a>
         <div class="abstract-content">
-            babyrsa首先pubkey.py可以看到n的值1234from sage.all import GF, PolynomialRingP=PolynomialRing(GF(2),'x')e = 31337n = P('x^2048 + x^2046 + x^2043 + x^2040 + x^2036 + x^2035 + x^2034 + x^2033 + x^2031 + x^2029 + x^2025 + x^2024 + x^2022 + x^2019 + x^2018 + x^2017 + x^2012 + x^2007 + x^2006 + x^2004 + x^2000...
+            小菜鸡太菜了，只能复现  
+题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -403,7 +403,7 @@ height:50vh;
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
     
 </div>
             
@@ -571,6 +571,36 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
+            
+                <span>2019安恒杯二月赛</span>
+        </a>
+        <div class="abstract-content">
+            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
+所以可以猜测是将图片命名...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">
             
                 <span>imap_open()实现远程任意代码执行（CVE-2018-19518）</span>
@@ -592,36 +622,6 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="cve">cve</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
-            
-                <span>2019安恒杯二月赛</span>
-        </a>
-        <div class="abstract-content">
-            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
-所以可以猜测是将图片命名...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
     
 </div>
             
@@ -1490,6 +1490,10 @@ execute方法1234567$monggdb ...
     
     
     
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 48
@@ -1543,17 +1547,12 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
@@ -1564,6 +1563,11 @@ execute方法1234567$monggdb ...
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1593,12 +1597,12 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
@@ -1613,12 +1617,12 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1764,17 +1768,17 @@ execute方法1234567$monggdb ...
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
