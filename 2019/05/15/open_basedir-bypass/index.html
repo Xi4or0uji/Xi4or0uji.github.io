@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">738</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">811</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -409,6 +409,7 @@ height:50vh;
 <h4 id="SplFileInfo-getRealPath列目录"><a href="#SplFileInfo-getRealPath列目录" class="headerlink" title="SplFileInfo::getRealPath列目录"></a>SplFileInfo::getRealPath列目录</h4><p>SplFileInfo类是一个用来为单个文件的信息提供高级的面向对象的接口，这个类可以进行很多文件的方法，其中就有一个方法和之前的<code>realpath</code>很相似，就是<code>getRealPath</code>，这个方法在获取文件路径的时候，如果存入一个不存在的路径时，会返回false，否则返回绝对路径，而且他还直接忽略了<code>open_basedir</code>的设定<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'open_basedir'</span>, dirname(<span class="keyword">__FILE__</span>));</span><br><span class="line">printf(<span class="string">"open_basedir: %s &lt;br/&gt;&lt;br/&gt;"</span>, ini_get(<span class="string">'open_basedir'</span>));</span><br><span class="line">$basedir = <span class="string">'d:/test/'</span>;</span><br><span class="line">$arr = <span class="keyword">array</span>();</span><br><span class="line">$chars = <span class="string">'abcdefghijklmnopqrstuvwxyz0123456789'</span>;</span><br><span class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; strlen($chars); $i++) &#123;</span><br><span class="line">    $info = <span class="keyword">new</span> SplFileInfo($basedir . $chars[$i] . <span class="string">'&lt;&lt;'</span>);</span><br><span class="line">    $re = $info-&gt;getRealPath();</span><br><span class="line">    <span class="keyword">if</span> ($re) &#123;</span><br><span class="line">        <span class="keyword">echo</span> $re.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="/assets/opendir/3.png" alt=""><br>这里基本就是<code>realpath</code>的利用，相差不大，甚至还简单一点  </p>
 <h4 id="bindtextdomain"><a href="#bindtextdomain" class="headerlink" title="bindtextdomain"></a>bindtextdomain</h4><p>bindtextdomain是一个域的操作的函数？？</p>
+<h4 id="利用文件夹bypass"><a href="#利用文件夹bypass" class="headerlink" title="利用文件夹bypass"></a>利用文件夹bypass</h4><p>之前师兄在群上发过一张图<br><img src="/assets/opendir/6.jpg" alt=""><br>可以看到<code>open_basedir</code>是<code>/var/www/html</code>，但是经过这些操作居然能读到根目录了，先跟过去看一下底层的实现是怎样的，它们对应的函数是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ini_set: PHP_FUNCTION(ini_set)</span><br><span class="line">ini_get: PHP_FUNCTION(ini_get)</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -539,7 +540,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DirectoryIterator-Glob列目录"><span class="toc-number">2.</span> <span class="toc-text">DirectoryIterator + Glob列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#realpath列目录"><span class="toc-number">3.</span> <span class="toc-text">realpath列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SplFileInfo-getRealPath列目录"><span class="toc-number">4.</span> <span class="toc-text">SplFileInfo::getRealPath列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bindtextdomain"><span class="toc-number">5.</span> <span class="toc-text">bindtextdomain</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DirectoryIterator-Glob列目录"><span class="toc-number">2.</span> <span class="toc-text">DirectoryIterator + Glob列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#realpath列目录"><span class="toc-number">3.</span> <span class="toc-text">realpath列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SplFileInfo-getRealPath列目录"><span class="toc-number">4.</span> <span class="toc-text">SplFileInfo::getRealPath列目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bindtextdomain"><span class="toc-number">5.</span> <span class="toc-text">bindtextdomain</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用文件夹bypass"><span class="toc-number">6.</span> <span class="toc-text">利用文件夹bypass</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1277,9 +1278,48 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 49
+        Total : 50
         </div>
         <!-- search  -->
         
@@ -1292,6 +1332,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href="/2019/05/30/2019强网杯wp/">2019强网杯wp</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1345,17 +1390,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1385,12 +1430,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1405,12 +1450,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1556,17 +1601,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
-    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1576,9 +1621,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1619,13 +1664,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
+    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     
