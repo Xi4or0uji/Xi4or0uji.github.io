@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">782</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">838</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -408,7 +408,7 @@ height:50vh;
 <h3 id="数据溢出"><a href="#数据溢出" class="headerlink" title="数据溢出"></a>数据溢出</h3><p>首先就是最基础也最好懂的数据溢出，我们先看一下mysql的数据范围<br><img src="/assets/sql/10.png" alt=""><br>这里需要注意一点的就是，整数出现溢出以后会报错的情况在mysql5.5+才会有，不然是不会进行报错的，当然，我们在做溢出的时候也不用看着上面的数据范围去选择数据进行溢出，只需要用一个小的数进行按位取反就行<br><img src="/assets/sql/11.png" alt=""><br>当然这里重点是要讲利用函数进行溢出和利用，先一个个函数讲过去  </p>
 <h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p>这个函数是用来返回e(自然对数的底)到X次方的值此函数返回e(自然对数的底)的X次方的值，但是如果超出范围是会报错的<br><img src="/assets/sql/12.png" alt=""><br>而我们知道字母的值是很小的，好像是0？没记错的话，这个时候如果取个反而且exp一下的话，肯定是会超出范围的<br><img src="/assets/sql/13.png" alt=""><br>注意一个坑点，当mysql版本&lt;=5.5.4的时候可以将报错信息显示出来，也就是会显示成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; select exp(~(select user()));</span><br><span class="line">ERROR 1690 (22003): DOUBLE value is out of range in &apos;exp(~(&apos;root@localhost&apos;))&apos;</span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure></p>
 <p>可是mysql&gt;5.5.4的时候就只报错不显示信息了，而且报错信息有长度显示，不能超过512  </p>
-<h3 id="xpath语法错误"><a href="#xpath语法错误" class="headerlink" title="xpath语法错误"></a>xpath语法错误</h3>
+<h3 id="xpath语法错误"><a href="#xpath语法错误" class="headerlink" title="xpath语法错误"></a>xpath语法错误</h3><h3 id="主键重复"><a href="#主键重复" class="headerlink" title="主键重复"></a>主键重复</h3><h3 id="神奇的特性"><a href="#神奇的特性" class="headerlink" title="神奇的特性"></a>神奇的特性</h3><h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><h3 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h3><h3 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h3><h3 id="报错盲注"><a href="#报错盲注" class="headerlink" title="报错盲注"></a>报错盲注</h3><h2 id="一些神奇的技巧"><a href="#一些神奇的技巧" class="headerlink" title="一些神奇的技巧"></a>一些神奇的技巧</h2><h3 id="读表名和列名的其他方式"><a href="#读表名和列名的其他方式" class="headerlink" title="读表名和列名的其他方式"></a>读表名和列名的其他方式</h3><h3 id="没有列名的sql注入"><a href="#没有列名的sql注入" class="headerlink" title="没有列名的sql注入"></a>没有列名的sql注入</h3><h3 id="通过sql注入读取文件"><a href="#通过sql注入读取文件" class="headerlink" title="通过sql注入读取文件"></a>通过sql注入读取文件</h3>
     </article>
     <!-- license  -->
     
@@ -533,7 +533,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#回显注入"><span class="toc-number">1.</span> <span class="toc-text">回显注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题"><span class="toc-number">1.1.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错注入"><span class="toc-number">2.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据溢出"><span class="toc-number">2.1.</span> <span class="toc-text">数据溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#exp"><span class="toc-number">2.1.1.</span> <span class="toc-text">exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xpath语法错误"><span class="toc-number">2.2.</span> <span class="toc-text">xpath语法错误</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#回显注入"><span class="toc-number">1.</span> <span class="toc-text">回显注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题"><span class="toc-number">1.1.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错注入"><span class="toc-number">2.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据溢出"><span class="toc-number">2.1.</span> <span class="toc-text">数据溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#exp"><span class="toc-number">2.1.1.</span> <span class="toc-text">exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xpath语法错误"><span class="toc-number">2.2.</span> <span class="toc-text">xpath语法错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主键重复"><span class="toc-number">2.3.</span> <span class="toc-text">主键重复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神奇的特性"><span class="toc-number">2.4.</span> <span class="toc-text">神奇的特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盲注"><span class="toc-number">3.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#布尔盲注"><span class="toc-number">3.1.</span> <span class="toc-text">布尔盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间盲注"><span class="toc-number">3.2.</span> <span class="toc-text">时间盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错盲注"><span class="toc-number">3.3.</span> <span class="toc-text">报错盲注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些神奇的技巧"><span class="toc-number">4.</span> <span class="toc-text">一些神奇的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#读表名和列名的其他方式"><span class="toc-number">4.1.</span> <span class="toc-text">读表名和列名的其他方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#没有列名的sql注入"><span class="toc-number">4.2.</span> <span class="toc-text">没有列名的sql注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过sql注入读取文件"><span class="toc-number">4.3.</span> <span class="toc-text">通过sql注入读取文件</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -546,46 +546,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1407,7 +1367,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1417,7 +1377,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1467,12 +1427,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1614,9 +1574,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1626,9 +1586,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
     
@@ -1640,9 +1600,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1683,9 +1643,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
