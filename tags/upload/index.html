@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -201,10 +203,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -220,32 +220,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Xi4or0uji's blog
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -357,295 +346,29 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/12/RSA初探/">
+        <a class="abstract-title" href="/2019/07/10/文件上传汇总/">
             
-                <span>RSA初探</span>
+                <span>文件上传汇总</span>
         </a>
         <div class="abstract-content">
-            最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波  
-简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &lt; e &lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元d，即 ( e * d ) % φ = 15、加解密：c = ( m ^ e ) % n，m = ( c ^ d ) % n，c为密文，m为明文，(n,e)为公钥对，(n,d)为私钥对  
-模逆...
+            前言很早就应该出这篇了，之前国赛出题耽搁了一下，补坑补坑这个漏洞相信有点接触的都很清楚要干嘛的，就不解释了，直接开讲  
+常见的上传文件的校验方法这个漏洞体系庞大，不知道从何讲起，所以就先根据这些校验的方法将绕过的方法说一说  
+客户端校验绕过这个检测是在前端，所以直接抓个包改一下就能绕过上传文件了  
+服务端绕过content-type检验这种检验抓包修改content-type即可  
+文件幻数检测在文件内容前加入对应的文件头信息，GIF89a、‰PNG之类的  
+文件加载检测如果图片是通过渲染的方式进行测试的话，可以将一句话木马放在图片最后，尝试一下能不能执行  
+后缀名大小写有些...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/12</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/10</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="RSA">RSA</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
-            
-                <span>2018安恒杯十一月赛</span>
-        </a>
-        <div class="abstract-content">
-            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/07/安恒杯一月赛/">
-            
-                <span>2019安恒杯一月赛</span>
-        </a>
-        <div class="abstract-content">
-            webbabygo源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;?php@error_reporting(1);include 'flag.php';class baby&#123;    protected $skyobj;    public $aaa;    public $bbb;    function __construct()    &#123;        $this-&gt;sk...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/2019-hgame-week2/">
-            
-                <span>2019 hgame week2</span>
-        </a>
-        <div class="abstract-content">
-            easy_php这题进去首先可以看到一个index.html，题目是where is my robots，访问一下robots.txt，提示img/index.php，访问一下这个php文件，就到了代码审计了12345678&lt;?php   error_reporting(0);   $img = $_GET['img'];   if(!isset($img))       $img = '1';   $img = str_replace('../', '', $img);   include_once($img.".php");   highlight_file(__FILE__)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/31/2018SWPUCTF/">
-            
-                <span>2018SWPUCTF</span>
-        </a>
-        <div class="abstract-content">
-            用优惠码 买个X？这题首先登陆进去会有一个15位优惠码，然后用它的时候又说，优惠码过期，要用24位的优惠码扫一下泄露扫出来个www.zip123456789101112131415161718192021222324252627&lt;?php//生成优惠码$_SESSION['seed']=rand(0,999999999);function youhuima()&#123;	mt_srand($_SESSION['seed']);    $str_rand = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXY...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/29/2019-hgame-week1/">
-            
-                <span>2019 hgame week1</span>
-        </a>
-        <div class="abstract-content">
-            谁吃了我的flag这题题目的前半个flag提示了是泄露扫一下泄露可以扫出来.swp泄露，访问一下index.html.swp可以下载到一个文件，打开就能看到flag了
-换头大作战跟着题目的要求全部换好就有flag了
-very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.php");if(strpos("vidar",$_GET['id'])!==FALSE)  die("&lt;p&gt;干巴爹&lt;/p&gt;");$_GET['id'] = urldecode($_GET['id']);...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/20/n1ctf-writeup/">
-            
-                <span>n1ctf writeup</span>
-        </a>
-        <div class="abstract-content">
-            之前在学其他知识点的时候看到了这个比赛，顺便学一哈  
-77777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25)
-这时分数变成了123，如果我们匹配一个错的字符分数会不变，因此就是like盲注，脚本如下12345678910111213141516171819202122232425import reque...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/18/javascript原型链污染/">
-            
-                <span>javascript原型链污染</span>
-        </a>
-        <div class="abstract-content">
-            前几天大佬们培训讲到了一个没怎么听过的东西，记一记做个笔记。  
-原型对象介绍肉鸡只是一个小后台，对于前端真的不怎么会，先介绍一哈在javascript里面只有一种结构，那就是对象，每个对象都会有一个原型对象，每个原型对象引申出其对应的原型对象，经过一层层的调用，就形成了原型链。这句话讲得有点难懂，肉鸡大概理解下，可以理解成每个类都有父类，父类下面又会有子类，一层层调用过去其实就是他说的原型链的过程。实例的对象可以通过__proto__去访问它的原型对象。原型对象的重点是null。  
-原型链污染小演示可以看到字符b的indexof方法被赋值以后，字符a调用indexof方法的时候，也会...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/18</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="javascript">javascript</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/16/lctf-babyphps-revenge/">
-            
-                <span>lctf babyphp&#39;s revenge</span>
-        </a>
-        <div class="abstract-content">
-            题目源码很短，就几行1234567891011121314151617181920index.php&lt;?phphighlight_file(__FILE__);$b = 'implode';call_user_func($_GET['f'],$_POST);session_start();if(isset($_GET['name']))&#123;    $_SESSION['name'] = $_GET['name'];&#125;var_dump($_SESSION);$a = array(reset($_SESSION),'welcome_to_the_lctf2018');...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/16</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/15/flask之ssti模板注入/">
-            
-                <span>flask之ssti模板注入</span>
-        </a>
-        <div class="abstract-content">
-            以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧  
-漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一句，模板其实就是一个html而已123&lt;html&gt;&lt;div&gt;&#123;$name&#125;&lt;/div&gt;&lt;/html&gt;
-在这个模板上有一个nam...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="upload">upload</a>
     
 </div>
             
@@ -654,94 +377,8 @@ very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.p
     
     <!-- paginator  -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">NEXT &#62;</a>
-    </nav>
-    
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/avatar.jpg">
-    <div class="profile-name">Xi4or0uji</div>
-    
-    <div class="profile-signature">
-        一只还在路上的小蒟蒻的博客
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:1502404131@qq.com" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//xi4or0uji.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//aluvion.github.io" target="_black">Twings</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">

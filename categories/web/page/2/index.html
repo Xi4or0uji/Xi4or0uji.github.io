@@ -346,18 +346,21 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/19/2019-DDCTF-web-writeup/">
+        <a class="abstract-title" href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/">
             
-                <span>2019 DDCTF web writeup</span>
+                <span>2019 全国大学生信息安全竞赛 writeup</span>
         </a>
         <div class="abstract-content">
-            这一届的比赛web题虽然脑洞略大，但是还是有很多收获的，记录一下  
-滴一题大脑洞题……首先进去题目看到参数jpg后面有段字符串，很像base64尝试一下base64解密，又出来一段base64，再解密一次是十六进制，转成字符串是flag.jpg在这里我们可以猜测一下后台可能会读文件出来，我们倒序加密一下index.php去请求看一下回应确实可以拿出index.php的源码12345678910111213141516171819202122232425&lt;?php/* * https://blog.csdn.net/FengBanLiuYun/article/details/806...
+            上周末跟队友打了一场国赛，题目质量还是不错的，记录下wp  
+misc签到摄像头检测到三个人头就行了  
+saleae百度logicdata，发现有个工具，打开就是一些波形，直接对着时钟位读二进制转成ascii码就能出flag了flag{12071397-19d1-48e6-be8c-784b89a95e07}然后无敌头铁王第二天发现SPI通道直接就会转字符了，第一天手撕是真的头铁……   
+usbasp还是SPI通道，将标准位调高就直接出flag了
+webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123456789101112131415161718192021222...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
             </div>
             <!-- tags  -->
             
@@ -376,19 +379,18 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+        <a class="abstract-title" href="/2019/04/19/2019-DDCTF-web-writeup/">
             
-                <span>2019西湖论剑web writeup</span>
+                <span>2019 DDCTF web writeup</span>
         </a>
         <div class="abstract-content">
-            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
-猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
-访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+            这一届的比赛web题虽然脑洞略大，但是还是有很多收获的，记录一下  
+滴一题大脑洞题……首先进去题目看到参数jpg后面有段字符串，很像base64尝试一下base64解密，又出来一段base64，再解密一次是十六进制，转成字符串是flag.jpg在这里我们可以猜测一下后台可能会读文件出来，我们倒序加密一下index.php去请求看一下回应确实可以拿出index.php的源码12345678910111213141516171819202122232425&lt;?php/* * https://blog.csdn.net/FengBanLiuYun/article/details/806...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/19</span>
             </div>
             <!-- tags  -->
             
@@ -437,6 +439,66 @@ wish list
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+            
+                <span>2019西湖论剑web writeup</span>
+        </a>
+        <div class="abstract-content">
+            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
+猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
+访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
+            
+                <span>code breaking thejs</span>
+        </a>
+        <div class="abstract-content">
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
             
                 <span>2019 0ctf wp</span>
@@ -473,35 +535,6 @@ wish list
         <div class="abstract-content">
             小菜鸡太菜了，只能复现  
 题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
-            
-                <span>code breaking thejs</span>
-        </a>
-        <div class="abstract-content">
-            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -609,36 +642,6 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/11/2019-hgame-week4/">
-            
-                <span>2019 hgame week4</span>
-        </a>
-        <div class="abstract-content">
-            happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__globals__['current_app'].config
-然后得到回显1&lt;Config &#123;'ENV': 'production', 'DEBUG': False, 'TES...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
             
@@ -1551,9 +1554,60 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 53
         </div>
         <!-- search  -->
         
@@ -1569,12 +1623,17 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">07/10</span><a class="archive-post-title" href="/2019/07/10/文件上传汇总/">文件上传汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">06/27</span><a class="archive-post-title" href="/2019/06/27/php反序列化由浅到深/">php反序列化由浅到深</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/sql注入汇总/">SQL注入汇总</a>
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/SQL注入汇总/">SQL注入汇总</a>
         </li>
     
     
@@ -1624,17 +1683,17 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1644,7 +1703,7 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1674,12 +1733,12 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1845,33 +1904,37 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
-    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
+        <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
-    
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
+    
+        <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1910,13 +1973,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
