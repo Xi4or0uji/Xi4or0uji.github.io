@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/01/15/flask之ssti模板注入/">
+            
+                <span>flask之ssti模板注入</span>
+        </a>
+        <div class="abstract-content">
+            以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧  
+漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一句，模板其实就是一个html而已123&lt;html&gt;&lt;div&gt;&#123;$name&#125;&lt;/div&gt;&lt;/html&gt;
+在这个模板上有一个nam...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/15</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2018/11/29/xxe漏洞攻击与防御/">
             
                 <span>xxe漏洞攻击与防御</span>
@@ -439,35 +470,6 @@ include me这题点进去可以看到一个改变语言的选择框，选下其�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/11/14/很简单的xss/">
-            
-                <span>很简单的xss</span>
-        </a>
-        <div class="abstract-content">
-            继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..嗯，这波操作有丶东西，style属性里面的语句可控，就可以搞事情了，因为现在的浏览器版本比较高，尝试了一下直接利用js伪代码发现不行，只能一个个匹配然后弹回去自己的平台最后脚本1234567891011121314i...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="xss">xss</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/11/14/你拿不到我的源码/">
             
                 <span>你拿不到我的源码</span>
@@ -485,6 +487,35 @@ include me这题点进去可以看到一个改变语言的选择框，选下其�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="web+re">web+re</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/11/14/很简单的xss/">
+            
+                <span>很简单的xss</span>
+        </a>
+        <div class="abstract-content">
+            继续是校赛题，这题我们进去看到一个留言框，然后题目提示写下建议，管理员会去看的，结合题目，确定是反射型xss了，尝试一下插入一下js语句进留言板，发现没反应，看下源码发现尖括号被转义了………emmm………看来想直接简单粗暴的利用是不行的了，继续回去上一页看一下，看见有个选择框，可以选择字体的样式，抓下包改下值成1212，发现在下一个页面的style属性里面有1212………..嗯，这波操作有丶东西，style属性里面的语句可控，就可以搞事情了，因为现在的浏览器版本比较高，尝试了一下直接利用js伪代码发现不行，只能一个个匹配然后弹回去自己的平台最后脚本1234567891011121314i...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="xss">xss</a>
     
 </div>
             
@@ -607,36 +638,6 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="xss">xss</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/10/27/hacklu-2018-Baby-PHP/">
-            
-                <span>hacklu 2018 Baby PHP</span>
-        </a>
-        <div class="abstract-content">
-            这个比赛只有两道web题，一题代码审计，另一题神仙题？？贼少人做……….这篇博客先只讲一题，另一题用另一篇博客讲   
-题目1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556 &lt;?phprequire_once('flag.php');error_reporting(0);if(!isset($_GET['msg']))&#123;    highlight_file(__FILE__);    die();&#125;@$ms...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
     
 </div>
             
@@ -1533,10 +1534,9 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
     
     
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 53
+        Total : 54
         </div>
         <!-- search  -->
         
@@ -1549,6 +1549,11 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href="/2019/07/11/php-fpm/">php-fpm</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1622,17 +1627,17 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1682,12 +1687,12 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1829,9 +1834,9 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1839,9 +1844,11 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1857,9 +1864,9 @@ Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1902,9 +1909,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     

@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/25/CONFidence-CTF的一道题/">
+            
+                <span>CONFidence CTF的一道题</span>
+        </a>
+        <div class="abstract-content">
+            这道题是之前在看先知的文章看到了，看了一下发现有点有趣，记录一下  
+题目地址：http://web50.zajebistyc.tf/预期解是svg xss，非预期是缓存投毒首先我们先看一下题目，进去是登录框，随便乱填就可以进去进去以后有一个头像上传的地方和secret的值，猜测应该是拿到管理员的secret值，然后利用点应该就是头像上传的地方了  
+SVG XSS在测试的过程中发现可以上传任意后缀的文件，但是文件头必须是图片格式且尺寸只能是100*100，而且上传html文件时发现服务器会将文件当做图片解析，因此后台应该是根据文件头去进行解析的，所以我们可以找一个可以进行xss的图片，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/">
             
                 <span>2019 全国大学生信息安全竞赛 writeup</span>
@@ -409,6 +440,37 @@ webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+            
+                <span>2019西湖论剑web writeup</span>
+        </a>
+        <div class="abstract-content">
+            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
+猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
+访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/04/11/rips-2017/">
             
                 <span>rips 2017</span>
@@ -439,25 +501,23 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
             
-                <span>2019西湖论剑web writeup</span>
+                <span>code breaking thejs</span>
         </a>
         <div class="abstract-content">
-            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
-猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
-访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
     
 </div>
             
@@ -506,35 +566,6 @@ wish list
         <div class="abstract-content">
             小菜鸡太菜了，只能复现  
 题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
-            
-                <span>code breaking thejs</span>
-        </a>
-        <div class="abstract-content">
-            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -617,41 +648,10 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/15/利用mysql-local-infile读取客户端文件/">
-            
-                <span>利用mysql local infile读取客户端文件</span>
-        </a>
-        <div class="abstract-content">
-            这个利用点是之前补hgame的题看到的一个考点，记录一下  
-MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手阶段中会：1234客户端和用户端交换各自功能根据需要创建SSL通道接收客户端的回应验证客户端身份进行通信
-我们在linux里面tcpdump一下抓取数据包tcpdump -i lo -w mysql.pcap port 3306，然后连接mysql看下数据包可以看到登录的数据包里面有个Can Use LOAD DATA LOCAL开启了，只要开启了这个，就可以将运行mysql客户端的主机的文件传输到远程服务器中而load data infile这...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/web/page/3/">3</a><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><a class="extend next" rel="next" href="/categories/web/page/3/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/categories/web/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/web/page/3/">3</a><a class="page-number" href="/categories/web/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/categories/web/page/6/">6</a><a class="extend next" rel="next" href="/categories/web/page/3/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1538,10 +1538,9 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
     
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 53
+        Total : 54
         </div>
         <!-- search  -->
         
@@ -1554,6 +1553,11 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href="/2019/07/11/php-fpm/">php-fpm</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1627,17 +1631,17 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1687,12 +1691,12 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1834,9 +1838,9 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1844,9 +1848,11 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1862,9 +1868,9 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1907,9 +1913,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
