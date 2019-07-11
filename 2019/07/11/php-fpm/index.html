@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">977</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">978</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -406,7 +406,7 @@ height:50vh;
 <h3 id="Fastcgi"><a href="#Fastcgi" class="headerlink" title="Fastcgi"></a>Fastcgi</h3><p>它其实就是一个通信协议，跟<code>http</code>那些一样的，都是进行数据交换的一种通道<br>我们都知道<code>http</code>协议是浏览器和服务器中间件进行数据交换用的协议，类似的，<code>fastcgi</code>就是服务器中间件和某个语言的后端进行数据交换所使用的协议了，和<code>http</code>协议一样，<code>fastcgi</code>协议也是有消息头和消息体的  </p>
 <h4 id="消息头"><a href="#消息头" class="headerlink" title="消息头"></a>消息头</h4><p>主要消息头有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Version: 用于表示 FastCGI 协议版本号。</span><br><span class="line">Type: 用于标识 FastCGI 消息的类型 - 用于指定处理这个消息的方法。</span><br><span class="line">RequestID: 标识出当前所属的 FastCGI 请求。</span><br><span class="line">Content Length: 数据包包体所占字节数。</span><br></pre></td></tr></table></figure></p>
 <h4 id="消息类型"><a href="#消息类型" class="headerlink" title="消息类型"></a>消息类型</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BEGIN_REQUEST: 从 Web 服务器发送到 Web 应用，表示开始处理新的请求。</span><br><span class="line">ABORT_REQUEST: 从 Web 服务器发送到 Web 应用，表示中止一个处理中的请求。比如，用户在浏览器发起请求后按下浏览器上的「停止按钮」时，会触发这个消息。</span><br><span class="line">END_REQUEST: 从 Web 应用发送给 Web 服务器，表示该请求处理完成。返回数据包里包含「返回的代码」，它决定请求是否成功处理。</span><br><span class="line">PARAMS: 「流数据包」，从 Web 服务器发送到 Web 应用。此时可以发送多个数据包。发送结束标识为从 Web 服务器发出一个长度为 0 的空包。且 PARAMS 中的数据类型和 CGI 协议一致。即我们使用 $_SERVER 获取到的系统环境等。</span><br><span class="line">STDIN: 「流数据包」，用于 Web 应用从标准输入中读取出用户提交的 POST 数据。</span><br><span class="line">STDOUT: 「流数据报」，从 Web 应用写入到标准输出中，包含返回给用户的数据。</span><br></pre></td></tr></table></figure>
-<h4 id="交互过程"><a href="#交互过程" class="headerlink" title="交互过程"></a>交互过程</h4><p>既然上面都讲了那就顺便把交互过程也讲了（菜鸡好啰嗦啊……..<br>首先，虽然服务器收到用户的请求，但是请求的处理都是交给web应用完成的。服务器会尝试通过套接字（unix或tcp）连接到<code>fastcgi</code>进程。<br><code>fastcgi</code>进程查看接收到的连接，选择是接收还是拒绝连接，接收的话就去标准流中读数据包。<br>如果<code>fastcgi</code>进程在指定的时间没有成功接收到连接，，在请求失败，否则服务器发送一个包含唯一的<code>RequestID</code>的<code>BEGIN_REQUEST</code>类型的信息给<code>fastcgi</code>进程，通过这一个id去区别该请求，然后，服务器发送任意数量的<code>PARAMS</code>类型信息到<code>fastcgi</code>进程，发送完毕的时候发个空的<code>PARAMS</code>进行确认和关闭流。同时，如果用户发送了<code>POST</code>数据的话，服务器会将它写进标准流发给<code>fastcgi</code>进程，当<code>POST</code>数据发送完时，也是发送一个空的<code>STDIN</code>来关闭流。<br>当<code>fastcgi</code>进程在接收到<code>BEGINREQUEST</code>类型的数据包时，可以通过响应<code>ENDREQUEST</code>去拒绝这个请求，也可以接收和处理它。如果接收，<code>fastcgi</code>进程就会将等待接收的所有的<code>PARAMS</code>和<code>STADIN</code>，处理请求并将返回的结果写进<code>STDOUT</code>，处理完成后，发个空包去关闭流，同时发个<code>END_REQUEST</code>类型的信息给服务器，告诉他是否发生错误异常。  </p>
+<h4 id="交互过程"><a href="#交互过程" class="headerlink" title="交互过程"></a>交互过程</h4><p>既然上面都讲了那就顺便把交互过程也讲了（菜鸡好啰嗦啊……..<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">首先，虽然服务器收到用户的请求，但是请求的处理都是交给web应用完成的。服务器会尝试通过套接字（unix或tcp）连接到fastcgi进程。  </span><br><span class="line">fastcgi进程查看接收到的连接，选择是接收还是拒绝连接，接收的话就去标准流中读数据包。  </span><br><span class="line">如果fastcgi进程在指定的时间没有成功接收到连接，，在请求失败，否则服务器发送一个包含唯一的RequestID的BEGIN_REQUEST类型的信息给fastcgi进程，通过这一个id去区别该请求，然后，服务器发送任意数量的PARAMS类型信息到fastcgi进程，发送完毕的时候发个空的PARAMS进行确认和关闭流。同时，如果用户发送了POST数据的话，服务器会将它写进标准流发给fastcgi进程，当POST数据发送完时，也是发送一个空的STDIN来关闭流。  </span><br><span class="line">当fastcgi进程在接收到BEGINREQUEST类型的数据包时，可以通过响应ENDREQUEST去拒绝这个请求，也可以接收和处理它。如果接收，fastcgi进程就会将等待接收的所有的PARAMS和STADIN，处理请求并将返回的结果写进STDOUT，处理完成后，发个空包去关闭流，同时发个END_REQUEST类型的信息给服务器，告诉他是否发生错误异常。</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -1383,58 +1383,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 54
@@ -1518,12 +1466,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1534,11 +1487,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1568,12 +1516,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
@@ -1747,9 +1695,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
-        <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1759,15 +1707,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1810,9 +1758,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
