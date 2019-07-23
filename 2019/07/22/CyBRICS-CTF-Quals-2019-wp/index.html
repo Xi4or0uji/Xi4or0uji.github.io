@@ -22,7 +22,7 @@
     <meta name="description" content="还在路上">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Xi4or0uji</title>
+    <title>CyBRICS CTF Quals 2019 wp · Xi4or0uji</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Xi4or0uji&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">CyBRICS CTF Quals 2019 wp</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">Xi4or0uji's blog</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            CyBRICS CTF Quals 2019 wp
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">29</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/07/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,313 +399,41 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/17/2019GWHT考核题wp/">
-            
-                <span>2019GWHT考核题wp</span>
-        </a>
-        <div class="abstract-content">
-            本来想着招新完讲完题就不用题解了，但是看见有些小朋友还是很懵逼，补上一篇  
-WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的是对http头的各种操作还有抓包，首先进去题目看到一堆骚话，完了以后就是问do you know GWHT browser?，很明显是要我们改访问的浏览器，接着是only accept www.gwht.com to visit this website，修改访问网站，然后you are not the localhost, prprprpr，要求本地访问，然后就是i only know Spanish........
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>前段时间看到了这个比赛，于是就打了一波了，菜鸡还是一如既往的菜  </p>
+
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/11/2019-hgame-week4/">
-            
-                <span>2019 hgame week4</span>
-        </a>
-        <div class="abstract-content">
-            happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__globals__['current_app'].config
-然后得到回显1&lt;Config &#123;'ENV': 'production', 'DEBUG': False, 'TES...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/06/2019-hgame-week3/">
-            
-                <span>2019 hgame week3</span>
-        </a>
-        <div class="abstract-content">
-            神奇的md5扫到泄露拿到swp文件，恢复12345678910111213141516171819202122&lt;?phpsession_start();error_reporting(0);    if (@$_POST['username'] and @$_POST['password'] and @$_POST['code'])    &#123;        $username = (string)$_POST['username'];        $password = (string)$_POST['password'];        $code     = (st...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/26/2018-Tokyo-Westerns-CTF/">
-            
-                <span>2018 Tokyo Westerns CTF</span>
-        </a>
-        <div class="abstract-content">
-            WEBSimple Auth首先可以拿到源码1234567891011121314151617181920212223242526272829303132 &lt;?phprequire_once 'flag.php';if (!empty($_SERVER['QUERY_STRING'])) &#123;    $query = $_SERVER['QUERY_STRING'];    $res = parse_str($query);    if (!empty($res['action']))&#123;        $action = $res['action'];    &#...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2018百越杯wp/">
-            
-                <span>2018百越杯wp</span>
-        </a>
-        <div class="abstract-content">
-            WEBwarmup源码1234567891011121314151617 &lt;?php require_once('flag.php'); error_reporting(0); if(!isset($_GET['u']))&#123;     highlight_file(__FILE__);     die(); &#125;else&#123;     $i=$_GET['i'];     $u=$_GET['u'];     if($_GET['u']!="Hello World")&#123;         die('die...');     &#125;     as...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
-            
-                <span>2019tamuctf</span>
-        </a>
-        <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/2019-hgame-week2/">
-            
-                <span>2019 hgame week2</span>
-        </a>
-        <div class="abstract-content">
-            easy_php这题进去首先可以看到一个index.html，题目是where is my robots，访问一下robots.txt，提示img/index.php，访问一下这个php文件，就到了代码审计了12345678&lt;?php   error_reporting(0);   $img = $_GET['img'];   if(!isset($img))       $img = '1';   $img = str_replace('../', '', $img);   include_once($img.".php");   highlight_file(__FILE__)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/31/2018SWPUCTF/">
-            
-                <span>2018SWPUCTF</span>
-        </a>
-        <div class="abstract-content">
-            用优惠码 买个X？这题首先登陆进去会有一个15位优惠码，然后用它的时候又说，优惠码过期，要用24位的优惠码扫一下泄露扫出来个www.zip123456789101112131415161718192021222324252627&lt;?php//生成优惠码$_SESSION['seed']=rand(0,999999999);function youhuima()&#123;	mt_srand($_SESSION['seed']);    $str_rand = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXY...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/29/2019-hgame-week1/">
-            
-                <span>2019 hgame week1</span>
-        </a>
-        <div class="abstract-content">
-            谁吃了我的flag这题题目的前半个flag提示了是泄露扫一下泄露可以扫出来.swp泄露，访问一下index.html.swp可以下载到一个文件，打开就能看到flag了
-换头大作战跟着题目的要求全部换好就有flag了
-very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.php");if(strpos("vidar",$_GET['id'])!==FALSE)  die("&lt;p&gt;干巴爹&lt;/p&gt;");$_GET['id'] = urldecode($_GET['id']);...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/20/n1ctf-writeup/">
-            
-                <span>n1ctf writeup</span>
-        </a>
-        <div class="abstract-content">
-            之前在学其他知识点的时候看到了这个比赛，顺便学一哈  
-77777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25)
-这时分数变成了123，如果我们匹配一个错的字符分数会不变，因此就是like盲注，脚本如下12345678910111213141516171819202122232425import reque...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/07/11/php-fpm/" title="php-fpm">
+                    <div class="prevTitle">php-fpm</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/tags/CTF/">&#60; PREV</a><a class="page-number" href="/tags/CTF/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/CTF/page/3/">3</a><a class="extend next" rel="next" href="/tags/CTF/page/3/">NEXT &#62;</a>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -722,6 +511,24 @@ very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.p
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1966,6 +1773,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
