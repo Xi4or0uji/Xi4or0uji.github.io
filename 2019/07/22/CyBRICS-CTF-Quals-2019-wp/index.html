@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">6k</span>阅读时长: <span class="post-count reading-time">34 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">6.4k</span>阅读时长: <span class="post-count reading-time">36 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -422,6 +422,9 @@ height:50vh;
 <p>最后解密的脚本就是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">p = open(<span class="string">'zakukozh'</span>,<span class="string">'rb'</span>)</span><br><span class="line">f = open(<span class="string">'res'</span>,<span class="string">'wb+'</span>)</span><br><span class="line">a = p.read(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">	a = ord(a)</span><br><span class="line">	temp = (<span class="number">239</span>*(a<span class="number">-0x59</span>))%<span class="number">0x100</span></span><br><span class="line">	<span class="keyword">print</span> hex(temp)</span><br><span class="line">	<span class="comment"># print len(hex(temp))</span></span><br><span class="line">	<span class="comment"># pause()</span></span><br><span class="line">	f.write((hex(temp)[<span class="number">2</span>:]) + <span class="string">'\n'</span>)</span><br><span class="line">	a = p.read(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"OK"</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="Bitkoff-Bank"><a href="#Bitkoff-Bank" class="headerlink" title="Bitkoff Bank"></a>Bitkoff Bank</h3><p>这个是一个转化钱的银行，可以买股票，也可以转化钱，而买股票再抛出只能获得<code>0.0000000001usb</code>，但是买flag需要<code>1usd</code>，而转化钱这里有个溢出漏洞，我们抓包转化一下钱，可以获得多一点钱，我们可以先疯狂买股票抛股票攒一点钱，然后就写脚本不断将<code>usb</code>转成<code>btc</code>或者将<code>btc</code>转成<code>usb</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://95.179.148.72:8083/index.php"</span></span><br><span class="line">cookie = &#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"Ariel"</span>,</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"123"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data1 = &#123;</span><br><span class="line">    <span class="string">"from_currency"</span>: <span class="string">"btc"</span>,</span><br><span class="line">    <span class="string">"to_currency"</span>: <span class="string">"usd"</span>,</span><br><span class="line">    <span class="string">"amount"</span>: <span class="number">0.0000368417</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data2 = &#123;</span><br><span class="line">    <span class="string">"from_currency"</span>: <span class="string">"usd"</span>,</span><br><span class="line">    <span class="string">"to_currency"</span>: <span class="string">"btc"</span>,</span><br><span class="line">    <span class="string">"amount"</span>: <span class="number">0.401781</span></span><br><span class="line">&#125;</span><br><span class="line">j = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">500</span>):</span><br><span class="line">    j+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(j%<span class="number">10</span> == <span class="number">0</span>):</span><br><span class="line">        time.sleep(<span class="number">2</span>)</span><br><span class="line">    res1 = requests.post(url=url, cookies=cookie, data=data1).text</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"[+]1-----: "</span> + str(res1)[<span class="number">0</span>:<span class="number">60</span>]</span><br><span class="line">    res2 = requests.post(url=url, cookies=cookie, data=data2).text</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"[+]2-----: "</span> + str(res2)[<span class="number">0</span>:<span class="number">60</span>]</span><br></pre></td></tr></table></figure></p>
 <p>最后买个flag就行<br><img src="/assets/cybrics/10.png" alt=""></p>
+<h3 id="Big-RAM"><a href="#Big-RAM" class="headerlink" title="Big RAM"></a>Big RAM</h3><p>题目如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">We heard that substitution ciphers are easy to crack with frequency analysis. Especially for English texts! This one, however, doesn’t map same letters to same letters, so it should be unbreakable.</span><br><span class="line">We even encrypted an entire book with it. Inside this book, we keep the flag.</span><br></pre></td></tr></table></figure></p>
+<p>我们解压压缩包可以拿到两个文件，一个<code>encoder_decoder.py</code>，另一个是<code>book.enc</code>，在<code>book.enc</code>里面有个<code>xanjtou{sw_p_aqws_oefnehyh_jyiq_zw_qczoa_ybwrgzsbmu}</code>，但是我们看到题目说了他会将相同的字符加密成不同的字符，所以如果我们想直接对应翻译出来是不行的，接下来就是看另一个<code>encoder_decoder.py</code>文件<br>在python文件里面我们可以看见它只对大写字母和小写字母进行加密，加密字符串还很多，结合题目我们可以用频率分析去对应出字母，因为在我们使用英文的时候，字母里面的有一些字符用的频率特别多，比如英文里，出现最多的是字母<code>e</code>，但是题目说了，同样的字母翻译过来的字母是不一样的，因此，他对应的可能是多个字符的对应翻译，比如是<code>ab=&gt;ec</code>这样，因此这个难度就大得多了<br>接下来先找常见的双字母组合<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">th 1.52       en 0.55       ng 0.18</span><br><span class="line">he 1.28       ed 0.53       of 0.16</span><br><span class="line">in 0.94       to 0.52       al 0.09</span><br><span class="line">er 0.94       it 0.50       de 0.09</span><br><span class="line">an 0.82       ou 0.50       se 0.08</span><br><span class="line">re 0.68       ea 0.47       le 0.08</span><br><span class="line">nd 0.63       hi 0.46       sa 0.06</span><br><span class="line">at 0.59       is 0.46       si 0.05</span><br><span class="line">on 0.57       or 0.43       ar 0.04</span><br><span class="line">nt 0.56       ti 0.34       ve 0.04</span><br><span class="line">ha 0.56       as 0.33       ra 0.04</span><br><span class="line">es 0.56       te 0.27       ld 0.02</span><br><span class="line">st 0.55       et 0.19       ur 0.02</span><br></pre></td></tr></table></figure></p>
+<p>我们拿原来题目的脚本改一下，然后</p>
 
     </article>
     <!-- license  -->
@@ -429,6 +432,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/07/28/2019全国大学生信息安全竞赛决赛wp/" title="2019全国大学生信息安全竞赛决赛wp">
+                    <div class="nextTitle">2019全国大学生信息安全竞赛决赛wp</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -547,7 +555,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#warmup"><span class="toc-number">1.</span> <span class="toc-text">warmup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProCTF"><span class="toc-number">2.</span> <span class="toc-text">ProCTF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paranoid"><span class="toc-number">3.</span> <span class="toc-text">Paranoid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sender"><span class="toc-number">4.</span> <span class="toc-text">Sender</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Honey-Help"><span class="toc-number">5.</span> <span class="toc-text">Honey, Help!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NopeSQL"><span class="toc-number">6.</span> <span class="toc-text">NopeSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tone"><span class="toc-number">7.</span> <span class="toc-text">Tone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Caesaref"><span class="toc-number">8.</span> <span class="toc-text">Caesaref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zakukozh"><span class="toc-number">9.</span> <span class="toc-text">Zakukozh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bitkoff-Bank"><span class="toc-number">10.</span> <span class="toc-text">Bitkoff Bank</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#warmup"><span class="toc-number">1.</span> <span class="toc-text">warmup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProCTF"><span class="toc-number">2.</span> <span class="toc-text">ProCTF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paranoid"><span class="toc-number">3.</span> <span class="toc-text">Paranoid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sender"><span class="toc-number">4.</span> <span class="toc-text">Sender</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Honey-Help"><span class="toc-number">5.</span> <span class="toc-text">Honey, Help!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NopeSQL"><span class="toc-number">6.</span> <span class="toc-text">NopeSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tone"><span class="toc-number">7.</span> <span class="toc-text">Tone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Caesaref"><span class="toc-number">8.</span> <span class="toc-text">Caesaref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zakukozh"><span class="toc-number">9.</span> <span class="toc-text">Zakukozh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bitkoff-Bank"><span class="toc-number">10.</span> <span class="toc-text">Bitkoff Bank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Big-RAM"><span class="toc-number">11.</span> <span class="toc-text">Big RAM</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1457,9 +1465,18 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 55
+        Total : 56
         </div>
         <!-- search  -->
         
@@ -1472,6 +1489,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span><a class="archive-post-title" href="/2019/07/28/2019全国大学生信息安全竞赛决赛wp/">2019全国大学生信息安全竞赛决赛wp</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1545,17 +1567,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1565,7 +1587,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1709,12 +1731,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1762,11 +1784,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
@@ -1774,19 +1794,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
-    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
@@ -1837,15 +1859,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     
