@@ -427,7 +427,7 @@ height:50vh;
 <p>菜鸡的php环境是7.2.1，居然还能用（摊手  </p>
 <h4 id="spl-autoload-register"><a href="#spl-autoload-register" class="headerlink" title="spl_autoload_register"></a>spl_autoload_register</h4><p>官方文档对此函数解释如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将函数注册到SPL __autoload函数队列中。如果该队列中的函数尚未激活，则激活它们。</span><br><span class="line">如果在你的程序中已经实现了__autoload()函数，它必须显式注册到__autoload()队列中。</span><br></pre></td></tr></table></figure></p>
 <p>先贴个代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"hello f1"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ttt.class.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ttt</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"hello f2"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//load.php</span></span><br><span class="line"><span class="comment">//spl_autoload_register</span></span><br><span class="line">$load1 = <span class="function"><span class="keyword">function</span> <span class="params">($classname)</span></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"load1"</span>.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    $filename = <span class="string">"./"</span>.lcfirst($classname).<span class="string">".php"</span>;</span><br><span class="line">    <span class="keyword">include_once</span> ($filename);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$load2 = <span class="function"><span class="keyword">function</span> <span class="params">($classname)</span></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"load2"</span>.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    $filename = <span class="string">"./"</span>.lcfirst($classname).<span class="string">".class.php"</span>;</span><br><span class="line">    <span class="keyword">include_once</span> ($filename);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">spl_autoload_register($load1);</span><br><span class="line">spl_autoload_register($load2);</span><br><span class="line">Test::get();</span><br><span class="line">Ttt::test();</span><br></pre></td></tr></table></figure></p>
-<p>先放个回显<br><img src="/assets/larael/8.png" alt=""><br>菜鸡尝试了一波，具体流程是<br>spl队列里面放了两个函数，一个load1，一个load2，接下下面调用两个类的方法，队列首先出来一个load1的方法，去寻找有test.php文件，找到了就执行里面的get函数，接着就寻找ttt.php文件，找不到就结束当前的函数，接着队列弹出下一个函数load2，接着去执行当时没有执行的类，然后就寻找ttt.class.php文件并执行  </p>
+<p>先放个回显<br><img src="/assets/laravel/8.png" alt=""><br>菜鸡尝试了一波，具体流程是<br>spl队列里面放了两个函数，一个load1，一个load2，接下下面调用两个类的方法，队列首先出来一个load1的方法，去寻找有test.php文件，找到了就执行里面的get函数，接着就寻找ttt.php文件，找不到就结束当前的函数，接着队列弹出下一个函数load2，接着去执行当时没有执行的类，然后就寻找ttt.class.php文件并执行  </p>
 <h2 id="mockery组件反序列化分析"><a href="#mockery组件反序列化分析" class="headerlink" title="mockery组件反序列化分析"></a>mockery组件反序列化分析</h2><p>几天前ph牛在小密圈发了之前<code>code breaking lumenserial</code>的官方exp，遂学习一波<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:40:"Illuminate\Broadcasting\PendingBroadcast":2:&#123;S:9:"\00*\00events";O:25:"Illuminate\Bus\Dispatcher":1:&#123;S:16:"\00*\00queueResolver";a:2:&#123;i:0;O:25:"Mockery\Loader\EvalLoader":0:&#123;&#125;i:1;S:4:"load";&#125;&#125;S:8:"\00*\00event";O:38:"Illuminate\Broadcasting\BroadcastEvent":1:&#123;S:10:"connection";O:32:"Mockery\Generator\MockDefinition":2:&#123;S:9:"\00*\00config";O:35:"Mockery\Generator\MockConfiguration":1:&#123;S:7:"\00*\00name";S:7:"abcdefg";&#125;S:7:"\00*\00code";S:25:"&lt;?php phpinfo(); exit; ?&gt;";&#125;&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>入口还是那个熟悉的配方，嗯，就是<code>PendingBroadcasting</code>那个类<br>在<code>Illuminate\Broadcasting\PendingBroadcasting.php</code>里面有个<code>__destruct</code>函数，没错，又是这个函数…….<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//        $this-&gt;events-&gt;dispatch(protected $this-&gt;event);</span></span><br><span class="line">    <span class="keyword">$this</span>-&gt;events-&gt;dispatch(<span class="keyword">$this</span>-&gt;event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>而这两个参数<code>$this-&gt;event</code>和<code>$this-&gt;events</code>，都是可以控制的，再找一下别的类有没有<code>dispatch</code>这个方法，ph大师傅给了<code>Illuminate\Bus\Dispatcher</code>里面的<code>dispatch</code>方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span><span class="params">($command)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//        if (protected $this-&gt;queueResolver &amp;&amp; instanceof $this-&gt;commandShouldBeQueued($command))</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;queueResolver &amp;&amp; <span class="keyword">$this</span>-&gt;commandShouldBeQueued($command)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchToQueue($command);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;dispatchNow($command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1451,6 +1451,14 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 57
@@ -1559,17 +1567,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1619,12 +1627,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1713,12 +1721,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1766,17 +1774,19 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1784,21 +1794,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1843,9 +1851,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
