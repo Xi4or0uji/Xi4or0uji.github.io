@@ -424,7 +424,7 @@ height:50vh;
 <p>待续……</p>
 <h3 id="模不互素"><a href="#模不互素" class="headerlink" title="模不互素"></a>模不互素</h3><h4 id="攻击条件-2"><a href="#攻击条件-2" class="headerlink" title="攻击条件"></a>攻击条件</h4><p>存在两个或以上模数，且gcd(n1,n2)!=1  </p>
 <h4 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h4><p>如果两个n不互素的话，可以直接对这两个数求最大公因数，然后获得p和q，进而求得私钥  </p>
-<h4 id=""><a href="#" class="headerlink" title=" "></a> </h4><h2 id="公钥指数相关攻击"><a href="#公钥指数相关攻击" class="headerlink" title="公钥指数相关攻击"></a>公钥指数相关攻击</h2><h3 id="小公钥指数攻击"><a href="#小公钥指数攻击" class="headerlink" title="小公钥指数攻击"></a>小公钥指数攻击</h3><h4 id="攻击条件-3"><a href="#攻击条件-3" class="headerlink" title="攻击条件"></a>攻击条件</h4><p>e十分小</p>
+<h4 id="SCTF-RSA2"><a href="#SCTF-RSA2" class="headerlink" title="SCTF RSA2"></a>SCTF RSA2</h4><h2 id="公钥指数相关攻击"><a href="#公钥指数相关攻击" class="headerlink" title="公钥指数相关攻击"></a>公钥指数相关攻击</h2><h3 id="小公钥指数攻击"><a href="#小公钥指数攻击" class="headerlink" title="小公钥指数攻击"></a>小公钥指数攻击</h3><h4 id="攻击条件-3"><a href="#攻击条件-3" class="headerlink" title="攻击条件"></a>攻击条件</h4><p>e十分小</p>
 <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>假设用户使用的密钥为3，加密过程是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c ≡ m³ mod n</span><br></pre></td></tr></table></figure></p>
 <p>那么就有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m³ = c + k*n</span><br><span class="line">m = ³√¯(c+k*n)¯</span><br></pre></td></tr></table></figure></p>
 <p>大黑阔可以从小到大枚举k，直到开出整数  </p>
@@ -569,7 +569,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单概要"><span class="toc-number">1.</span> <span class="toc-text">简单概要</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模逆运算"><span class="toc-number">1.1.</span> <span class="toc-text">模逆运算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欧几里得算法"><span class="toc-number">2.</span> <span class="toc-text">欧几里得算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展欧几里得算法"><span class="toc-number">3.</span> <span class="toc-text">扩展欧几里得算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题"><span class="toc-number">4.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念题"><span class="toc-number">4.1.</span> <span class="toc-text">概念题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jarvisoj-veryeasyRSA"><span class="toc-number">4.1.1.</span> <span class="toc-text">jarvisoj veryeasyRSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jarvisoj-Easy-RSA"><span class="toc-number">4.1.2.</span> <span class="toc-text">jarvisoj Easy RSA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模数相关攻击"><span class="toc-number">4.2.</span> <span class="toc-text">模数相关攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接分解n"><span class="toc-number">4.2.1.</span> <span class="toc-text">直接分解n</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件"><span class="toc-number">4.2.1.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-medium-rsa"><span class="toc-number">4.2.1.2.</span> <span class="toc-text">jarvisoj medium rsa</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#p和q选取不当使n可分解"><span class="toc-number">4.2.2.</span> <span class="toc-text">p和q选取不当使n可分解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-1"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SECCON2017-very-smooth"><span class="toc-number">4.2.2.2.</span> <span class="toc-text">SECCON2017 very smooth</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模不互素"><span class="toc-number">4.2.3.</span> <span class="toc-text">模不互素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-2"><span class="toc-number">4.2.3.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击原理"><span class="toc-number">4.2.3.2.</span> <span class="toc-text">攻击原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#"><span class="toc-number">4.2.3.3.</span> <span class="toc-text"> </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥指数相关攻击"><span class="toc-number">4.3.</span> <span class="toc-text">公钥指数相关攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小公钥指数攻击"><span class="toc-number">4.3.1.</span> <span class="toc-text">小公钥指数攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-3"><span class="toc-number">4.3.1.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-number">4.3.1.2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-Extremely-hard-RSA"><span class="toc-number">4.3.1.3.</span> <span class="toc-text">jarvisoj Extremely hard RSA</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rabin算法"><span class="toc-number">4.3.2.</span> <span class="toc-text">rabin算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-4"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击原理-1"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">攻击原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-hardRSA"><span class="toc-number">4.3.2.3.</span> <span class="toc-text">jarvisoj hardRSA</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单概要"><span class="toc-number">1.</span> <span class="toc-text">简单概要</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模逆运算"><span class="toc-number">1.1.</span> <span class="toc-text">模逆运算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欧几里得算法"><span class="toc-number">2.</span> <span class="toc-text">欧几里得算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展欧几里得算法"><span class="toc-number">3.</span> <span class="toc-text">扩展欧几里得算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题"><span class="toc-number">4.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念题"><span class="toc-number">4.1.</span> <span class="toc-text">概念题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jarvisoj-veryeasyRSA"><span class="toc-number">4.1.1.</span> <span class="toc-text">jarvisoj veryeasyRSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jarvisoj-Easy-RSA"><span class="toc-number">4.1.2.</span> <span class="toc-text">jarvisoj Easy RSA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模数相关攻击"><span class="toc-number">4.2.</span> <span class="toc-text">模数相关攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接分解n"><span class="toc-number">4.2.1.</span> <span class="toc-text">直接分解n</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件"><span class="toc-number">4.2.1.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-medium-rsa"><span class="toc-number">4.2.1.2.</span> <span class="toc-text">jarvisoj medium rsa</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#p和q选取不当使n可分解"><span class="toc-number">4.2.2.</span> <span class="toc-text">p和q选取不当使n可分解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-1"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SECCON2017-very-smooth"><span class="toc-number">4.2.2.2.</span> <span class="toc-text">SECCON2017 very smooth</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模不互素"><span class="toc-number">4.2.3.</span> <span class="toc-text">模不互素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-2"><span class="toc-number">4.2.3.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击原理"><span class="toc-number">4.2.3.2.</span> <span class="toc-text">攻击原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SCTF-RSA2"><span class="toc-number">4.2.3.3.</span> <span class="toc-text">SCTF RSA2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥指数相关攻击"><span class="toc-number">4.3.</span> <span class="toc-text">公钥指数相关攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小公钥指数攻击"><span class="toc-number">4.3.1.</span> <span class="toc-text">小公钥指数攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-3"><span class="toc-number">4.3.1.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-number">4.3.1.2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-Extremely-hard-RSA"><span class="toc-number">4.3.1.3.</span> <span class="toc-text">jarvisoj Extremely hard RSA</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rabin算法"><span class="toc-number">4.3.2.</span> <span class="toc-text">rabin算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击条件-4"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">攻击条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击原理-1"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">攻击原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-hardRSA"><span class="toc-number">4.3.2.3.</span> <span class="toc-text">jarvisoj hardRSA</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -582,6 +582,44 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1567,17 +1605,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1627,12 +1665,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -1721,12 +1759,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
@@ -1784,29 +1822,29 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
-    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1851,13 +1889,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
