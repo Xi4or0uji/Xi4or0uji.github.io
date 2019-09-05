@@ -346,13 +346,12 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
             
-                <span>code breaking lumenserial</span>
+                <span>code breaking thejs</span>
         </a>
         <div class="abstract-content">
-            小菜鸡太菜了，只能复现  
-题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -393,6 +392,36 @@
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
+            
+                <span>code breaking lumenserial</span>
+        </a>
+        <div class="abstract-content">
+            小菜鸡太菜了，只能复现  
+题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
     
 </div>
             
@@ -560,39 +589,6 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">
-            
-                <span>imap_open()实现远程任意代码执行（CVE-2018-19518）</span>
-        </a>
-        <div class="abstract-content">
-            这个漏洞是在做题的时候看到的，顺便复现一下，漏洞影响版本有ubuntu、debian、redhat和suse  
-简单介绍这个漏洞因为imap_open函数在传递邮箱名给ssh之前没有正确过滤邮箱名，导致攻击者可以利用-oProxyCommand参数向IMAP服务器发起命令执行恶意代码  
-复现装环境1apt updata &amp;&amp; apt install -y nano php php-imap
-接着安装ssh和strace12apt install -y sshapt install -y strace
-接着加一点安全配置，增加php的安全性123echo ‘; prio...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="cve">cve</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
             
                 <span>2019安恒杯二月赛</span>
@@ -623,26 +619,27 @@ MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/27/MongoDB注入/">
+        <a class="abstract-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">
             
-                <span>MongoDB注入</span>
+                <span>imap_open()实现远程任意代码执行（CVE-2018-19518）</span>
         </a>
         <div class="abstract-content">
-            之前做比赛题经常会遇到mongodb注入，每次都一知半解一脸懵逼，总结一下  
-MongoDB概括记下增删改查（php5）  
-直接调用类方法1234567$mongodb = new mongoclient();  //建立连接$db = $mongodb-&gt;myinfo;  //选择数据库$coll = $db-&gt;test;  //选择集合$coll-&gt;save();  //增$coll-&gt;find();  //查$coll-&gt;remove();  //减$coll-&gt;update();  //改
-execute方法1234567$monggdb ...
+            这个漏洞是在做题的时候看到的，顺便复现一下，漏洞影响版本有ubuntu、debian、redhat和suse  
+简单介绍这个漏洞因为imap_open函数在传递邮箱名给ssh之前没有正确过滤邮箱名，导致攻击者可以利用-oProxyCommand参数向IMAP服务器发起命令执行恶意代码  
+复现装环境1apt updata &amp;&amp; apt install -y nano php php-imap
+接着安装ssh和strace12apt install -y sshapt install -y strace
+接着加一点安全配置，增加php的安全性123echo ‘; prio...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/27</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="MongoDB">MongoDB</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="cve">cve</a>
     
 </div>
             
@@ -1641,9 +1638,76 @@ execute方法1234567$monggdb ...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 58
+        Total : 59
         </div>
         <!-- search  -->
         
@@ -1660,6 +1724,11 @@ execute方法1234567$monggdb ...
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/25</span><a class="archive-post-title" href="/2019/08/25/2019-SUCTF-wp/">2019 SUCTF wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span><a class="archive-post-title" href="/2019/08/07/2019-De1CTF-wp/">2019 De1CTF wp</a>
         </li>
     
     
@@ -1754,7 +1823,7 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1764,7 +1833,7 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1908,12 +1977,12 @@ execute方法1234567$monggdb ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1965,11 +2034,11 @@ execute方法1234567$monggdb ...
     
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
-    
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
@@ -1983,17 +2052,17 @@ execute方法1234567$monggdb ...
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
-        <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
-    
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -2040,11 +2109,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
-    
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
