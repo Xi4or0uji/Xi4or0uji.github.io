@@ -413,6 +413,7 @@ height:50vh;
 <p>跑出来<code>%5c</code>可以成功绕过，原因p神在小密圈说了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php里默认命名空间是\，所有原生函数和类都在这个命名空间中。普通调用一个函数，如果直接写函数名function_name()调用，调用的时候其实相当于写了一个相对路径；而如果写\function_name() 这样调用函数，则其实是写了一个绝对路径。</span><br><span class="line">如果你在其他namespace里调用系统类，就必须写绝对路径这种写法。</span><br></pre></td></tr></table></figure></p>
 <h5 id="寻找getshell函数"><a href="#寻找getshell函数" class="headerlink" title="寻找getshell函数"></a>寻找getshell函数</h5><p>接下来的利用我们就要用到<code>create_function</code>函数了<br>在官方手册中它是这样的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create_function ( string $args , string $code ) : string</span><br></pre></td></tr></table></figure></p>
 <p>这个函数由两个参数组成，第一个是函数名，第二个是函数内的代码。官方例子如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$newfunc = create_function(<span class="string">'$a,$b'</span>, <span class="string">'return "ln($a) + ln($b) = " . log($a * $b);'</span>);</span><br><span class="line">实际上也就是  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">($a,$b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ln($a) + ln($b) = "</span>.log($a*$b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以简单理解成<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create_function($_GET[<span class="string">'args'</span>],$_GET[<span class="string">'code'</span>]);</span><br><span class="line">$a = <span class="string">'function __lambda_func('</span>.$_GET[<span class="string">'args'</span>].<span class="string">')&#123;'</span>.$_GET[<span class="string">'code'</span>].<span class="string">'&#125;\0'</span>;</span><br><span class="line"><span class="keyword">eval</span>($a);</span><br></pre></td></tr></table></figure></p>
 <p>顺便看一下<code>create_function</code>的源码也可以看到第一个参数是用<code>(</code>闭合的，第二个是用<code>{</code>闭合的<br><img src="/assets/codebreaking/1.png" alt=""></p>
 <h5 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h5><p>剩下的就是闭合以及利用了,尝试一下能不能得到<code>phpinfo</code><br><img src="/assets/codebreaking/2.png" alt=""><br>接下来就是getshell了，尝试下利用system函数<br><img src="/assets/codebreaking/3.png" alt=""><br>发现被禁了，那就试下scandir函数<br><img src="/assets/codebreaking/4.png" alt=""><br>成功getflag（这个flag是在上一层的目录上<br><img src="/assets/codebreaking/5.png" alt=""></p>
 <h3 id="parewaf"><a href="#parewaf" class="headerlink" title="parewaf"></a>parewaf</h3><p>这个题目依旧很短，考的是php的正则特性  </p>
@@ -444,8 +445,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/03/25/2019-0ctf-wp/" title="2019 0ctf wp">
-                    <div class="nextTitle">2019 0ctf wp</div>
+                <a href="/2019/03/25/code-breaking-thejs/" title="code breaking thejs">
+                    <div class="nextTitle">code breaking thejs</div>
                 </a>
             
         </li>
@@ -578,6 +579,50 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1779,12 +1824,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -1832,23 +1877,21 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
@@ -1865,6 +1908,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -1913,9 +1958,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
-    
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
