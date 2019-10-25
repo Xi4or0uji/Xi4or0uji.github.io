@@ -357,24 +357,53 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
+        <a class="abstract-title" href="/2019/03/11/2019-hgame-week4/">
             
-                <span>2019安恒杯二月赛</span>
+                <span>2019 hgame week4</span>
         </a>
         <div class="abstract-content">
-            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
-所以可以猜测是将图片命名...
+            happy python这题就是很普遍的session伪造，首先在url后面加49发现确实可以执行，但是测试一下发现过滤了括号，所以想直接ssti是很难的了解密一下session猜测是不是将user_id改成1就能以admin的身份登进去，现在就要想办法拿到secret_key了尝试了一下，发现url_for还在，就用url_for去拿secret_key，payload如下1url_for.__globals__['current_app'].config
+然后得到回显1&lt;Config &#123;'ENV': 'production', 'DEBUG': False, 'TES...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/11</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/06/2019-hgame-week3/">
+            
+                <span>2019 hgame week3</span>
+        </a>
+        <div class="abstract-content">
+            神奇的md5扫到泄露拿到swp文件，恢复12345678910111213141516171819202122&lt;?phpsession_start();error_reporting(0);    if (@$_POST['username'] and @$_POST['password'] and @$_POST['code'])    &#123;        $username = (string)$_POST['username'];        $password = (string)$_POST['password'];        $code     = (st...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
             
@@ -408,6 +437,36 @@ height:50vh;
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="cve">cve</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
+            
+                <span>2019安恒杯二月赛</span>
+        </a>
+        <div class="abstract-content">
+            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
+所以可以猜测是将图片命名...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
     
 </div>
             
@@ -595,67 +654,6 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/12/RSA初探/">
-            
-                <span>RSA初探</span>
-        </a>
-        <div class="abstract-content">
-            最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波  
-简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &lt; e &lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元d，即 ( e * d ) % φ = 15、加解密：c = ( m ^ e ) % n，m = ( c ^ d ) % n，c为密文，m为明文，(n,e)为公钥对，(n,d)为私钥对  
-模逆...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RSA">RSA</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
-            
-                <span>2018安恒杯十一月赛</span>
-        </a>
-        <div class="abstract-content">
-            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
     
 </div>
             
@@ -1805,15 +1803,9 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     
     
     
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 61
+        Total : 63
         </div>
         <!-- search  -->
         
@@ -1826,6 +1818,16 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href="/2019/10/25/内网端口转发/">内网端口转发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span><a class="archive-post-title" href="/2019/10/18/反馈移位寄存器/">反馈移位寄存器</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1944,12 +1946,12 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -1979,12 +1981,12 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -2093,12 +2095,12 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -2146,15 +2148,15 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
-    
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
@@ -2165,6 +2167,8 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
@@ -2179,6 +2183,8 @@ python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print
         <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="LFSR"><span class="iconfont-archer">&#xe606;</span>LFSR</span>
     
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
@@ -2227,9 +2233,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
-    
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
