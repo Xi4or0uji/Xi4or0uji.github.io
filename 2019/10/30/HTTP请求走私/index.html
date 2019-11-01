@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">582</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,8 +404,15 @@ height:50vh;
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>巅峰极客还是嘶吼有一道题把菜鸡卡住了，师傅们在群上发了知识点，发现还是挺有趣的，来研究一波  </p>
 <h3 id="HTTP-1-1协议"><a href="#HTTP-1-1协议" class="headerlink" title="HTTP/1.1协议"></a>HTTP/1.1协议</h3><h4 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h4><p><img src="/assets/http/1.png" alt=""><br>emmm，估计师傅们都对它十分熟悉了，就是一种无状态的、应用层的、以请求/应答方式运行的协议，使用可扩展的语义和自描述的信息格式，和网络上的超文本信息系统进行互动<br>HTTP协议工作于客户端-服务端架构之上，浏览器作为HTTP客户端通过URL向HTTP服务端，也就是WEB服务器发送请求。WEB服务器根据接收到的请求，向客户端发送响应信息。<br>服务器与客户端的HTTP通信过程，请求和响应都是一个数据包，他们之间进行通信的时候是需要一个传输的通道的，所以在通信前会先创建tcp连接，连接好以后才发送请求。  </p>
 <h4 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h4><p><img src="/assets/http/2.png" alt=""><br>三次握手估计师傅们也十分熟悉了，就是最开始的三次网络传输，客户端与服务端交替发送数据，建立了tcp连接，然后再进行http通信<br>在HTTP1.0协议中，每一次请求的时候都需要创建tcp连接，发送完请求，服务器响应以后，tcp连接就关闭了。但是在HTTP1.1协议中，有个Keep-Alive方法，可以让连接一直保持，然后在第二次请求的时候，就可以直接连接过过，不用再次进行三次握手。同样的，HTTP1.1还多了一个Pipeline属性，顾名思义，就是让客户端可以像流水线一样发送自己的HTTP请求，不用再慢慢等服务器响应，服务器接到请求的时候，按照先进先出的原则将响应发给客户端  </p>
-<h4 id="HTTP属性"><a href="#HTTP属性" class="headerlink" title="HTTP属性"></a>HTTP属性</h4><p>请求头<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的MINE类型</span></span><br><span class="line">Accept:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的压缩类型</span></span><br><span class="line">Accpet-Encoding:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的语言类型，按位置先后确定优先顺序</span></span><br><span class="line">Accpet-Language:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器处理长连接的方式</span></span><br><span class="line">Connection: close/keep-alive</span><br><span class="line"><span class="meta">#</span><span class="bash">cookie，缓存的一些信息</span></span><br><span class="line">Cookie:</span><br><span class="line"><span class="meta">#</span><span class="bash">请求的服务器</span></span><br><span class="line">Host:</span><br><span class="line"><span class="meta">#</span><span class="bash">客户端的操作系统、浏览器等信息</span></span><br><span class="line">User-Agent:</span><br></pre></td></tr></table></figure></p>
-
+<h4 id="HTTP属性"><a href="#HTTP属性" class="headerlink" title="HTTP属性"></a>HTTP属性</h4><h5 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的MINE类型</span></span><br><span class="line">Accept:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的压缩类型</span></span><br><span class="line">Accpet-Encoding:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器支持的语言类型，按位置先后确定优先顺序</span></span><br><span class="line">Accpet-Language:</span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器处理长连接的方式</span></span><br><span class="line">Connection: close/keep-alive</span><br><span class="line"><span class="meta">#</span><span class="bash">cookie，缓存的一些信息</span></span><br><span class="line">Cookie:</span><br><span class="line"><span class="meta">#</span><span class="bash">请求的服务器</span></span><br><span class="line">Host:</span><br><span class="line"><span class="meta">#</span><span class="bash">客户端的操作系统、浏览器等信息</span></span><br><span class="line">User-Agent:</span><br></pre></td></tr></table></figure>
+<h5 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">服务端使用的web服务器</span></span><br><span class="line">Server: Apache/2.4.18(Ubuntu)</span><br><span class="line"><span class="meta">#</span><span class="bash">服务端设置的Cookie</span></span><br><span class="line">Set-Cookie:</span><br><span class="line"><span class="meta">#</span><span class="bash">资源最后的修改时间</span></span><br><span class="line">Last-Modified:</span><br><span class="line"><span class="meta">#</span><span class="bash">重定向的页面，通常配合302一起使用</span></span><br><span class="line">Location:</span><br><span class="line"><span class="meta">#</span><span class="bash">body部分的长度</span></span><br><span class="line">Content-Lenght:</span><br></pre></td></tr></table></figure>
+<h5 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">200 OK  //服务端请求成功</span><br><span class="line">400 Bad Request  //服务器请求语法有误，无法解析</span><br><span class="line">401 Unauthorized  //请求未经授权，通常伴有跨域问题</span><br><span class="line">403 Forbidden  //服务器拒绝提供服务，权限不允许</span><br><span class="line">404 Not Found  //请求的资源不存在</span><br><span class="line">500 Internal Server Error  //服务器发生不可预知的错误</span><br><span class="line">503 Server Unavailable  //服务器当前不能处理客户端的请求，一段时间后才能恢复正常</span><br></pre></td></tr></table></figure>
+<h3 id="HTTP请求走私"><a href="#HTTP请求走私" class="headerlink" title="HTTP请求走私"></a>HTTP请求走私</h3><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p><img src="/assets/http/3.png" alt=""><br>很多网站为了提高用户的体验，会使用CDN加速服务，最简单的办法，就是直接在源站前面加一个具有缓存功能的反向代理服务器，用户请求数据的时候，就会在代理服务器中获取，不需要在源站服务器获取<br>代理服务器和源站服务器之间，会重用tcp连接，代理服务器和源站服务器的ip地址是相对固定的，不同用户的请求会通过代理服务器和源站服务器建立连接，但是如果两个服务器的实现方式不一样，假设用户提交了一个模糊的请求，代理服务器认为这是一个正确的HTTP请求，然后转发给源站服务器，可是源站服务器认为它部分正确，只处理了他认为正确的部分，那么剩下的部分就是走私的请求了<br>HTTP请求走私产生的原因是因为HTTP规范提供了两种不同的方式去指定请求结束的位置，分别是<code>Content-Length</code>和<code>Transfer-Encoding</code>两个标头，<code>Content-Length</code>是用来以字节为单位去指定消息内容体的长度，而<code>Transfer-Encoding</code>则是用来指定消息体使用的分块编码（Chunked Encode），表明一个消息报文由一个或者多个数据块组成，每个数据块的大小以字节为单位（十六进制）去衡量，然后跟换行符，再接着是块内容，整个消息体以大小为0的块结束，也就是如果解析的时候遇到0数据块就结束<br>简单理解，就是我在发送请求的时候包含了<code>Content-Length</code>，代理服务器解析后如果没有问题就发送给源码服务器，但是如果我在请求后面包含了<code>Transfer-Encoding</code>，源码服务器解析的时候就会执行我们加在下面的命令，从而绕开前端的waf  </p>
+<h4 id="常见的请求走私"><a href="#常见的请求走私" class="headerlink" title="常见的请求走私"></a>常见的请求走私</h4><h5 id="CL不为0的GET请求"><a href="#CL不为0的GET请求" class="headerlink" title="CL不为0的GET请求"></a>CL不为0的GET请求</h5><p>这个漏洞影响的不仅仅只是GET请求，只是GET请求比较经典，所以举这个例子<br>假设代理服务器允许GET请求携带请求体，而源码服务器不允许，那么它就会忽略掉GET请求中的<code>Content-Length</code>标头，不进行处理，进而产生请求走私<br>假设我们构造如下请求<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: example.com</span><br><span class="line">Content-Length: 40</span><br><span class="line"></span><br><span class="line">GET /secret HTTP/1.1</span><br><span class="line">Host: example.com</span><br></pre></td></tr></table></figure></p>
+<p>代理服务器收到请求后，读取<code>Content-Length</code>判断出这是一个完整的请求，然后转发给源码服务器，但是源码服务器拿到消息以后，因为他不对<code>Content-Length</code>进行处理，而且又因为有<code>Pipeline</code>这个属性的存在，他会认为是收到了两个请求<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//第一个</span><br><span class="line">GET / HTTP 1.1</span><br><span class="line">Host: example.com</span><br><span class="line">Content-Length: 40</span><br><span class="line">//第二个</span><br><span class="line">GET /secret HTTP/1.1</span><br><span class="line">Host: example.com</span><br></pre></td></tr></table></figure></p>
+<p>这样子，就导致了第二个请求是走私请求  </p>
+<h5 id="CL-CL"><a href="#CL-CL" class="headerlink" title="CL-CL"></a>CL-CL</h5><p>假设代理服务器和源码服务器在收到类似请求的时候，都不会返回400错误，但是中间的代理服务器按照第一个<code>Content-Length</code>的值对请求进行处理，然后源站服务器会按照第二个<code>Content-Length</code>的值进行处理，引发请求走私  </p>
+<h5 id="CL-TE"><a href="#CL-TE" class="headerlink" title="CL-TE"></a>CL-TE</h5>
     </article>
     <!-- license  -->
     
@@ -530,7 +537,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-1-1协议"><span class="toc-number">2.</span> <span class="toc-text">HTTP/1.1协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简单介绍"><span class="toc-number">2.1.</span> <span class="toc-text">简单介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP三次握手"><span class="toc-number">2.2.</span> <span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP属性"><span class="toc-number">2.3.</span> <span class="toc-text">HTTP属性</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-1-1协议"><span class="toc-number">2.</span> <span class="toc-text">HTTP/1.1协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简单介绍"><span class="toc-number">2.1.</span> <span class="toc-text">简单介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP三次握手"><span class="toc-number">2.2.</span> <span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP属性"><span class="toc-number">2.3.</span> <span class="toc-text">HTTP属性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#请求头"><span class="toc-number">2.3.1.</span> <span class="toc-text">请求头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#响应头"><span class="toc-number">2.3.2.</span> <span class="toc-text">响应头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#状态码"><span class="toc-number">2.3.3.</span> <span class="toc-text">状态码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP请求走私"><span class="toc-number">3.</span> <span class="toc-text">HTTP请求走私</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原因"><span class="toc-number">3.1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常见的请求走私"><span class="toc-number">3.2.</span> <span class="toc-text">常见的请求走私</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CL不为0的GET请求"><span class="toc-number">3.2.1.</span> <span class="toc-text">CL不为0的GET请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CL-CL"><span class="toc-number">3.2.2.</span> <span class="toc-text">CL-CL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CL-TE"><span class="toc-number">3.2.3.</span> <span class="toc-text">CL-TE</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -543,6 +550,18 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1656,12 +1675,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1672,11 +1696,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1820,12 +1839,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
@@ -1879,15 +1898,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
     
+        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+    
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
-        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1895,13 +1916,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
-        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
-    
-        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
-    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
@@ -1911,11 +1928,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="LFSR"><span class="iconfont-archer">&#xe606;</span>LFSR</span>
+    
         <span class="sidebar-tag-name" data-tags="RSA"><span class="iconfont-archer">&#xe606;</span>RSA</span>
     
         <span class="sidebar-tag-name" data-tags="sql"><span class="iconfont-archer">&#xe606;</span>sql</span>
-    
-        <span class="sidebar-tag-name" data-tags="LFSR"><span class="iconfont-archer">&#xe606;</span>LFSR</span>
     
         <span class="sidebar-tag-name" data-tags="php-fpm"><span class="iconfont-archer">&#xe606;</span>php-fpm</span>
     
@@ -1958,17 +1977,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
-    
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
+        <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
-        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn</span>
     
         <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn/re"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn/re</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
     
