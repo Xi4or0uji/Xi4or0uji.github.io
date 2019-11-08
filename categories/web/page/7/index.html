@@ -346,145 +346,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/09/11/2019-bytectf-wp/">
+        <a class="abstract-title" href="/2018/10/19/没有字母数字获得webshell/">
             
-                <span>2019 bytectf wp</span>
+                <span>没有字母数字获得webshell</span>
         </a>
         <div class="abstract-content">
-            前几天打了字节跳动的CTF，我还是太菜了，挂一挂队内wp  
-WEBboring_code题目给了源码，但是很是做了很久才出来，wtcl12345678910111213141516171819202122232425262728293031323334&lt;?phpfunction is_valid_url($url) &#123;    if (filter_var($url, FILTER_VALIDATE_URL)) &#123;        if (preg_match('/data:\/\//i', $url)) &#123;            return fals...
+            基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&lt;?phpif (!preg_match('/[A-Za-z0-9]/is',$_GET['shell']))&#123;   eval($_GET['shell']);&#125;
+可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办
+方法一php有个trick，两个非字母的字符异或在一起可以产生一个字母，所以我们就可以这样去绕过了首先用个assert函数去获得shell，这里注意一点是，php7以前，assert是一个函数，可以通过$a=’a...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/19</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/01/2019安恒杯二月赛/">
-            
-                <span>2019安恒杯二月赛</span>
-        </a>
-        <div class="abstract-content">
-            WEBmy email这题进去首先是一个注册的页面，然后登录进去后要你完善信息，也就是填一个邮箱和验证码，这里有个小坑点就是，虽然我们乱填他会说我们填的信息有误，但是再次访问发现我们的信息已经完善了，也就能进行下一步了进去以后看到有个更改背景的功能，尝试一下改了图片发现会1234567body&#123;    background-image: url(./user/roujiji.jpg);    background-size: 100%,100%;    width: 100%;    height: 100%;&#125;#roujiji是注册的用户名
-所以可以猜测是将图片命名...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
-            
-                <span>2019tamuctf</span>
-        </a>
-        <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
-            
-                <span>2018安恒杯十一月赛</span>
-        </a>
-        <div class="abstract-content">
-            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/07/安恒杯一月赛/">
-            
-                <span>2019安恒杯一月赛</span>
-        </a>
-        <div class="abstract-content">
-            webbabygo源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;?php@error_reporting(1);include 'flag.php';class baby&#123;    protected $skyobj;    public $aaa;    public $bbb;    function __construct()    &#123;        $this-&gt;sk...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
     
 </div>
             
@@ -492,6 +372,10 @@ Science!这道题提示了是用Flask写的，所以尝试一下fla...
     </article>
     
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/categories/web/page/6/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/web/page/5/">5</a><a class="page-number" href="/categories/web/page/6/">6</a><span class="page-number current">7</span>
+    </nav>
     
 </main>
             <!-- profile -->

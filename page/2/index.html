@@ -485,6 +485,37 @@ Fastcgi它其实就是一个通信协议，跟http那些一样的，都是进行
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/06/25/SQL注入汇总/">
+            
+                <span>SQL注入汇总</span>
+        </a>
+        <div class="abstract-content">
+            最近要做一个萌新培训&amp;搭建队内的wiki，所有就有了这个东西了，尽可能将sql注入讲全，同时也记录一下奇技淫巧2333  
+回显注入这种题是最友好的题了，萌新入门题，先来个对mysql数据库最初的印象好吧  
+例题http://ctf5.shiyanbar.com/423/web/?id=1做题前先来一个注入点的探测好吧先尝试一下最基础的很明显可以确定id是注入点而且后台是用单引号闭合的可以看到回显是1 1=1，这里我们猜测一下，如果后台过滤了空格，而且将and替换为空刚好是这样的回显的，然后空格被过滤掉以后是可以用/**/或者(去进行替换的，尝试一下验证一下我们的猜想可以看到替...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="SQL">SQL</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/05/27/2019强网杯wp/">
             
                 <span>2019强网杯wp</span>
@@ -624,39 +655,6 @@ WEBmywebsql这道题目考了mywebsql的一个cve还有信号处理？？坑点�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/反射/">
-            
-                <span>反射</span>
-        </a>
-        <div class="abstract-content">
-            前言前段时间的国赛考到了这个东西，肉鸡就来总结一下了  
-reflection in PHP在php运行的时候，反射可以对类、接口、函数、方法或扩展进行反向工程，此外，还可以取出函数、类和方法中的文档注释。  
-简单的demo下面放一个简单的demo，简单看一下反射是怎样实现的12345678910111213141516171819202122232425262728&lt;?phpclass test&#123;    private $test = "Ariel";    private $value = "Xi4or0uji";    private function get()...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="java">java</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
     
 </div>
             
@@ -1866,14 +1864,9 @@ reflection in PHP在php运行的时候，反射可以对类、接口、函数、
     
     
     
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 64
+        Total : 65
         </div>
         <!-- search  -->
         
@@ -1955,6 +1948,11 @@ reflection in PHP在php运行的时候，反射可以对类、接口、函数、
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/27</span><a class="archive-post-title" href="/2019/06/27/php反序列化由浅到深/">php反序列化由浅到深</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href="/2019/06/25/SQL注入汇总/">SQL注入汇总</a>
         </li>
     
     
@@ -2074,12 +2072,12 @@ reflection in PHP在php运行的时候，反射可以对类、接口、函数、
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -2168,12 +2166,12 @@ reflection in PHP在php运行的时候，反射可以对类、接口、函数、
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -2227,9 +2225,9 @@ reflection in PHP在php运行的时候，反射可以对类、接口、函数、
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
-        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
-    
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
@@ -2308,9 +2306,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
-    
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
