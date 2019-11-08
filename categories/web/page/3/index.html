@@ -346,37 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/25/CONFidence-CTF的一道题/">
-            
-                <span>CONFidence CTF的一道题</span>
-        </a>
-        <div class="abstract-content">
-            这道题是之前在看先知的文章看到了，看了一下发现有点有趣，记录一下  
-题目地址：http://web50.zajebistyc.tf/预期解是svg xss，非预期是缓存投毒首先我们先看一下题目，进去是登录框，随便乱填就可以进去进去以后有一个头像上传的地方和secret的值，猜测应该是拿到管理员的secret值，然后利用点应该就是头像上传的地方了  
-SVG XSS在测试的过程中发现可以上传任意后缀的文件，但是文件头必须是图片格式且尺寸只能是100*100，而且上传html文件时发现服务器会将文件当做图片解析，因此后台应该是根据文件头去进行解析的，所以我们可以找一个可以进行xss的图片，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/">
             
                 <span>2019 全国大学生信息安全竞赛 writeup</span>
@@ -530,13 +499,12 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
             
-                <span>code breaking lumenserial</span>
+                <span>code breaking thejs</span>
         </a>
         <div class="abstract-content">
-            小菜鸡太菜了，只能复现  
-题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -560,12 +528,13 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
             
-                <span>code breaking thejs</span>
+                <span>code breaking lumenserial</span>
         </a>
         <div class="abstract-content">
-            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
+            小菜鸡太菜了，只能复现  
+题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -648,10 +617,41 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
         </div>
     </article>
     
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/15/利用mysql-local-infile读取客户端文件/">
+            
+                <span>利用mysql local infile读取客户端文件</span>
+        </a>
+        <div class="abstract-content">
+            这个利用点是之前补hgame的题看到的一个考点，记录一下  
+MySQL LOAD DATA INFILE简介先看一张官方文档的图可以看到，握手阶段中会：1234客户端和用户端交换各自功能根据需要创建SSL通道接收客户端的回应验证客户端身份进行通信
+我们在linux里面tcpdump一下抓取数据包tcpdump -i lo -w mysql.pcap port 3306，然后连接mysql看下数据包可以看到登录的数据包里面有个Can Use LOAD DATA LOCAL开启了，只要开启了这个，就可以将运行mysql客户端的主机的文件传输到远程服务器中而load data infile这...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/15</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/page/2/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><a class="page-number" href="/categories/web/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/categories/web/page/7/">7</a><a class="extend next" rel="next" href="/categories/web/page/4/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/categories/web/page/2/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><a class="page-number" href="/categories/web/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><a class="page-number" href="/categories/web/page/6/">6</a><a class="extend next" rel="next" href="/categories/web/page/4/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1762,20 +1762,9 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 65
+        Total : 64
         </div>
         <!-- search  -->
         
@@ -1861,11 +1850,6 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/26</span><a class="archive-post-title" href="/2019/06/26/SQL注入汇总/">SQL注入汇总</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/27</span><a class="archive-post-title" href="/2019/05/27/2019强网杯wp/">2019强网杯wp</a>
         </li>
     
@@ -1911,12 +1895,12 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
@@ -1926,12 +1910,12 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1981,12 +1965,12 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
@@ -2134,9 +2118,9 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
-    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
@@ -2215,9 +2199,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
-        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
-    
         <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+    
+        <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
