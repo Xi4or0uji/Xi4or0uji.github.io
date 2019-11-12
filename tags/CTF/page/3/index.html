@@ -346,20 +346,17 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
+        <a class="abstract-title" href="/2019/02/26/2018-Tokyo-Westerns-CTF/">
             
-                <span>2019tamuctf</span>
+                <span>2018 Tokyo Westerns CTF</span>
         </a>
         <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
+            WEBSimple Auth首先可以拿到源码1234567891011121314151617181920212223242526272829303132 &lt;?phprequire_once 'flag.php';if (!empty($_SERVER['QUERY_STRING'])) &#123;    $query = $_SERVER['QUERY_STRING'];    $res = parse_str($query);    if (!empty($res['action']))&#123;        $action = $res['action'];    &#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/26</span>
             </div>
             <!-- tags  -->
             
@@ -384,6 +381,38 @@ Science!这道题提示了是用Flask写的，所以尝试一下fla...
         </a>
         <div class="abstract-content">
             WEBwarmup源码1234567891011121314151617 &lt;?php require_once('flag.php'); error_reporting(0); if(!isset($_GET['u']))&#123;     highlight_file(__FILE__);     die(); &#125;else&#123;     $i=$_GET['i'];     $u=$_GET['u'];     if($_GET['u']!="Hello World")&#123;         die('die...');     &#125;     as...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
+            
+                <span>2019tamuctf</span>
+        </a>
+        <div class="abstract-content">
+            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
+Robots Rule他要求是谷歌的robot访问，抓包改一下
+Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
+Science!这道题提示了是用Flask写的，所以尝试一下fla...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -600,36 +629,6 @@ include me这题点进去可以看到一个改变语言的选择框，选下其�
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/11/06/2018上海市大学生信息安全竞赛web题解/">
-            
-                <span>2018上海市大学生信息安全竞赛web题解</span>
-        </a>
-        <div class="abstract-content">
-            记下知识点，当做个笔记好了  
-web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php，访问一下source.php可以看见要以admin身份登录，于是post一个admin=1过去，发现还要本地访问，改一下x-client-ip成127.0.0.1，再post一个url=http://www.ichunqiu.com ，然后看见有一张无法解析的图片返回来，而且没有图片包同时发过来，猜测是ssrf利用，尝试一下访问file://www.ichunqiu.com/var/www/html/flag.php 然后就有flag了这里其实考到了一个par...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
             </div>
             <!-- tags  -->
             
@@ -1805,9 +1804,46 @@ web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -1824,6 +1860,11 @@ web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php
     
         <li class="archive-post-item">
             <span class="archive-post-date">11/12</span><a class="archive-post-title" href="/2019/11/12/2019红帽杯wp/">2019红帽杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href="/2019/11/10/2019湖湘杯wp/">2019湖湘杯wp</a>
         </li>
     
     
@@ -1963,17 +2004,17 @@ web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-thejs/">code breaking thejs</a>
         </li>
     
     
@@ -2023,12 +2064,12 @@ web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
