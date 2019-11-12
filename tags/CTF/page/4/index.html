@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -201,10 +203,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -220,32 +220,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Xi4or0uji's blog
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -357,293 +346,19 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2018百越杯wp/">
+        <a class="abstract-title" href="/2018/10/31/百度杯-ctf-九月场/">
             
-                <span>2018百越杯wp</span>
+                <span>百度杯 ctf 九月场</span>
         </a>
         <div class="abstract-content">
-            WEBwarmup源码1234567891011121314151617 &lt;?php require_once('flag.php'); error_reporting(0); if(!isset($_GET['u']))&#123;     highlight_file(__FILE__);     die(); &#125;else&#123;     $i=$_GET['i'];     $u=$_GET['u'];     if($_GET['u']!="Hello World")&#123;         die('die...');     &#125;     as...
+            发现还有这堆题没刷，刷一刷，记一下  
+Test这题是海洋cms的前台getshell漏洞，百度一下就能看到一堆的解释，翻一翻看见其实是利用了一个eval函数的漏洞，因为对客户端的输入过滤不严，导致可以执行任意代码，具体利用在search.php的页面可以看到，我们确实可以执行任意代码，接下来我们用菜刀连过去看下数据库的信息最后连接数据库就能看到flag了
+123这题进去看到一个login.php，看下源码可以看见但是访问下user.php没有信息，猜测是源码泄露，扫一下果然看见了.swp有个文件下来，点开看到一堆人名，用burpsuite暴力跑一下密码，成功登入结果看到一个空页面，什么...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
-            
-                <span>2019tamuctf</span>
-        </a>
-        <div class="abstract-content">
-            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
-Robots Rule他要求是谷歌的robot访问，抓包改一下
-Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
-Science!这道题提示了是用Flask写的，所以尝试一下fla...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/21/python格式化字符串/">
-            
-                <span>python格式化字符串</span>
-        </a>
-        <div class="abstract-content">
-            简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制  
-python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print 'My name is %s' %nameMy name is Xi4or0uji
-使用标准库中的模板字符串12345from string import Templatename = 'Xi4or0uji's = Template('My name is $name')print s.substitute(name=name)My name is Xi4or0uji
-利用format格式化字符串直接格式化字符串12print...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/19/用docker搭个ctf题目/">
-            
-                <span>用docker搭个ctf题目</span>
-        </a>
-        <div class="abstract-content">
-            最近实验室招新，搭题用到docker，记一下免得以后忘了顺便解释一波，其实docker可以理解成跑在服务器上面的虚拟机，里面有一个个容器，每个容器之间互不干扰，这样子就能很好的让我们部署题目了下面直接上过程找lamp环境1docker search lamp
-这里我们用tutum的lamp，然后就拉他的镜像1docker pull tutum/lamp
-拉完以后可以检查一下本地的镜像，发现确实有tutum/lamp了1docker images
-然后就是建一个docker容器了1docker run -d -p 2333:80 -p 3308:3306 tutum/lamp
-这个时候可以...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/12/RSA初探/">
-            
-                <span>RSA初探</span>
-        </a>
-        <div class="abstract-content">
-            最近要给新生们出密码学的题，密码学白痴小肉鸡枯了，只能先学一波  
-简单概要rsa是非对称加密，具体非对称加密是什么就不解释了，网上也有很多介绍，接下来我们直接进入加解密的过程1、选择两个较大的互不相等的质数p和q，计算 n = p * q2、计算 φ = (p-1) * (q-1)3、选取任意e，使得1 &lt; e &lt; φ，而且 gcd ( e , φ ) = 14、计算e关于φ的模逆元d，即 ( e * d ) % φ = 15、加解密：c = ( m ^ e ) % n，m = ( c ^ d ) % n，c为密文，m为明文，(n,e)为公钥对，(n,d)为私钥对  
-模逆...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RSA">RSA</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
-            
-                <span>2018安恒杯十一月赛</span>
-        </a>
-        <div class="abstract-content">
-            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/07/安恒杯一月赛/">
-            
-                <span>2019安恒杯一月赛</span>
-        </a>
-        <div class="abstract-content">
-            webbabygo源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;?php@error_reporting(1);include 'flag.php';class baby&#123;    protected $skyobj;    public $aaa;    public $bbb;    function __construct()    &#123;        $this-&gt;sk...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/2019-hgame-week2/">
-            
-                <span>2019 hgame week2</span>
-        </a>
-        <div class="abstract-content">
-            easy_php这题进去首先可以看到一个index.html，题目是where is my robots，访问一下robots.txt，提示img/index.php，访问一下这个php文件，就到了代码审计了12345678&lt;?php   error_reporting(0);   $img = $_GET['img'];   if(!isset($img))       $img = '1';   $img = str_replace('../', '', $img);   include_once($img.".php");   highlight_file(__FILE__)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/31/2018SWPUCTF/">
-            
-                <span>2018SWPUCTF</span>
-        </a>
-        <div class="abstract-content">
-            用优惠码 买个X？这题首先登陆进去会有一个15位优惠码，然后用它的时候又说，优惠码过期，要用24位的优惠码扫一下泄露扫出来个www.zip123456789101112131415161718192021222324252627&lt;?php//生成优惠码$_SESSION['seed']=rand(0,999999999);function youhuima()&#123;	mt_srand($_SESSION['seed']);    $str_rand = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXY...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/29/2019-hgame-week1/">
-            
-                <span>2019 hgame week1</span>
-        </a>
-        <div class="abstract-content">
-            谁吃了我的flag这题题目的前半个flag提示了是泄露扫一下泄露可以扫出来.swp泄露，访问一下index.html.swp可以下载到一个文件，打开就能看到flag了
-换头大作战跟着题目的要求全部换好就有flag了
-very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.php");if(strpos("vidar",$_GET['id'])!==FALSE)  die("&lt;p&gt;干巴爹&lt;/p&gt;");$_GET['id'] = urldecode($_GET['id']);...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/29</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/31</span>
             </div>
             <!-- tags  -->
             
@@ -659,105 +374,11 @@ very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.p
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/tags/CTF/page/3/">&#60; PREV</a><a class="page-number" href="/tags/CTF/">1</a><a class="page-number" href="/tags/CTF/page/2/">2</a><a class="page-number" href="/tags/CTF/page/3/">3</a><span class="page-number current">4</span>
     </nav>
     
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/avatar.jpg">
-    <div class="profile-name">Xi4or0uji</div>
-    
-    <div class="profile-signature">
-        一只还在路上的小蒟蒻的博客
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:1502404131@qq.com" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//xi4or0uji.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//aluvion.github.io/" target="_black">Twings</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//hachp1.github.io/" target="_black">HACHp1</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//lihuaiqiu.github.io/" target="_black">离怀秋</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
