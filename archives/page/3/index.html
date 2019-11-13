@@ -624,12 +624,12 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
+        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
             
-                <span>2019 0ctf wp</span>
+                <span>code breaking thejs</span>
         </a>
         <div class="abstract-content">
-            babyrsa首先pubkey.py可以看到n的值1234from sage.all import GF, PolynomialRingP=PolynomialRing(GF(2),'x')e = 31337n = P('x^2048 + x^2046 + x^2043 + x^2040 + x^2036 + x^2035 + x^2034 + x^2033 + x^2031 + x^2029 + x^2025 + x^2024 + x^2022 + x^2019 + x^2018 + x^2017 + x^2012 + x^2007 + x^2006 + x^2004 + x^2000...
+            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -640,7 +640,7 @@ wish list
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
     
 </div>
             
@@ -741,6 +741,70 @@ wish list
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1948,22 +2012,22 @@ wish list
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/2019西湖论剑web-writeup/">2019西湖论剑web writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">04/11</span><a class="archive-post-title" href="/2019/04/11/rips-2017/">rips 2017</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -2191,9 +2255,9 @@ wish list
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
     
