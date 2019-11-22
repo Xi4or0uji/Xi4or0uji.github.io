@@ -346,25 +346,23 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/10/19/没有字母数字获得webshell/">
+        <a class="abstract-title" href="/2019/11/22/JWT攻击小结/">
             
-                <span>没有字母数字获得webshell</span>
+                <span>JWT攻击小记</span>
         </a>
         <div class="abstract-content">
-            基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&lt;?phpif (!preg_match('/[A-Za-z0-9]/is',$_GET['shell']))&#123;   eval($_GET['shell']);&#125;
-可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办
-方法一php有个trick，两个非字母的字符异或在一起可以产生一个字母，所以我们就可以这样去绕过了首先用个assert函数去获得shell，这里注意一点是，php7以前，assert是一个函数，可以通过$a=’a...
+            
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/22</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="jwt">jwt</a>
     
 </div>
             
@@ -372,10 +370,6 @@
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/page/6/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/web/page/5/">5</a><a class="page-number" href="/categories/web/page/6/">6</a><span class="page-number current">7</span>
-    </nav>
     
 </main>
             <!-- profile -->
@@ -1558,34 +1552,9 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 68
+        Total : 69
         </div>
         <!-- search  -->
         
@@ -1598,6 +1567,11 @@
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href="/2019/11/22/JWT攻击小结/">JWT攻击小记</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1953,11 +1927,11 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="jwt"><span class="iconfont-archer">&#xe606;</span>jwt</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
@@ -1968,6 +1942,8 @@
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1984,6 +1960,8 @@
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Code_Breaking"><span class="iconfont-archer">&#xe606;</span>Code_Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
@@ -2036,23 +2014,21 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
+        <span class="sidebar-category-name" data-categories="CTF"><span class="iconfont-archer">&#xe60a;</span>CTF</span>
+    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
-        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn</span>
-    
-        <span class="sidebar-category-name" data-categories="CTF"><span class="iconfont-archer">&#xe60a;</span>CTF</span>
-    
-        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn/re"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn/re</span>
-    
-        <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
+        <span class="sidebar-category-name" data-categories="CRYPTO"><span class="iconfont-archer">&#xe60a;</span>CRYPTO</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

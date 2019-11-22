@@ -346,19 +346,17 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/25/CONFidence-CTF的一道题/">
+        <a class="abstract-title" href="/2019/02/24/2018百越杯wp/">
             
-                <span>CONFidence CTF的一道题</span>
+                <span>2018百越杯wp</span>
         </a>
         <div class="abstract-content">
-            这道题是之前在看先知的文章看到了，看了一下发现有点有趣，记录一下  
-题目地址：http://web50.zajebistyc.tf/预期解是svg xss，非预期是缓存投毒首先我们先看一下题目，进去是登录框，随便乱填就可以进去进去以后有一个头像上传的地方和secret的值，猜测应该是拿到管理员的secret值，然后利用点应该就是头像上传的地方了  
-SVG XSS在测试的过程中发现可以上传任意后缀的文件，但是文件头必须是图片格式且尺寸只能是100*100，而且上传html文件时发现服务器会将文件当做图片解析，因此后台应该是根据文件头去进行解析的，所以我们可以找一个可以进行xss的图片，...
+            WEBwarmup源码1234567891011121314151617 &lt;?php require_once('flag.php'); error_reporting(0); if(!isset($_GET['u']))&#123;     highlight_file(__FILE__);     die(); &#125;else&#123;     $i=$_GET['i'];     $u=$_GET['u'];     if($_GET['u']!="Hello World")&#123;         die('die...');     &#125;     as...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/25</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
             </div>
             <!-- tags  -->
             
@@ -377,21 +375,20 @@ SVG XSS在测试的过程中发现可以上传任意后缀的文件，但是文�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/2019-全国大学生信息安全竞赛-writeup/">
+        <a class="abstract-title" href="/2019/02/24/2019tamuctf/">
             
-                <span>2019 全国大学生信息安全竞赛 writeup</span>
+                <span>2019tamuctf</span>
         </a>
         <div class="abstract-content">
-            上周末跟队友打了一场国赛，题目质量还是不错的，记录下wp  
-misc签到摄像头检测到三个人头就行了  
-saleae百度logicdata，发现有个工具，打开就是一些波形，直接对着时钟位读二进制转成ascii码就能出flag了flag{12071397-19d1-48e6-be8c-784b89a95e07}然后无敌头铁王第二天发现SPI通道直接就会转字符了，第一天手撕是真的头铁……   
-usbasp还是SPI通道，将标准位调高就直接出flag了
-webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123456789101112131415161718192021222...
+            WEBNot Another SQLi Challenge最简单的sql注入题，万能密码就能拿到flag了12admin' or 1=1#flag: gigem&#123;f4rm3r5_f4rm3r5_w3'r3_4ll_r16h7&#125;
+Robots Rule他要求是谷歌的robot访问，抓包改一下
+Many Gig’ems to you!这道题很脑洞，index.html、cookies.html和cook.js里面藏有flag所以flag就是gigem{flag_in_source_and_cookies}
+Science!这道题提示了是用Flask写的，所以尝试一下fla...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/24</span>
             </div>
             <!-- tags  -->
             
@@ -410,18 +407,108 @@ webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/19/2019-DDCTF-web-writeup/">
+        <a class="abstract-title" href="/2019/02/21/python格式化字符串/">
             
-                <span>2019 DDCTF web writeup</span>
+                <span>python格式化字符串</span>
         </a>
         <div class="abstract-content">
-            这一届的比赛web题虽然脑洞略大，但是还是有很多收获的，记录一下  
-滴一题大脑洞题……首先进去题目看到参数jpg后面有段字符串，很像base64尝试一下base64解密，又出来一段base64，再解密一次是十六进制，转成字符串是flag.jpg在这里我们可以猜测一下后台可能会读文件出来，我们倒序加密一下index.php去请求看一下回应确实可以拿出index.php的源码12345678910111213141516171819202122232425&lt;?php/* * https://blog.csdn.net/FengBanLiuYun/article/details/806...
+            简介就是使用方法不当导致格式化字符串的时候字符串受我们的控制  
+python常见格式化字符串的方式百分号形式123name = 'Xi4or0uji'print 'My name is %s' %nameMy name is Xi4or0uji
+使用标准库中的模板字符串12345from string import Templatename = 'Xi4or0uji's = Template('My name is $name')print s.substitute(name=name)My name is Xi4or0uji
+利用format格式化字符串直接格式化字符串12print...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/02/11/2018安恒杯十一月赛/">
+            
+                <span>2018安恒杯十一月赛</span>
+        </a>
+        <div class="abstract-content">
+            web手速要快这题一进去给个登录框要你输入密码，然后在头可以看到有密码  
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/02/07/安恒杯一月赛/">
+            
+                <span>2019安恒杯一月赛</span>
+        </a>
+        <div class="abstract-content">
+            webbabygo源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&lt;?php@error_reporting(1);include 'flag.php';class baby&#123;    protected $skyobj;    public $aaa;    public $bbb;    function __construct()    &#123;        $this-&gt;sk...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/07</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="安恒杯">安恒杯</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/02/03/2019-hgame-week2/">
+            
+                <span>2019 hgame week2</span>
+        </a>
+        <div class="abstract-content">
+            easy_php这题进去首先可以看到一个index.html，题目是where is my robots，访问一下robots.txt，提示img/index.php，访问一下这个php文件，就到了代码审计了12345678&lt;?php   error_reporting(0);   $img = $_GET['img'];   if(!isset($img))       $img = '1';   $img = str_replace('../', '', $img);   include_once($img.".php");   highlight_file(__FILE__)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
             </div>
             <!-- tags  -->
             
@@ -440,19 +527,17 @@ webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/11/2019西湖论剑web-writeup/">
+        <a class="abstract-title" href="/2019/01/31/2018SWPUCTF/">
             
-                <span>2019西湖论剑web writeup</span>
+                <span>2018SWPUCTF</span>
         </a>
         <div class="abstract-content">
-            比赛的时候刚好清明回家所以上线时间巨短，做了几个水题就比赛结束了2333，比赛一结束主办方就关环境只能口胡了…….   
-猜猜flag是什么扫一下后台能扫到ds_store泄露，恢复一下有1234yingyingying文件夹index.phpflage10adc3949ba59abbe56e057f20f883e
-访问flag提示没有那么容易拿到flag，接着去扫e10adc3949ba59abbe56e057f20f883e居然还有.git泄露……..然后还原出来一个zip压缩包，index.php和lengzhu.jpg，刚好压缩包里面也有lengzhu.jpg，因此可以知道是明文...
+            用优惠码 买个X？这题首先登陆进去会有一个15位优惠码，然后用它的时候又说，优惠码过期，要用24位的优惠码扫一下泄露扫出来个www.zip123456789101112131415161718192021222324252627&lt;?php//生成优惠码$_SESSION['seed']=rand(0,999999999);function youhuima()&#123;	mt_srand($_SESSION['seed']);    $str_rand = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXY...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/31</span>
             </div>
             <!-- tags  -->
             
@@ -471,106 +556,19 @@ webjustsoso一开始伪协议拿到源码，然后就是反序列化利用了123
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/11/rips-2017/">
+        <a class="abstract-title" href="/2019/01/29/2019-hgame-week1/">
             
-                <span>rips 2017</span>
+                <span>2019 hgame week1</span>
         </a>
         <div class="abstract-content">
-            之前群里大佬说复现完了ph牛的code breaking可以去rips看一下，然后就去了  
-wish list
+            谁吃了我的flag这题题目的前半个flag提示了是泄露扫一下泄露可以扫出来.swp泄露，访问一下index.html.swp可以下载到一个文件，打开就能看到flag了
+换头大作战跟着题目的要求全部换好就有flag了
+very easy web源码1234567891011121314&lt;?phperror_reporting(0);include("flag.php");if(strpos("vidar",$_GET['id'])!==FALSE)  die("&lt;p&gt;干巴爹&lt;/p&gt;");$_GET['id'] = urldecode($_GET['id']);...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-lumenserial/">
-            
-                <span>code breaking lumenserial</span>
-        </a>
-        <div class="abstract-content">
-            小菜鸡太菜了，只能复现  
-题目先审计源码，可以看到EditorController.php有个download函数12345678910111213private function download($url)&#123;        $maxSize = $this-&gt;config['catcherMaxSize'];        $limitExtension = array_map(function ($ext) &#123;            return ltrim($ext, '.');        &#125;, $this-&gt;config['cat...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/code-breaking-thejs/">
-            
-                <span>code breaking thejs</span>
-        </a>
-        <div class="abstract-content">
-            菜鸡继续跟着师傅们复现（捂脸这道题利用了lodash实现了一个ejs引擎，在请求的时候进行渲染，师傅们说了是merge有问题，去查看源码在测试过程中发现merge会直接将注入原型的属性的值写去最底层的object，因此只要创建一个对象，都会在原型属性中找到注入的对象在template函数中我们可以找到利用点1234var result = attempt(function() &#123;  return Function(importsKeys, sourceURL + 'return ' + source)    .apply(undefined, importsValues);&#...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/25/2019-0ctf-wp/">
-            
-                <span>2019 0ctf wp</span>
-        </a>
-        <div class="abstract-content">
-            babyrsa首先pubkey.py可以看到n的值1234from sage.all import GF, PolynomialRingP=PolynomialRing(GF(2),'x')e = 31337n = P('x^2048 + x^2046 + x^2043 + x^2040 + x^2036 + x^2035 + x^2034 + x^2033 + x^2031 + x^2029 + x^2025 + x^2024 + x^2022 + x^2019 + x^2018 + x^2017 + x^2012 + x^2007 + x^2006 + x^2004 + x^2000...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/25</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/29</span>
             </div>
             <!-- tags  -->
             
@@ -589,59 +587,56 @@ wish list
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/20/code-breaking-easy/">
+        <a class="abstract-title" href="/2019/01/20/n1ctf-writeup/">
             
-                <span>code breaking easy</span>
+                <span>n1ctf writeup</span>
         </a>
         <div class="abstract-content">
-            前言这个是知识星球里面的一个比赛，一开始的时候事情多，没及时做，最近刷ph牛的文章看到这个比赛，找来复现一下  
-function题目function这题是一个php代码审计题，题目很短123456789&lt;?php$action = $_GET['action'] ?? '';$arg = $_GET['arg'] ?? '';if(preg_match('/^[a-z0-9_]*$/isD', $action)) &#123;    show_source(__FILE__);&#125; else &#123;    $action('', $arg);&#125;
-可以看到，...
+            之前在学其他知识点的时候看到了这个比赛，顺便学一哈  
+77777这题的关键点在这一段代码上waf过滤了很多，但是like没有过滤，所以可以用like注入去获得password字段假如我们传过去的flag是123，hi是where (password like 0x25)查询语句就会变成1update users set points=123 where (password like 0x25)
+这时分数变成了123，如果我们匹配一个错的字符分数会不变，因此就是like盲注，脚本如下12345678910111213141516171819202122232425import reque...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/20</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Code Breaking">Code Breaking</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/01/18/javascript原型链污染/">
+            
+                <span>javascript原型链污染</span>
+        </a>
+        <div class="abstract-content">
+            前几天大佬们培训讲到了一个没怎么听过的东西，记一记做个笔记。  
+原型对象介绍肉鸡只是一个小后台，对于前端真的不怎么会，先介绍一哈在javascript里面只有一种结构，那就是对象，每个对象都会有一个原型对象，每个原型对象引申出其对应的原型对象，经过一层层的调用，就形成了原型链。这句话讲得有点难懂，肉鸡大概理解下，可以理解成每个类都有父类，父类下面又会有子类，一层层调用过去其实就是他说的原型链的过程。实例的对象可以通过__proto__去访问它的原型对象。原型对象的重点是null。  
+原型链污染小演示可以看到字符b的indexof方法被赋值以后，字符a调用indexof方法的时候，也会...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/18</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="javascript">javascript</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/17/2019GWHT考核题wp/">
-            
-                <span>2019GWHT考核题wp</span>
-        </a>
-        <div class="abstract-content">
-            本来想着招新完讲完题就不用题解了，但是看见有些小朋友还是很懵逼，补上一篇  
-WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的是对http头的各种操作还有抓包，首先进去题目看到一堆骚话，完了以后就是问do you know GWHT browser?，很明显是要我们改访问的浏览器，接着是only accept www.gwht.com to visit this website，修改访问网站，然后you are not the localhost, prprprpr，要求本地访问，然后就是i only know Spanish........
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
             
@@ -651,7 +646,7 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/page/2/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><a class="page-number" href="/categories/web/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/categories/web/page/7/">7</a><a class="extend next" rel="next" href="/categories/web/page/4/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/categories/web/page/2/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><a class="page-number" href="/categories/web/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/web/page/4/">4</a><a class="page-number" href="/categories/web/page/5/">5</a><a class="extend next" rel="next" href="/categories/web/page/4/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1835,34 +1830,9 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 68
+        Total : 69
         </div>
         <!-- search  -->
         
@@ -1875,6 +1845,11 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href="/2019/11/22/JWT攻击小结/">JWT攻击小记</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2230,11 +2205,11 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="jwt"><span class="iconfont-archer">&#xe606;</span>jwt</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
@@ -2245,6 +2220,8 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
         <span class="sidebar-tag-name" data-tags="cve"><span class="iconfont-archer">&#xe606;</span>cve</span>
     
         <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -2261,6 +2238,8 @@ WEBweb签到题网址：http://xiaorouji.cn:2334/web1/这道题其实考察的�
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Code_Breaking"><span class="iconfont-archer">&#xe606;</span>Code_Breaking</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
@@ -2313,23 +2292,21 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
     
+        <span class="sidebar-category-name" data-categories="CTF"><span class="iconfont-archer">&#xe60a;</span>CTF</span>
+    
         <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
     
         <span class="sidebar-category-name" data-categories="web/misc"><span class="iconfont-archer">&#xe60a;</span>web/misc</span>
     
         <span class="sidebar-category-name" data-categories="web/misc/crypto"><span class="iconfont-archer">&#xe60a;</span>web/misc/crypto</span>
     
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
-        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn</span>
-    
-        <span class="sidebar-category-name" data-categories="CTF"><span class="iconfont-archer">&#xe60a;</span>CTF</span>
-    
-        <span class="sidebar-category-name" data-categories="web/crypto/misc/pwn/re"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc/pwn/re</span>
-    
-        <span class="sidebar-category-name" data-categories="crypto"><span class="iconfont-archer">&#xe60a;</span>crypto</span>
+        <span class="sidebar-category-name" data-categories="CRYPTO"><span class="iconfont-archer">&#xe60a;</span>CRYPTO</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
