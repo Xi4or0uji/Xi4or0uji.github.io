@@ -346,25 +346,114 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/11/18/2018高校运维赛wp/">
+        <a class="abstract-title" href="/2019/01/16/lctf-babyphps-revenge/">
             
-                <span>2018高校运维赛wp</span>
+                <span>lctf babyphp&#39;s revenge</span>
         </a>
         <div class="abstract-content">
-            Simple BBS登录处没有过滤单引号，且没有报错信息，利用报错注入注出flag1admin'union select (extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables),0x7e)))#
-尝试一下读一下flag，发现限制了长度，利用substr进行读取1admin'union select (extractvalue(1,substr((select flag from flag),20,40),0x7e)))#
-Simple Blog题目提示了一下是...
+            题目源码很短，就几行1234567891011121314151617181920index.php&lt;?phphighlight_file(__FILE__);$b = 'implode';call_user_func($_GET['f'],$_POST);session_start();if(isset($_GET['name']))&#123;    $_SESSION['name'] = $_GET['name'];&#125;var_dump($_SESSION);$a = array(reset($_SESSION),'welcome_to_the_lctf2018');...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/18</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/16</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="php_tricks">php_tricks</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/01/15/flask之ssti模板注入/">
+            
+                <span>flask之ssti模板注入</span>
+        </a>
+        <div class="abstract-content">
+            以前做题学过一些ssti，但是感觉不够深入，整理一下，算个总结吧  
+漏洞介绍ssti，服务器端模板注入，主要是python或者其他语言在渲染模板的时候，由于代码不规范或者信任了用户的输入，使得模板可控。简单来说就是，模板里面有些用户输入的东西，但是程序员在渲染模板的时候，没有检查用户输入的东西是不是都是善意的，于是就被用户拿下了这个模板做坏事了。举个栗子我们现在有这样一个模板，emmm，顺便说一句，模板其实就是一个html而已123&lt;html&gt;&lt;div&gt;&#123;$name&#125;&lt;/div&gt;&lt;/html&gt;
+在这个模板上有一个nam...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/15</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/11/29/xxe漏洞攻击与防御/">
+            
+                <span>xxe漏洞攻击与防御</span>
+        </a>
+        <div class="abstract-content">
+            最近在学xxe，当做个笔记好了  
+XML讲xxe之前先讲xml，毕竟xml是基础。xml是个神奇的东西，用来传输和存储数据，你可以理解成类似sql在数据库拿东西一样，xml也是一个可以拿东西的玩意儿。但是它注重数据的内容：它说明数据是什么，以及携带的数据信息。  
+XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素12345678910111213141516171819&lt;!--xml声明--&gt;&lt;?xml version="1.0"?&gt;&lt;!--文档类型定义--&gt;&lt;!DOCTYPE note [  &lt;!--定义此文档时候no...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/29</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="xxe">xxe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/11/14/你拿不到我的源码/">
+            
+                <span>你拿不到我的源码</span>
+        </a>
+        <div class="abstract-content">
+            传送门：http://laohulaohuhu.cn:32771/guest登录进去就看到一个很明显的文件包含点，filter读一下index.php那些文件出来解密居然是乱码的……..我佛辣…….然后尝试一下读多几个文件出来，发现开头都是&lt;@rkt，很像&lt;?php，看一下字符的ascii码，发现第n个位置的字符的ascii码减去n-1就可以正常解密了，但是要注意一下不能超过128，给个脚本123456789import base64strs = "待解密字符"res = base64.b64decode(strs)str2 = ""i = 0for c in res:   ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web+re">web+re</a>
     
 </div>
             
@@ -406,65 +495,6 @@ Simple Blog题目提示了一下是...
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/11/12/HCTF2018-writeup/">
-            
-                <span>HCTF2018 writeup</span>
-        </a>
-        <div class="abstract-content">
-            warmup这题进去要求你读/ffffllllaaaagggg文件源码：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748&lt;?php    class emmm    &#123;        public static function checkFile(&amp;$page)        &#123;            $whitelist = ["source"=&gt;"source.php","hint"=&gt;"hint.php"]; ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/11/06/2018上海市大学生信息安全竞赛web题解/">
-            
-                <span>2018上海市大学生信息安全竞赛web题解</span>
-        </a>
-        <div class="abstract-content">
-            记下知识点，当做个笔记好了  
-web1这题进去就提示看robots.txt，然后可以看到source.php和flag.php，访问一下source.php可以看见要以admin身份登录，于是post一个admin=1过去，发现还要本地访问，改一下x-client-ip成127.0.0.1，再post一个url=http://www.ichunqiu.com ，然后看见有一张无法解析的图片返回来，而且没有图片包同时发过来，猜测是ssrf利用，尝试一下访问file://www.ichunqiu.com/var/www/html/flag.php 然后就有flag了这里其实考到了一个par...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/10/31/百度杯-ctf-九月场/">
             
                 <span>百度杯 ctf 九月场</span>
@@ -484,6 +514,38 @@ Test这题是海洋cms的前台getshell漏洞，百度一下就能看到一堆�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/10/29/xss-challenge-刷题记录/">
+            
+                <span>xss challenge 刷题记录</span>
+        </a>
+        <div class="abstract-content">
+            很久以前学了xss，但是没有系统的刷过题，前几天看国际赛的题目有几题xss的题目，感觉还是不是很熟，干脆找个平台来做一做。这个是一个日本人写的平台，http://xss-quiz.int21h.jp/ ，边做边记下  
+Challenge 1emmm，会点html和js都能秒过，完全是裸题，直接在输入框输入1&lt;script&gt;alert(document.domain);&lt;/script&gt;
+就能过了  
+Challenge 2还是水题，源码看见有个双引号，闭合一下就能进行触发了，1"&gt;&lt;script&gt;alert(document.domain);&...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/29</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="xss">xss</a>
     
 </div>
             
@@ -556,19 +618,17 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/10/19/没有字母数字获得webshell/">
+        <a class="abstract-title" href="/2018/10/23/一个php的小trick：file_put_contents/">
             
-                <span>没有字母数字获得webshell</span>
+                <span>一个php的小trick：file_put_contents</span>
         </a>
         <div class="abstract-content">
-            基础版获得webshell很简单，但是遇到waf的时候狗就不是那么有活路了，随便记记以防忘了。先给个题好吧1234&lt;?phpif (!preg_match('/[A-Za-z0-9]/is',$_GET['shell']))&#123;   eval($_GET['shell']);&#125;
-可以看到有个eval函数，嗯，是个好东西，但是所有英文和数字都被过滤了怎么办
-方法一php有个trick，两个非字母的字符异或在一起可以产生一个字母，所以我们就可以这样去绕过了首先用个assert函数去获得shell，这里注意一点是，php7以前，assert是一个函数，可以通过$a=’a...
+            这里给个pwnhub的简化版的题123456789101112&lt;?phpfunction is_valid($title, $data)&#123;    $data = $title . $data;    return preg_match('|\A[ _a-zA-Z0-9]+\z|is', $data);&#125;$title = $_GET['title'];$data = $_GET['data'];if (!is_valid($title,$data))&#123;    exit("no!no!no!");&#125;file_put_contents('a.php...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/23</span>
             </div>
             <!-- tags  -->
             
@@ -584,7 +644,7 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/web/page/2/">&#60; PREV</a><a class="page-number" href="/categories/web/">1</a><a class="page-number" href="/categories/web/page/2/">2</a><span class="page-number current">3</span>
+        <a class="extend prev" rel="prev" href="/categories/WEB/page/2/">&#60; PREV</a><a class="page-number" href="/categories/WEB/">1</a><a class="page-number" href="/categories/WEB/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/WEB/page/4/">4</a><a class="extend next" rel="next" href="/categories/WEB/page/4/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1726,9 +1786,68 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 69
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -1899,12 +2018,12 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1934,12 +2053,12 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
@@ -1975,11 +2094,6 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/12</span><a class="archive-post-title" href="/2019/02/12/RSA初探/">RSA初探</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/11</span><a class="archive-post-title" href="/2019/02/11/2018安恒杯十一月赛/">2018安恒杯十一月赛</a>
         </li>
     
     
@@ -2048,12 +2162,12 @@ session的问题php检查session是否要处理是通过session.auto_start或者
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
@@ -2184,17 +2298,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="web"><span class="iconfont-archer">&#xe60a;</span>web</span>
-    
         <span class="sidebar-category-name" data-categories="CTF"><span class="iconfont-archer">&#xe60a;</span>CTF</span>
-    
-        <span class="sidebar-category-name" data-categories="web/crypto"><span class="iconfont-archer">&#xe60a;</span>web/crypto</span>
-    
-        <span class="sidebar-category-name" data-categories="web/crypto/misc"><span class="iconfont-archer">&#xe60a;</span>web/crypto/misc</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
-        <span class="sidebar-category-name" data-categories="cve"><span class="iconfont-archer">&#xe60a;</span>cve</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
