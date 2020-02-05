@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">694</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">976</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -408,6 +408,8 @@ height:50vh;
 <h4 id="not-One-time"><a href="#not-One-time" class="headerlink" title="not_One-time"></a>not_One-time</h4><p>题目<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os, random</span><br><span class="line"><span class="keyword">import</span> string, binascii, base64</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">assert</span> flag.startswith(<span class="string">b'hgame&#123;'</span>) <span class="keyword">and</span> flag.endswith(<span class="string">b'&#125;'</span>)</span><br><span class="line">flag_len = len(flag)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span><span class="params">(s1, s2)</span>:</span></span><br><span class="line">    <span class="comment">#assert len(s1)==len(s2)</span></span><br><span class="line">    <span class="keyword">return</span> bytes( map( (<span class="keyword">lambda</span> x: x[<span class="number">0</span>]^x[<span class="number">1</span>]), zip(s1, s2) ) )</span><br><span class="line">    </span><br><span class="line">random.seed( os.urandom(<span class="number">8</span>) )</span><br><span class="line">keystream = <span class="string">''</span>.join( [ random.choice(string.ascii_letters+string.digits) <span class="keyword">for</span> _ <span class="keyword">in</span> range(flag_len) ] )</span><br><span class="line">keystream = keystream.encode()</span><br><span class="line">print( base64.b64encode(xor(flag, keystream)).decode() )</span><br></pre></td></tr></table></figure></p>
 <p>nc一下能拿到这串东西<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JTcLBwQzE3czQV8UPkoIYWtbVT4PYnB2CUFxUQEzVhw8IVYvR0cdZXUJTg==</span><br></pre></td></tr></table></figure></p>
 <p>看题目可以看到，首先随机生成8个字符的种子，然后再生成一串长度跟flag一样的字符串，把两个字符串异或一下再base64一下就是nc得到的值<br>可以看到，题目用的是一次一密的加密方法，但是题目给的明文空间明显大于密文空间，所以可以用多组密文去进行攻击<br>原理看这个：<a href="https://www.zhihu.com/question/26576521" target="_blank" rel="noopener">https://www.zhihu.com/question/26576521</a><br>在这道题中，我们可以理解成keystream是不同的明文，而flag是相同的秘钥，每次都用不同的明文进行异或加密得到不同的密文，总结一下出来就是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">假设我们现在有两条明文m1、m2，秘钥是k，密文是c1、c2，那么就有</span><br><span class="line">c1 = m1^k</span><br><span class="line">c2 = m2^k</span><br><span class="line">c1^c2 = (m1^k)^(m2^k) = m1^m2</span><br><span class="line">可以看到，我们不知道明文是什么，但是可以通过这个关系反推出部分明文</span><br><span class="line">而同样有一个需要注意的就是，如果得出来的c1^c2是英文字符的话，m1很大可能是个英文字符，m2为空格</span><br><span class="line">所以，如果我们的秘钥数足够多的话，就可以一位位爆破出k值，进而得到flag了</span><br></pre></td></tr></table></figure></p>
+<p>最后exp如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64,string</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">cipher = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">40</span>):</span><br><span class="line">	p = remote(<span class="string">"47.98.192.231"</span>,<span class="string">"25001"</span>)</span><br><span class="line">	s = p.recv(<span class="number">500</span>)</span><br><span class="line">	cipher.append(s)</span><br><span class="line">	p.interactive()</span><br><span class="line"></span><br><span class="line">t = (string.ascii_letters + string.digits).encode()</span><br><span class="line">res = (string.printable).encode()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(base64.b64decode(cipher[<span class="number">0</span>]))):</span><br><span class="line">	l = set()</span><br><span class="line">	<span class="keyword">for</span> c1 <span class="keyword">in</span> cipher:</span><br><span class="line">		<span class="keyword">for</span> c2 <span class="keyword">in</span> cipher:</span><br><span class="line">			d1 = base64.b64decode(c1)</span><br><span class="line">			d2 = base64.b64decode(c2)</span><br><span class="line">			<span class="keyword">if</span> d1==d2:</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			re = set()</span><br><span class="line">			tmp1 = d1[i]^d2[i]</span><br><span class="line">			<span class="keyword">for</span> j <span class="keyword">in</span> range(len(t)):</span><br><span class="line">				<span class="keyword">for</span> k <span class="keyword">in</span> range(len(t)):</span><br><span class="line">					<span class="keyword">if</span> j==k:</span><br><span class="line">						<span class="keyword">continue</span></span><br><span class="line">					tmp2 = t[j]^t[k]</span><br><span class="line">					<span class="comment">#找到了c1 c2 m1 m2都是可见字符，把符合条件的k放进去</span></span><br><span class="line">					<span class="keyword">if</span> tmp1==tmp2:</span><br><span class="line">						re1 = int(d2[i]^t[j]).to_bytes(<span class="number">1</span>,<span class="string">'big'</span>)</span><br><span class="line">						re2 = int(d2[i]^t[k]).to_bytes(<span class="number">1</span>,<span class="string">'big'</span>)</span><br><span class="line">						<span class="keyword">if</span> res.find(re1)!=<span class="number">-1</span>:</span><br><span class="line">							re.add(re1)</span><br><span class="line">						<span class="keyword">if</span> res.find(re2)!=<span class="number">-1</span>:</span><br><span class="line">							re.add(re2)</span><br><span class="line">			<span class="keyword">if</span>(l==set()):</span><br><span class="line">				l = re</span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				tmp = l.intersection(re)</span><br><span class="line">				<span class="keyword">if</span> tmp!=set():</span><br><span class="line">					l.intersection_update(re)</span><br><span class="line">				<span class="keyword">else</span>:</span><br><span class="line">					l.update(re)</span><br><span class="line">	<span class="keyword">print</span> i,<span class="string">''</span>.encode().join(l)</span><br><span class="line"><span class="comment">#hgame&#123;r3us1nG+M3$5age-&amp;&amp;~rEduC3d_k3Y-5P4Ce&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Recoder"><a href="#Recoder" class="headerlink" title="Recoder"></a>Recoder</h4><p>nc过去以后输入字符，然后他给你一下加密后的数据，然后输入很多次以后给一个flag？<br>注意一个点的就是，打乱的顺序以八个为一组，所以我们拿到了flag以后对应8位一组找出对应关系就行了<br>最后flag：hgame{jU$t+5ImpL3_PeRmuTATi0n!!}  </p>
 
     </article>
     <!-- license  -->
@@ -533,7 +535,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK1"><span class="toc-number">1.</span> <span class="toc-text">WEEK1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">1.1.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#InfantRSA"><span class="toc-number">1.1.1.</span> <span class="toc-text">InfantRSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Affine"><span class="toc-number">1.1.2.</span> <span class="toc-text">Affine</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#not-One-time"><span class="toc-number">1.1.3.</span> <span class="toc-text">not_One-time</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK1"><span class="toc-number">1.</span> <span class="toc-text">WEEK1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">1.1.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#InfantRSA"><span class="toc-number">1.1.1.</span> <span class="toc-text">InfantRSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Affine"><span class="toc-number">1.1.2.</span> <span class="toc-text">Affine</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#not-One-time"><span class="toc-number">1.1.3.</span> <span class="toc-text">not_One-time</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Recoder"><span class="toc-number">1.1.4.</span> <span class="toc-text">Recoder</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -546,64 +548,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1833,7 +1777,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
         </li>
     
     
@@ -1843,7 +1787,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/2019-0ctf-wp/">2019 0ctf wp</a>
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href="/2019/03/25/code-breaking-lumenserial/">code breaking lumenserial</a>
         </li>
     
     
@@ -1873,12 +1817,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/2019安恒杯二月赛/">2019安恒杯二月赛</a>
+            <span class="archive-post-date">03/01</span><a class="archive-post-title" href="/2019/03/01/imap_open()实现远程任意代码执行（CVE-2018-19518）/">imap_open()实现远程任意代码执行（CVE-2018-19518）</a>
         </li>
     
     
@@ -1893,12 +1837,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2019tamuctf/">2019tamuctf</a>
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href="/2019/02/24/2018百越杯wp/">2018百越杯wp</a>
         </li>
     
     
@@ -2041,9 +1985,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
-    
         <span class="sidebar-tag-name" data-tags="Code Breaking"><span class="iconfont-archer">&#xe606;</span>Code Breaking</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
     
         <span class="sidebar-tag-name" data-tags="php_tricks"><span class="iconfont-archer">&#xe606;</span>php_tricks</span>
     
@@ -2057,23 +2001,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
     
-        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
-    
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
     
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
-    
         <span class="sidebar-tag-name" data-tags="Code_Breaking"><span class="iconfont-archer">&#xe606;</span>Code_Breaking</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTTP"><span class="iconfont-archer">&#xe606;</span>HTTP</span>
     
         <span class="sidebar-tag-name" data-tags="laravel"><span class="iconfont-archer">&#xe606;</span>laravel</span>
     
-        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="xxe"><span class="iconfont-archer">&#xe606;</span>xxe</span>
     
         <span class="sidebar-tag-name" data-tags="LFSR"><span class="iconfont-archer">&#xe606;</span>LFSR</span>
     
