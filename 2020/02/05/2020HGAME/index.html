@@ -22,7 +22,7 @@
     <meta name="description" content="还在路上">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>JWT攻击小记 · Xi4or0uji</title>
+    <title>2020 HGAME · Xi4or0uji</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Xi4or0uji&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">JWT攻击小记</a>
+                <a href="#" class="post-name">2020 HGAME</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            JWT攻击小记
+            2020 HGAME
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="jwt">jwt</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">0</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">517</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/11/22</span>
+                    <span class="post-intro-time">2020/02/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,7 +401,13 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <h2 id="WEEK1"><a href="#WEEK1" class="headerlink" title="WEEK1"></a>WEEK1</h2><h3 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h3><h4 id="InfantRSA"><a href="#InfantRSA" class="headerlink" title="InfantRSA"></a>InfantRSA</h4><p>这道题挺简单的，直接就把pqe都给出来了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">assert</span> flag.startswith(<span class="string">b'hgame&#123;'</span>) <span class="keyword">and</span> flag.endswith(<span class="string">b'&#125;'</span>)</span><br><span class="line">m = int.from_bytes(flag, byteorder=<span class="string">'big'</span>)</span><br><span class="line">p = <span class="number">681782737450022065655472455411</span></span><br><span class="line">q = <span class="number">675274897132088253519831953441</span></span><br><span class="line">e = <span class="number">13</span></span><br><span class="line">c = pow(m, e, p*q)</span><br><span class="line"><span class="keyword">assert</span> c == <span class="number">275698465082361070145173688411496311542172902608559859019841</span></span><br></pre></td></tr></table></figure></p>
+<p>exp如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line">p = <span class="number">681782737450022065655472455411</span></span><br><span class="line">q = <span class="number">675274897132088253519831953441</span></span><br><span class="line">e = <span class="number">13</span></span><br><span class="line">phi = (p<span class="number">-1</span>)*(q<span class="number">-1</span>)</span><br><span class="line">d = gmpy2.invert(e,phi)</span><br><span class="line">n = p*q</span><br><span class="line">c = <span class="number">275698465082361070145173688411496311542172902608559859019841</span></span><br><span class="line"><span class="keyword">print</span> long_to_bytes(pow(c,d,n))</span><br><span class="line"><span class="comment"># hgame&#123;t3Xt6O0k_R5A!!!&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Affine"><a href="#Affine" class="headerlink" title="Affine"></a>Affine</h4><p>一道简单的仿射密码题，因为范围不大，所以可以直接爆破求A和B，当然联立方程去求也是可以的，exp如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line">TABLE = <span class="string">'zxcvbnmasdfghjklqwertyuiop1234567890QWERTYUIOPASDFGHJKLZXCVBNM'</span></span><br><span class="line">MOD = len(TABLE)</span><br><span class="line"><span class="comment">#这一步求A和B</span></span><br><span class="line">flag = <span class="string">"hgame"</span></span><br><span class="line"><span class="keyword">for</span> A <span class="keyword">in</span> range(<span class="number">0xff</span>):</span><br><span class="line">	<span class="keyword">for</span> B <span class="keyword">in</span> range(<span class="number">0xff</span>):</span><br><span class="line">		cipher = <span class="string">''</span></span><br><span class="line">		<span class="keyword">for</span> b <span class="keyword">in</span> flag:</span><br><span class="line">			i = TABLE.find(b)</span><br><span class="line">			ii = (A*i+B)%MOD</span><br><span class="line">			cipher += TABLE[ii]</span><br><span class="line">			<span class="keyword">if</span>(cipher==<span class="string">'A8I5z'</span>):</span><br><span class="line">				<span class="keyword">print</span> A, B, cipher</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">A = <span class="number">13</span></span><br><span class="line">B = <span class="number">14</span></span><br><span class="line">c = <span class="string">'zxcvbnmasdfghjklqwertyuiop1234567890QWERTYUIOPASDFGHJKLZXCVBNM'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line">cipher = <span class="string">"A8I5z&#123;xr1A_J7ha_vG_TpH410&#125;"</span></span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> cipher:</span><br><span class="line">	o = TABLE.find(b)</span><br><span class="line">	<span class="keyword">if</span> o==<span class="number">-1</span>:</span><br><span class="line">		flag += b</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> c:</span><br><span class="line">		i = TABLE.find(x)</span><br><span class="line">		ii = (A*i+B)%MOD</span><br><span class="line">		now = TABLE[ii]</span><br><span class="line">		<span class="keyword">if</span> now==b:</span><br><span class="line">			flag+=x</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure></p>
+<h4 id="not-One-time"><a href="#not-One-time" class="headerlink" title="not_One-time"></a>not_One-time</h4><p>题目<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os, random</span><br><span class="line"><span class="keyword">import</span> string, binascii, base64</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">assert</span> flag.startswith(<span class="string">b'hgame&#123;'</span>) <span class="keyword">and</span> flag.endswith(<span class="string">b'&#125;'</span>)</span><br><span class="line">flag_len = len(flag)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span><span class="params">(s1, s2)</span>:</span></span><br><span class="line">    <span class="comment">#assert len(s1)==len(s2)</span></span><br><span class="line">    <span class="keyword">return</span> bytes( map( (<span class="keyword">lambda</span> x: x[<span class="number">0</span>]^x[<span class="number">1</span>]), zip(s1, s2) ) )</span><br><span class="line">    </span><br><span class="line">random.seed( os.urandom(<span class="number">8</span>) )</span><br><span class="line">keystream = <span class="string">''</span>.join( [ random.choice(string.ascii_letters+string.digits) <span class="keyword">for</span> _ <span class="keyword">in</span> range(flag_len) ] )</span><br><span class="line">keystream = keystream.encode()</span><br><span class="line">print( base64.b64encode(xor(flag, keystream)).decode() )</span><br></pre></td></tr></table></figure></p>
+<p>nc一下能拿到这串东西<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JTcLBwQzE3czQV8UPkoIYWtbVT4PYnB2CUFxUQEzVhw8IVYvR0cdZXUJTg==</span><br></pre></td></tr></table></figure></p>
+<p>看题目可以看到，首先随机生成8个字符的种子，然后再生成一串长度跟flag一样的字符串，把两个字符串异或一下再base64一下就是nc得到的值<br>可以看到，题目用的是一次一密的加密方法，但是题目给的明文空间明显大于密文空间，所以可以用多组密文去进行攻击<br>原理看这个：<a href="https://www.zhihu.com/question/26576521" target="_blank" rel="noopener">https://www.zhihu.com/question/26576521</a><br>在这道题中，我们可以理解成keystream是不同的明文，而flag是相同的秘钥，每次都用不同的明文进行异或加密得到不同的密文，总结一下出来就是<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">假设我们现在有两条明文m1、m2，秘钥是k，密文是c1、c2，那么就有</span><br></pre></td></tr></table></figure></p>
+
     </article>
     <!-- license  -->
     
@@ -526,7 +532,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEEK1"><span class="toc-number">1.</span> <span class="toc-text">WEEK1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CRYPTO"><span class="toc-number">1.1.</span> <span class="toc-text">CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#InfantRSA"><span class="toc-number">1.1.1.</span> <span class="toc-text">InfantRSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Affine"><span class="toc-number">1.1.2.</span> <span class="toc-text">Affine</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#not-One-time"><span class="toc-number">1.1.3.</span> <span class="toc-text">not_One-time</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -539,8 +545,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
@@ -1662,13 +1666,22 @@ top:50vh;
     
     
     
-    <div class="archive-year"> 2019 </div>
+    <div class="archive-year"> 2020 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/22</span><a class="archive-post-title" href="/2019/11/22/JWT攻击小结/">JWT攻击小记</a>
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href="/2020/02/05/2020HGAME/">2020 HGAME</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -1966,12 +1979,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/很简单的xss/">很简单的xss</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href="/2018/11/14/你拿不到我的源码/">你拿不到我的源码</a>
         </li>
     
     
@@ -2023,8 +2036,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="安恒杯"><span class="iconfont-archer">&#xe606;</span>安恒杯</span>
     
-        <span class="sidebar-tag-name" data-tags="jwt"><span class="iconfont-archer">&#xe606;</span>jwt</span>
-    
         <span class="sidebar-tag-name" data-tags="MongoDB"><span class="iconfont-archer">&#xe606;</span>MongoDB</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
@@ -2039,15 +2050,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
-        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
-    
         <span class="sidebar-tag-name" data-tags="web+re"><span class="iconfont-archer">&#xe606;</span>web+re</span>
-    
-        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
     
         <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
     
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
         <span class="sidebar-tag-name" data-tags="upload"><span class="iconfont-archer">&#xe606;</span>upload</span>
+    
+        <span class="sidebar-tag-name" data-tags="端口转发"><span class="iconfont-archer">&#xe606;</span>端口转发</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
